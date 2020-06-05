@@ -1,42 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.5.0/sandstone/bootstrap.min.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"
-    />
-    <link rel="stylesheet" href="assets/css/style.css" />
-    <title>Title</title>
-  </head>
-  <body>
-    <h1>Where in the world?</h1>
-    <h2>Score: <span>0</span></h2>
 
-    <div class="container">
-      <div class="row">
-        <div class="col-6">Map</div>
-        <div class="col-3">Score and timer</div>
-        <div class="col-3">Picture 1</div>
-      </div>
-      <div class="row justify-content-end">
-        <div class="col-3">Picture 2</div>
-        <div class="col-3">Picture 3</div>
-      </div>
-    </div>
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.5.0/sandstone/bootstrap.min.css" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" />
+	<script src="https://code.jquery.com/jquery-3.5.1.js"
+		integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="assets/css/style.css" />
+	<script type="text/javascript" src="assets/scripts/script.js"></script>
+    <script type="text/javascript" src="assets/scripts/app.js"></script>
+	<title>Title</title>
+</head>
 
-    <script>
-      var apiKey = AIzaSyDoymfGJXqyAwET4m4SqYmf - NCykZD7YSw;
-    </script>
-    <script src="assets/scripts/script.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.slim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
-  </body>
+<body>
+	<h1>Where in the world?</h1>
+	<h2>Score: <span>0</span></h2>
+
+	<!-- Modal -->
+
+	<div class="modal fade" id="welcomeModal" tabindex="-1" role="dialog">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Modal title</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+				</div>
+				<div class="modal-body">
+					<p>Modal body text goes here.</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary">Save changes</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Map container -->
+
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-6 col-md-12" id="map">Map</div>
+			<div class="col-lg-3 col-md-12">
+				<p>Level</p>
+				<p>timer</p>
+			</div>
+			<div class="col-lg-3 col-md-12">
+				Picture 1<img src="https://via.placeholder.com/300x195?text=image+1"/>
+        </div>
+			</div>
+		</div>
+		<div class="container">
+			<div class="row justify-content-end">
+				<div class="col-lg-3 col-md-12">
+					Picture 2<img src="https://via.placeholder.com/300x195?text=image+2"/>
+        </div>
+					<div class="col-lg-3 col-md-12">
+						Picture 3
+						<img src="https://via.placeholder.com/300x195?text=image+3" />
+        </div>
+					</div>
+				</div>
+
+				
+				<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDoymfGJXqyAwET4m4SqYmf-NCykZD7YSw&callback=initMap">
+				</script>
+				<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.slim.min.js"></script>
+				<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
+				<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js">
+				</script>
+</body>
+
 </html>
