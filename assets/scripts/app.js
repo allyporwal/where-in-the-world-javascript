@@ -21,28 +21,27 @@ var places = [
 
 // var manyCoords = 
 
-let random = Math.floor(Math.random()*places.length);
+var random = Math.floor(Math.random() * places.length);
 var coords = places[random].coordinates;
 
 
 // Map object
 
+
+
 function initMap() {
     var options = {
-        zoom: 12,
+        zoom: 16,
         center: coords,
     }
 
     var map = new google.maps.Map(document.getElementById("map"), options);
 
-    // for (var i = 0; i <= places.length; i++) {
-        let i = random;
-        var manyCoords = places[i].coordinates;
-        var marker = new google.maps.Marker({
-            position: manyCoords,
-            map: map
-        });
-    }
+    var marker = new google.maps.Marker({
+        position: coords,
+        map: map
+    });
+}
 
 
 
