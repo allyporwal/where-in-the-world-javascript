@@ -2,5 +2,4 @@
 
 $(document).ready(function(){
         $("#welcomeModal").modal('show');
-        console.log("hello");
     });
