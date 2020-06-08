@@ -19,15 +19,47 @@ var places = [
 ];
 
 
-// var manyCoords = 
+// set random start 
+
+// var random = Math.floor(Math.random() * places.length);
 
 var random = Math.floor(Math.random() * places.length);
 var coords = places[random].coordinates;
 
+// function randomiser() {
+// var random = Math.floor(Math.random() * places.length);
+// document.getElementById("randomiser").innerHTML = random; 
+// };
 
 // Map object
 
+// var map;
+// var markers = [];
 
+// function initMap() {
+//     var options = {
+//         zoom: 16,
+//         center: coords,
+//     }
+
+//     var map = new google.maps.Map(document.getElementById("map"), options);
+
+
+//     var marker = new google.maps.Marker({
+//         position: coords,
+//         map: map,
+
+//     });
+
+//     google.maps.event.addDomListener(nextLocation, "click", function () {
+//         marker.setMap(null);
+//         new google.maps.Marker({
+//             position: places[2].coordinates,
+//             map: map,
+//         });
+//         map.panTo(places[2].coordinates);
+//     });
+// }
 
 function initMap() {
     var options = {
@@ -37,18 +69,37 @@ function initMap() {
 
     var map = new google.maps.Map(document.getElementById("map"), options);
 
+
     var marker = new google.maps.Marker({
         position: coords,
-        map: map
+        map: map,
+
     });
-}
+
+
+    var newLocation = places[Math.floor(Math.random() * places.length)];
+
+
+    google.maps.event.addDomListener(nextLocation, "click", function () {
+        marker.setMap(null);
+        new google.maps.Marker({
+            position: newLocation.coordinates,
+            map: map,
+        });
+        map.panTo(newLocation.coordinates);
+    });
+};
 
 
 
-    //     var marker = new google.maps.Marker({
-    //         position: coords,
-    //         map: map
-    //     });
+
+
+
+
+
+
+
+
 
 
 
