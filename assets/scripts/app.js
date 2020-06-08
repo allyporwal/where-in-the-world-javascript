@@ -26,20 +26,12 @@ var places = [
 
 // set random start 
 
-// var random = Math.floor(Math.random() * places.length);
-
 var random = Math.floor(Math.random() * places.length);
 var coords = places[random].coordinates;
 
-// function randomiser() {
-// var random = Math.floor(Math.random() * places.length);
-// document.getElementById("randomiser").innerHTML = random; 
-// };
 
 // Map object
 
-// var map;
-// var markers = [];
 
 // function initMap() {
 //     var options = {
@@ -56,15 +48,20 @@ var coords = places[random].coordinates;
 
 //     });
 
+
 //     google.maps.event.addDomListener(nextLocation, "click", function () {
 //         marker.setMap(null);
+//         for (i = 0; i < places.length; i++) {
+//             var newPlace = places[Math.floor(Math.random() * places.length)];
+//         }
 //         new google.maps.Marker({
-//             position: places[2].coordinates,
+//             position: newPlace.coordinates,
 //             map: map,
 //         });
-//         map.panTo(places[2].coordinates);
+//         map.panTo(newPlace.coordinates);
+//         questionsAnswered.push(newPlace.name);
 //     });
-// }
+// };
 
 function initMap() {
     var options = {
@@ -86,27 +83,18 @@ function initMap() {
         marker.setMap(null);
         for (i = 0; i < places.length; i++) {
             var newPlace = places[Math.floor(Math.random() * places.length)];
+            var selected = places.splice(newPlace,1);
         }
         new google.maps.Marker({
             position: newPlace.coordinates,
             map: map,
         });
         map.panTo(newPlace.coordinates);
+        questionsAnswered.push(newPlace.name);
     });
 };
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+var questionsAnswered = [];
 
 
