@@ -16,6 +16,11 @@ var places = [
         coordinates: { lat: 41.8957469, lng: 12.4826705 },
         street_view_image_link: "assets/img/romePiazzavenezia.jpg",
     },
+    {
+        name: "milanDuomo",
+        coordinates: { lat: 45.4646972, lng: 9.1894913 },
+        street_view_image_link: "assets/img/milanDuomo.jpg",
+    }
 ];
 
 
@@ -77,16 +82,16 @@ function initMap() {
     });
 
 
-    var newLocation = places[Math.floor(Math.random() * places.length)];
-
-
     google.maps.event.addDomListener(nextLocation, "click", function () {
         marker.setMap(null);
+        for (i = 0; i < places.length; i++) {
+            var newPlace = places[Math.floor(Math.random() * places.length)];
+        }
         new google.maps.Marker({
-            position: newLocation.coordinates,
+            position: newPlace.coordinates,
             map: map,
         });
-        map.panTo(newLocation.coordinates);
+        map.panTo(newPlace.coordinates);
     });
 };
 
