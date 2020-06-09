@@ -95,20 +95,24 @@ function initMap() {
 
     });
 
+    var i = 0;
 
     google.maps.event.addDomListener(nextLocation, "click", function () {
         marker.setMap(null);
-        for (i = 0; i < questionsOrder.length; i++) {
-            var newPlace = questionsOrder[i];
-        }
-
+        (i++) % (questionsOrder.length);
         new google.maps.Marker({
-            position: newPlace.coordinates,
+            position: questionsOrder[i].coordinates,
             map: map,
         });
-        map.panTo(newPlace.coordinates);
+        map.panTo(questionsOrder[i].coordinates);
     });
 };
+
+
+
+
+
+
 
 
 
