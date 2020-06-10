@@ -23,6 +23,7 @@ var places = [
     }
 ];
 
+
 // randomised places array - ensures that on each playthrough the places are presented in a different order
 
 var questionsOrder = [];
@@ -35,7 +36,7 @@ while (places.length !== 0) {
     places.splice(randomIndex, 1);
 };
 
-// Map object - loads places for each question from the randomly ordered array
+// Map - loads places for each question from the randomly ordered array
 
 function initMap() {
     var options = {
@@ -65,16 +66,54 @@ function initMap() {
 };
 
 
-// Quiz - loads images to page, correct ID is used to go to next question
+// Quiz start - loads correct answer image to page and two random images into a random container 
 
+var pictureShuffle = [".streetview1", ".streetview2", ".streetview3"];
+var picDivRandomOne = 0;
+var picDivRandomTwo = 0;
+var picDivRandomThree = 0;
 
+do {
+    picDivRandomOne = Math.floor(Math.random() * locationImages.length);
+} while (picDivRandomOne === picDivRandomThree);
+
+do {
+    randomTwo = Math.floor(Math.random() * locationImages.length);
+} while (picDivRandomTwo === picDivRandomThree || picDivRandomTwo === randomOne);
+
+var randomOne = 0;
+var randomTwo = 0;
+var counter = 0;
+
+do {
+    randomOne = Math.floor(Math.random() * locationImages.length);
+} while (randomOne === counter);
+
+do {
+    randomTwo = Math.floor(Math.random() * locationImages.length);
+} while (randomTwo === counter || randomTwo === randomOne);
 
 $(document).ready(function () {
 
-    $(".streetview1").prepend(`<img id="correct" src="${locationImages[0]}" />`);
-    // $(".streetview2").prepend(`<img id="incorrect" src="${locationImages[randomImageIndex]}" />`);
-    // $(".streetview3").prepend(`<img id="nearlyCorrect" src="${locationImages[randomImageIndex]}" />`);
+    $(`${pictureShuffle[0]}`).prepend(`<img id="correct" src="${locationImages[counter]}" />`);
+    $(`${pictureShuffle[1]}`).prepend(`<img id="incorrect" src="${locationImages[randomOne]}" />`);
+    $(`${pictureShuffle[2]}`).prepend(`<img id="nearlyCorrect" src="${locationImages[randomTwo]}" />`);
+
+    $("body").on("click", "#correct", function () {
+        (counter++) % (questionsOrder.length);
+    })
 });
+
+
+
+
+
+
+
+
+
+
+
 
 
 
