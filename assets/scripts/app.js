@@ -66,20 +66,22 @@ function initMap() {
 };
 
 
-// Quiz start - loads correct answer image to page and two random images into a random container 
+// Shuffle image order and image target before starting game 
 
 var pictureShuffle = [".streetview1", ".streetview2", ".streetview3"];
-var picDivRandomOne = 0;
-var picDivRandomTwo = 0;
-var picDivRandomThree = 0;
 
-do {
-    picDivRandomOne = Math.floor(Math.random() * locationImages.length);
-} while (picDivRandomOne === picDivRandomThree);
+var abc = [];
 
-do {
-    randomTwo = Math.floor(Math.random() * locationImages.length);
-} while (picDivRandomTwo === picDivRandomThree || picDivRandomTwo === randomOne);
+while (abc.length < 3) {
+    var r = Math.floor(Math.random() * 3);
+    if(abc.indexOf(r) === -1) abc.push(r);
+};
+
+var pictureShuffleIndex1 = abc[0];
+var pictureShuffleIndex2 = abc[1];
+var pictureShuffleIndex3 = abc[2];
+
+// Counter keeps track of the current stage of the game and selects correct answer image, randomOne and randomTwo are used to select two different random images from the array
 
 var randomOne = 0;
 var randomTwo = 0;
@@ -93,11 +95,13 @@ do {
     randomTwo = Math.floor(Math.random() * locationImages.length);
 } while (randomTwo === counter || randomTwo === randomOne);
 
+// Starting game
+
 $(document).ready(function () {
 
-    $(`${pictureShuffle[0]}`).prepend(`<img id="correct" src="${locationImages[counter]}" />`);
-    $(`${pictureShuffle[1]}`).prepend(`<img id="incorrect" src="${locationImages[randomOne]}" />`);
-    $(`${pictureShuffle[2]}`).prepend(`<img id="nearlyCorrect" src="${locationImages[randomTwo]}" />`);
+    $(`${pictureShuffle[pictureShuffleIndex1]}`).prepend(`<img id="correct" src="${locationImages[counter]}" />`);
+    $(`${pictureShuffle[pictureShuffleIndex2]}`).prepend(`<img id="incorrect" src="${locationImages[randomOne]}" />`);
+    $(`${pictureShuffle[pictureShuffleIndex3]}`).prepend(`<img id="nearlyCorrect" src="${locationImages[randomTwo]}" />`);
 
     $("body").on("click", "#correct", function () {
         (counter++) % (questionsOrder.length);
