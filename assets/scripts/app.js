@@ -23,7 +23,6 @@ var places = [
     }
 ];
 
-
 // randomised places and pictures arrays - ensures that on each playthrough the places are presented in a different order
 
 var questionsOrder = [];
@@ -65,7 +64,6 @@ function initMap() {
     });
 };
 
-
 // Shuffle image order and select random image target div before starting game 
 
 var pictureTarget = [".streetview1", ".streetview2", ".streetview3"];
@@ -84,22 +82,26 @@ var pictureTarget = [".streetview1", ".streetview2", ".streetview3"];
 //     }
 // };
 
-
-
 var handlers = {
     gameStart: function () {
         pictureShuffler.shufflePictures();
         pictureShuffler.gameStart();
-},
+    },
     shufflePictures: function () {
         pictureShuffler.shufflePictures();
     },
     incrementCounter: function () {
         pictureShuffler.incrementCounter();
+    },
+    nextQuestionClear: function () {
+        pictureShuffler.nextQuestionClear();
+        pictureShuffler.shufflePictures();
+    },
+    nextQuestionSet: function () {
+        pictureShuffler.nextQuestionClear();
+        pictureShuffler.nextQuestionSet();
     }
 };
-
-
 
 var pictureShuffler = {
     ABC: [],
@@ -110,19 +112,25 @@ var pictureShuffler = {
     },
     counter: 0,
     incrementCounter: function () {
-            (this.counter++) % (questionsOrder.length);
-            console.log(this.counter);
+        if (this.counter < questionsOrder.length) {
+            this.counter++;
+        }
     },
-    // randomOne: 0,
-    // selectRandomOne: function () {
-    //     do {
-    //        randomOne = Math.floor(Math.random() * locationImages.length);
-    //        } while (randomOne === counter);
-    // },
     gameStart: function () {
-        $(`${pictureTarget[this.ABC[0]]}`).prepend(`<img id="correct" src="${locationImages[0]}" />`);
+        $(`${pictureTarget[this.ABC[0]]}`).prepend(`<img id="correct" onclick="handlers.nextQuestionSet()" src="${locationImages[0]}" />`);
         $(`${pictureTarget[this.ABC[1]]}`).prepend(`<img id="incorrect" src="${locationImages[1]}" />`);
         $(`${pictureTarget[this.ABC[2]]}`).prepend(`<img id="nearlyCorrect" src="${locationImages[2]}" />`);
+    },
+    nextQuestionClear: function () {
+        $("#incorrect").remove();
+        $("#correct").remove();
+        $("#nearlyCorrect").remove();
+        this.counter++;
+    },
+    nextQuestionSet: function () {
+        $(`${pictureTarget[this.ABC[0]]}`).prepend(`<img id="correct" src="${locationImages[this.counter]}" />`);
+        $(`${pictureTarget[this.ABC[1]]}`).prepend(`<img id="incorrect" src="${locationImages[2]}" />`);
+        $(`${pictureTarget[this.ABC[2]]}`).prepend(`<img id="nearlyCorrect" src="${locationImages[3]}" />`);
     }
 };
 
