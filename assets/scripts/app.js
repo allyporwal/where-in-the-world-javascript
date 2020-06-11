@@ -53,7 +53,7 @@ function initMap() {
     });
 
     var i = 0;
-    // listens for correct answer and pushes the next location to the map, causing the map to pin a new marker and pan to new marker
+    // listens for clicks on images and goes the next location in the questionsOrder array, causing the map to pin and pan to new marker
     google.maps.event.addDomListener(correct, "click", function () {
         marker.setMap(null);
         (i++) % (questionsOrder.length);
@@ -66,11 +66,40 @@ function initMap() {
 };
 
 
-// Shuffle image order and image target before starting game 
-
-
+// Shuffle image order and select random image target div before starting game 
 
 var pictureTarget = [".streetview1", ".streetview2", ".streetview3"];
+
+// var pictureShuffler = {
+//     ABC: [],
+//     shufflePictures: function () {
+//         this.ABC = [];
+//         let oneTwoThree = [0, 1, 2];
+//         this.ABC = oneTwoThree.sort(() => Math.random() - 0.5);
+//     },
+//     gameStart: function () {
+//         $(`${pictureTarget[this.ABC[0]]}`).prepend(`<img id="correct" src="${locationImages[0]}" />`);
+//         $(`${pictureTarget[this.ABC[1]]}`).prepend(`<img id="incorrect" src="${locationImages[1]}" />`);
+//         $(`${pictureTarget[this.ABC[2]]}`).prepend(`<img id="nearlyCorrect" src="${locationImages[2]}" />`);
+//     }
+// };
+
+
+
+var handlers = {
+    gameStart: function () {
+        pictureShuffler.shufflePictures();
+        pictureShuffler.gameStart();
+},
+    shufflePictures: function () {
+        pictureShuffler.shufflePictures();
+    },
+    incrementCounter: function () {
+        pictureShuffler.incrementCounter();
+    }
+};
+
+
 
 var pictureShuffler = {
     ABC: [],
@@ -78,43 +107,27 @@ var pictureShuffler = {
         this.ABC = [];
         let oneTwoThree = [0, 1, 2];
         this.ABC = oneTwoThree.sort(() => Math.random() - 0.5);
+    },
+    counter: 0,
+    incrementCounter: function () {
+            (this.counter++) % (questionsOrder.length);
+            console.log(this.counter);
+    },
+    // randomOne: 0,
+    // selectRandomOne: function () {
+    //     do {
+    //        randomOne = Math.floor(Math.random() * locationImages.length);
+    //        } while (randomOne === counter);
+    // },
+    gameStart: function () {
+        $(`${pictureTarget[this.ABC[0]]}`).prepend(`<img id="correct" src="${locationImages[0]}" />`);
+        $(`${pictureTarget[this.ABC[1]]}`).prepend(`<img id="incorrect" src="${locationImages[1]}" />`);
+        $(`${pictureTarget[this.ABC[2]]}`).prepend(`<img id="nearlyCorrect" src="${locationImages[2]}" />`);
     }
 };
 
-var loadImages = {
-    gameStart: function () {
-        $(`${pictureTarget[0]}`).prepend(`<img id="correct" src="${locationImages[0]}" />`);
-        $(`${pictureTarget[2]}`).prepend(`<img id="incorrect" src="${locationImages[1]}" />`);
-        $(`${pictureTarget[1]}`).prepend(`<img id="nearlyCorrect" src="${locationImages[2]}" />`);
-    }
-}
-
-var handlers = {
-    gameStart: function () {
-        pictureShuffler.shufflePictures();
-        loadImages.gameStart();
-},
-    shufflePictures: function () {
-        pictureShuffler.shufflePictures();
-    }
-};
 
 
-
-
-
-
-
-
-
-
-
-
-// ------------------------------------------------------------------
-
-
-
-// Counter keeps track of the current stage of the game and selects correct answer image, randomOne and randomTwo are used to select two different random images from the array
 
 // var randomOne = 0;
 // var randomTwo = 0;
@@ -128,13 +141,7 @@ var handlers = {
 //     randomTwo = Math.floor(Math.random() * locationImages.length);
 // } while (randomTwo === counter || randomTwo === randomOne);
 
-// Starting game
 
-// $(document).ready(function () {
-
-//     $(`${pictureShuffle[pictureShuffleIndex1]}`).prepend(`<img id="correct" src="${locationImages[counter]}" />`);
-//     $(`${pictureShuffle[pictureShuffleIndex2]}`).prepend(`<img id="incorrect" src="${locationImages[randomOne]}" />`);
-//     $(`${pictureShuffle[pictureShuffleIndex3]}`).prepend(`<img id="nearlyCorrect" src="${locationImages[randomTwo]}" />`);
 
 //     $("body").on("click", "#correct", function () {
 //         (counter++) % (questionsOrder.length);
