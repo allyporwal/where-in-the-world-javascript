@@ -24,7 +24,7 @@ var places = [
 ];
 
 
-// randomised places array - ensures that on each playthrough the places are presented in a different order
+// randomised places and pictures arrays - ensures that on each playthrough the places are presented in a different order
 
 var questionsOrder = [];
 var locationImages = [];
@@ -68,45 +68,78 @@ function initMap() {
 
 // Shuffle image order and image target before starting game 
 
-var pictureShuffle = [".streetview1", ".streetview2", ".streetview3"];
 
-var abc = [];
 
-while (abc.length < 3) {
-    var r = Math.floor(Math.random() * 3);
-    if(abc.indexOf(r) === -1) abc.push(r);
+var pictureTarget = [".streetview1", ".streetview2", ".streetview3"];
+
+var pictureShuffler = {
+    ABC: [],
+    shufflePictures: function () {
+        this.ABC = [];
+        let oneTwoThree = [0, 1, 2];
+        this.ABC = oneTwoThree.sort(() => Math.random() - 0.5);
+    }
 };
 
-var pictureShuffleIndex1 = abc[0];
-var pictureShuffleIndex2 = abc[1];
-var pictureShuffleIndex3 = abc[2];
+var loadImages = {
+    gameStart: function () {
+        $(`${pictureTarget[0]}`).prepend(`<img id="correct" src="${locationImages[0]}" />`);
+        $(`${pictureTarget[2]}`).prepend(`<img id="incorrect" src="${locationImages[1]}" />`);
+        $(`${pictureTarget[1]}`).prepend(`<img id="nearlyCorrect" src="${locationImages[2]}" />`);
+    }
+}
+
+var handlers = {
+    gameStart: function () {
+        pictureShuffler.shufflePictures();
+        loadImages.gameStart();
+},
+    shufflePictures: function () {
+        pictureShuffler.shufflePictures();
+    }
+};
+
+
+
+
+
+
+
+
+
+
+
+
+// ------------------------------------------------------------------
+
+
 
 // Counter keeps track of the current stage of the game and selects correct answer image, randomOne and randomTwo are used to select two different random images from the array
 
-var randomOne = 0;
-var randomTwo = 0;
-var counter = 0;
+// var randomOne = 0;
+// var randomTwo = 0;
+// var counter = 0;
 
-do {
-    randomOne = Math.floor(Math.random() * locationImages.length);
-} while (randomOne === counter);
+// do {
+//     randomOne = Math.floor(Math.random() * locationImages.length);
+// } while (randomOne === counter);
 
-do {
-    randomTwo = Math.floor(Math.random() * locationImages.length);
-} while (randomTwo === counter || randomTwo === randomOne);
+// do {
+//     randomTwo = Math.floor(Math.random() * locationImages.length);
+// } while (randomTwo === counter || randomTwo === randomOne);
 
 // Starting game
 
-$(document).ready(function () {
+// $(document).ready(function () {
 
-    $(`${pictureShuffle[pictureShuffleIndex1]}`).prepend(`<img id="correct" src="${locationImages[counter]}" />`);
-    $(`${pictureShuffle[pictureShuffleIndex2]}`).prepend(`<img id="incorrect" src="${locationImages[randomOne]}" />`);
-    $(`${pictureShuffle[pictureShuffleIndex3]}`).prepend(`<img id="nearlyCorrect" src="${locationImages[randomTwo]}" />`);
+//     $(`${pictureShuffle[pictureShuffleIndex1]}`).prepend(`<img id="correct" src="${locationImages[counter]}" />`);
+//     $(`${pictureShuffle[pictureShuffleIndex2]}`).prepend(`<img id="incorrect" src="${locationImages[randomOne]}" />`);
+//     $(`${pictureShuffle[pictureShuffleIndex3]}`).prepend(`<img id="nearlyCorrect" src="${locationImages[randomTwo]}" />`);
 
-    $("body").on("click", "#correct", function () {
-        (counter++) % (questionsOrder.length);
-    })
-});
+//     $("body").on("click", "#correct", function () {
+//         (counter++) % (questionsOrder.length);
+//     })
+// });
 
 
 
