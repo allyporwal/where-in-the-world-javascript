@@ -50,10 +50,28 @@ function initMap() {
         map: map,
 
     });
-
+    
     var i = 0;
     // listens for clicks on images and goes the next location in the questionsOrder array, causing the map to pin and pan to new marker
-    google.maps.event.addDomListener(correct, "click", function () {
+    google.maps.event.addDomListener(streetview1, "click", function () {
+        marker.setMap(null);
+        (i++) % (questionsOrder.length);
+        new google.maps.Marker({
+            position: questionsOrder[i].coordinates,
+            map: map,
+        });
+        map.panTo(questionsOrder[i].coordinates);
+    });
+    google.maps.event.addDomListener(streetview2, "click", function () {
+        marker.setMap(null);
+        (i++) % (questionsOrder.length);
+        new google.maps.Marker({
+            position: questionsOrder[i].coordinates,
+            map: map,
+        });
+        map.panTo(questionsOrder[i].coordinates);
+    });
+    google.maps.event.addDomListener(streetview3, "click", function () {
         marker.setMap(null);
         (i++) % (questionsOrder.length);
         new google.maps.Marker({
@@ -81,6 +99,28 @@ var pictureTarget = [".streetview1", ".streetview2", ".streetview3"];
 //         $(`${pictureTarget[this.ABC[2]]}`).prepend(`<img id="nearlyCorrect" src="${locationImages[2]}" />`);
 //     }
 // };
+
+// var randomOne = pictureSelector.randomOne;
+// var randomTwo = pictureSelector.randomTwo;
+// var counter = pictureShuffler.counter;
+
+// var pictureSelector = {
+//     randomOne: 0,
+//     makeRandomOne: function {
+//        do { this.randomOne = Math.floor(Math.random() * locationImages.length);
+//     } while (this.randomOne === counter);
+//     }
+// }
+
+// do {
+//     randomOne = Math.floor(Math.random() * locationImages.length);
+// } while (randomOne === counter);
+
+// do {
+//     randomTwo = Math.floor(Math.random() * locationImages.length);
+// } while (randomTwo === counter || randomTwo === randomOne);
+
+// }
 
 var handlers = {
     gameStart: function () {
@@ -118,8 +158,8 @@ var pictureShuffler = {
     },
     gameStart: function () {
         $(`${pictureTarget[this.ABC[0]]}`).prepend(`<img id="correct" onclick="handlers.nextQuestionSet()" src="${locationImages[0]}" />`);
-        $(`${pictureTarget[this.ABC[1]]}`).prepend(`<img id="incorrect" src="${locationImages[1]}" />`);
-        $(`${pictureTarget[this.ABC[2]]}`).prepend(`<img id="nearlyCorrect" src="${locationImages[2]}" />`);
+        $(`${pictureTarget[this.ABC[1]]}`).prepend(`<img id="incorrect" onclick="handlers.nextQuestionSet()" src="${locationImages[1]}" />`);
+        $(`${pictureTarget[this.ABC[2]]}`).prepend(`<img id="nearlyCorrect" onclick="handlers.nextQuestionSet()" src="${locationImages[2]}" />`);
     },
     nextQuestionClear: function () {
         $("#incorrect").remove();
