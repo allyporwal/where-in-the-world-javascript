@@ -62,8 +62,9 @@ function initMap() {
     });
 
     var i = 0;
-    console.log(i);
+
     // listens for clicks on divs that contain images and goes the next location in the questionsOrder array, causing the map to pin and pan to new marker
+
     google.maps.event.addDomListener(streetview1, "click", function () {
         marker.setMap(null);
         (i++) % (questionsOrder.length);
@@ -97,8 +98,9 @@ function initMap() {
 
 var handlers = {
     gameStart: function () {
-        pictureShuffler.incrementCounter();
         pictureShuffler.shufflePictures();
+        pictureShuffler.generateRandomOne();
+        pictureShuffler.generateRandomTwo();
         picturePusher.gameStart();
     },
     shufflePictures: function () {
@@ -107,19 +109,19 @@ var handlers = {
     incrementCounter: function () {
         pictureShuffler.incrementCounter();
     },
-    nextQuestionClear: function () {
-        picturePusher.nextQuestionClear();
+    nextQuestion: function () {
         pictureShuffler.shufflePictures();
-    },
-    nextQuestionSet: function () {
-        picturePusher.nextQuestionClear();
+        pictureShuffler.incrementCounter();
+        pictureShuffler.generateRandomOne();
+        pictureShuffler.generateRandomTwo();
+        picturePusher.nextQuestion(); 
         picturePusher.nextQuestionSet();
-    }
+    },
 };
 
-// Quiz objects
+// Quiz objects - pictureTarget 
 
-let pictureTarget = [".streetview1", ".streetview2", ".streetview3"];
+let pictureTarget = ["#streetview1", "#streetview2", "#streetview3"];
 
 // shufflePictures selects a random target div for each city image, counter keeps track of the level and ensures that the correct image is always loaded to one of the target divs
 
@@ -134,7 +136,22 @@ let pictureShuffler = {
     incrementCounter: function () {
         if (this.counter < questionsOrder.length) {
             this.counter++;
-        }
+        };
+        console.log(this.counter, "Counter");
+    },
+    randomOne: 0,
+    generateRandomOne: function () {
+        do {
+            this.randomOne = Math.floor(Math.random() * questionsOrder.length);
+        } while (this.randomOne === this.counter);
+        console.log(this.randomOne);
+    },
+    randomTwo: 0,
+    generateRandomTwo: function () {
+        do {
+            this.randomTwo = Math.floor(Math.random() * questionsOrder.length);
+        } while (this.randomTwo === this.counter || this.randomTwo === this.randomOne);
+        console.log(this.randomTwo);
     }
 };
 
@@ -142,60 +159,19 @@ let pictureShuffler = {
 
 let picturePusher = {
     gameStart: function () {
-        $(`${pictureTarget[pictureShuffler.ABC[0]]}`).prepend(`<img id="correct" onclick="handlers.nextQuestionSet()" src="${locationImages[0]}" />`);
-        $(`${pictureTarget[pictureShuffler.ABC[1]]}`).prepend(`<img id="incorrect" onclick="handlers.nextQuestionSet()" src="${locationImages[1]}" />`);
-        $(`${pictureTarget[pictureShuffler.ABC[2]]}`).prepend(`<img id="nearlyCorrect" onclick="handlers.nextQuestionSet()" src="${locationImages[2]}" />`);
+        $(`${pictureTarget[pictureShuffler.ABC[0]]}`).prepend(`<img id="correct" onclick="handlers.nextQuestion()" src="${locationImages[pictureShuffler.counter]}" />`);
+        $(`${pictureTarget[pictureShuffler.ABC[1]]}`).prepend(`<img id="incorrect" onclick="handlers.nextQuestion()" src="${locationImages[pictureShuffler.randomOne]}" />`);
+        $(`${pictureTarget[pictureShuffler.ABC[2]]}`).prepend(`<img id="nearlyCorrect" onclick="handlers.nextQuestion()" src="${locationImages[pictureShuffler.randomTwo]}" />`);
     },
-    nextQuestionClear: function () {
+    nextQuestion: function () {
         $("#incorrect").remove();
         $("#correct").remove();
         $("#nearlyCorrect").remove();
         this.counter++;
     },
     nextQuestionSet: function () {
-        $(`${pictureTarget[pictureShuffler.ABC[0]]}`).prepend(`<img id="correct" src="${locationImages[pictureShuffler.counter]}" />`);
-        $(`${pictureTarget[pictureShuffler.ABC[1]]}`).prepend(`<img id="incorrect" src="${locationImages[2]}" />`);
-        $(`${pictureTarget[pictureShuffler.ABC[2]]}`).prepend(`<img id="nearlyCorrect" src="${locationImages[3]}" />`);
+        $(`${pictureTarget[pictureShuffler.ABC[0]]}`).prepend(`<img id="correct" onclick="handlers.nextQuestion()" src="${locationImages[pictureShuffler.counter]}" />`);
+        $(`${pictureTarget[pictureShuffler.ABC[1]]}`).prepend(`<img id="incorrect" onclick="handlers.nextQuestion()" src="${locationImages[pictureShuffler.randomTwo]}" />`);
+        $(`${pictureTarget[pictureShuffler.ABC[2]]}`).prepend(`<img id="nearlyCorrect" onclick="handlers.nextQuestion()" src="${locationImages[pictureShuffler.randomOne]}" />`);
     }
 };
-
-
-
-
-// var randomOne = 0;
-// var randomTwo = 0;
-// var counter = 0;
-
-// do {
-//     randomOne = Math.floor(Math.random() * locationImages.length);
-// } while (randomOne === counter);
-
-// do {
-//     randomTwo = Math.floor(Math.random() * locationImages.length);
-// } while (randomTwo === counter || randomTwo === randomOne);
-
-
-
-//     $("body").on("click", "#correct", function () {
-//         (counter++) % (questionsOrder.length);
-//     })
-// });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
