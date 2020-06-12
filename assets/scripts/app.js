@@ -20,16 +20,26 @@ var places = [
         name: "milanDuomo",
         coordinates: { lat: 45.4646972, lng: 9.1894913 },
         street_view_image_link: "assets/img/milanDuomo.jpg",
+    },
+    {
+        name: "bristolSuspensionbridge",
+        coordinates: { lat: 51.4551766, lng: -2.6252481 },
+        street_view_image_link: "assets/img/bristolSuspensionbridge.jpg",
+    },
+    {
+        name: "dublinGuinness",
+        coordinates: { lat: 53.34215, lng: -6.289821 },
+        street_view_image_link: "assets/img/dublinGuinness.jpg",
     }
 ];
 
 // randomised places and pictures arrays - ensures that on each playthrough the places are presented in a different order
 
-var questionsOrder = [];
-var locationImages = [];
+let questionsOrder = [];
+let locationImages = [];
 
 while (places.length !== 0) {
-    var randomIndex = Math.floor(Math.random() * places.length);
+    let randomIndex = Math.floor(Math.random() * places.length);
     questionsOrder.push(places[randomIndex]);
     locationImages.push(places[randomIndex].street_view_image_link);
     places.splice(randomIndex, 1);
@@ -50,9 +60,10 @@ function initMap() {
         map: map,
 
     });
-    
+
     var i = 0;
-    // listens for clicks on images and goes the next location in the questionsOrder array, causing the map to pin and pan to new marker
+    console.log(i);
+    // listens for clicks on divs that contain images and goes the next location in the questionsOrder array, causing the map to pin and pan to new marker
     google.maps.event.addDomListener(streetview1, "click", function () {
         marker.setMap(null);
         (i++) % (questionsOrder.length);
@@ -82,50 +93,13 @@ function initMap() {
     });
 };
 
-// Shuffle image order and select random image target div before starting game 
-
-var pictureTarget = [".streetview1", ".streetview2", ".streetview3"];
-
-// var pictureShuffler = {
-//     ABC: [],
-//     shufflePictures: function () {
-//         this.ABC = [];
-//         let oneTwoThree = [0, 1, 2];
-//         this.ABC = oneTwoThree.sort(() => Math.random() - 0.5);
-//     },
-//     gameStart: function () {
-//         $(`${pictureTarget[this.ABC[0]]}`).prepend(`<img id="correct" src="${locationImages[0]}" />`);
-//         $(`${pictureTarget[this.ABC[1]]}`).prepend(`<img id="incorrect" src="${locationImages[1]}" />`);
-//         $(`${pictureTarget[this.ABC[2]]}`).prepend(`<img id="nearlyCorrect" src="${locationImages[2]}" />`);
-//     }
-// };
-
-// var randomOne = pictureSelector.randomOne;
-// var randomTwo = pictureSelector.randomTwo;
-// var counter = pictureShuffler.counter;
-
-// var pictureSelector = {
-//     randomOne: 0,
-//     makeRandomOne: function {
-//        do { this.randomOne = Math.floor(Math.random() * locationImages.length);
-//     } while (this.randomOne === counter);
-//     }
-// }
-
-// do {
-//     randomOne = Math.floor(Math.random() * locationImages.length);
-// } while (randomOne === counter);
-
-// do {
-//     randomTwo = Math.floor(Math.random() * locationImages.length);
-// } while (randomTwo === counter || randomTwo === randomOne);
-
-// }
+// handlers to keep code neater
 
 var handlers = {
     gameStart: function () {
+        pictureShuffler.incrementCounter();
         pictureShuffler.shufflePictures();
-        pictureShuffler.gameStart();
+        picturePusher.gameStart();
     },
     shufflePictures: function () {
         pictureShuffler.shufflePictures();
@@ -134,16 +108,22 @@ var handlers = {
         pictureShuffler.incrementCounter();
     },
     nextQuestionClear: function () {
-        pictureShuffler.nextQuestionClear();
+        picturePusher.nextQuestionClear();
         pictureShuffler.shufflePictures();
     },
     nextQuestionSet: function () {
-        pictureShuffler.nextQuestionClear();
-        pictureShuffler.nextQuestionSet();
+        picturePusher.nextQuestionClear();
+        picturePusher.nextQuestionSet();
     }
 };
 
-var pictureShuffler = {
+// Quiz objects
+
+let pictureTarget = [".streetview1", ".streetview2", ".streetview3"];
+
+// shufflePictures selects a random target div for each city image, counter keeps track of the level and ensures that the correct image is always loaded to one of the target divs
+
+let pictureShuffler = {
     ABC: [],
     shufflePictures: function () {
         this.ABC = [];
@@ -155,11 +135,16 @@ var pictureShuffler = {
         if (this.counter < questionsOrder.length) {
             this.counter++;
         }
-    },
+    }
+};
+
+// picturePusher object targets the divs, loads images to DOM and removes images after each question. Image ID is used to calculate score 
+
+let picturePusher = {
     gameStart: function () {
-        $(`${pictureTarget[this.ABC[0]]}`).prepend(`<img id="correct" onclick="handlers.nextQuestionSet()" src="${locationImages[0]}" />`);
-        $(`${pictureTarget[this.ABC[1]]}`).prepend(`<img id="incorrect" onclick="handlers.nextQuestionSet()" src="${locationImages[1]}" />`);
-        $(`${pictureTarget[this.ABC[2]]}`).prepend(`<img id="nearlyCorrect" onclick="handlers.nextQuestionSet()" src="${locationImages[2]}" />`);
+        $(`${pictureTarget[pictureShuffler.ABC[0]]}`).prepend(`<img id="correct" onclick="handlers.nextQuestionSet()" src="${locationImages[0]}" />`);
+        $(`${pictureTarget[pictureShuffler.ABC[1]]}`).prepend(`<img id="incorrect" onclick="handlers.nextQuestionSet()" src="${locationImages[1]}" />`);
+        $(`${pictureTarget[pictureShuffler.ABC[2]]}`).prepend(`<img id="nearlyCorrect" onclick="handlers.nextQuestionSet()" src="${locationImages[2]}" />`);
     },
     nextQuestionClear: function () {
         $("#incorrect").remove();
@@ -168,9 +153,9 @@ var pictureShuffler = {
         this.counter++;
     },
     nextQuestionSet: function () {
-        $(`${pictureTarget[this.ABC[0]]}`).prepend(`<img id="correct" src="${locationImages[this.counter]}" />`);
-        $(`${pictureTarget[this.ABC[1]]}`).prepend(`<img id="incorrect" src="${locationImages[2]}" />`);
-        $(`${pictureTarget[this.ABC[2]]}`).prepend(`<img id="nearlyCorrect" src="${locationImages[3]}" />`);
+        $(`${pictureTarget[pictureShuffler.ABC[0]]}`).prepend(`<img id="correct" src="${locationImages[pictureShuffler.counter]}" />`);
+        $(`${pictureTarget[pictureShuffler.ABC[1]]}`).prepend(`<img id="incorrect" src="${locationImages[2]}" />`);
+        $(`${pictureTarget[pictureShuffler.ABC[2]]}`).prepend(`<img id="nearlyCorrect" src="${locationImages[3]}" />`);
     }
 };
 
