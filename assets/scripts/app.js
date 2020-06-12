@@ -53,6 +53,27 @@ var places = [
     }
 ];
 
+// handlers to keep code neater
+
+var handlers = {
+    gameStart: function () {
+        pictureShuffler.shufflePictures();
+        pictureShuffler.generateRandomOne();
+        pictureShuffler.generateRandomTwo();
+        picturePusher.gameStart();
+        displayLevel();
+    },
+    nextQuestion: function () {
+        globalCounter.incrementCounter();
+        pictureShuffler.shufflePictures();        
+        pictureShuffler.generateRandomOne();
+        pictureShuffler.generateRandomTwo();
+        picturePusher.nextQuestion();
+        picturePusher.nextQuestionSet();
+        displayLevel();
+    },
+};
+
 // randomised places and pictures arrays - ensures that on each playthrough the places are presented in a different order
 
 let questionsOrder = [];
@@ -65,7 +86,20 @@ while (places.length !== 0) {
     places.splice(randomIndex, 1);
 };
 
+// global counter - CHANGE TO questions.order.length maybe necessary if using slice instead of splice
+// global counter keeps track of the level and ensures that the correct image is always loaded to one of the target divs - it's value is used in several consequent objects
+
+let globalCounter = {
+    counter: 0,
+    incrementCounter: function () {
+        if (this.counter < questionsOrder.length) {                     
+            this.counter++;
+        };
+    },
+};
+
 // Map - loads places for each question from the randomly ordered array
+// listens for clicks on divs that contain images and goes the next location in the questionsOrder array, causing the map to pin and pan to new marker
 
 function initMap() {
     var options = {
@@ -81,66 +115,38 @@ function initMap() {
 
     });
 
-    var i = 0;
-
-    // listens for clicks on divs that contain images and goes the next location in the questionsOrder array, causing the map to pin and pan to new marker
-
     google.maps.event.addDomListener(streetview1, "click", function () {
         marker.setMap(null);
-        (i++) % (questionsOrder.length);
         new google.maps.Marker({
-            position: questionsOrder[i].coordinates,
+            position: questionsOrder[globalCounter.counter].coordinates,
             map: map,
         });
-        map.panTo(questionsOrder[i].coordinates);
+        map.panTo(questionsOrder[globalCounter.counter].coordinates);
     });
     google.maps.event.addDomListener(streetview2, "click", function () {
         marker.setMap(null);
-        (i++) % (questionsOrder.length);
         new google.maps.Marker({
-            position: questionsOrder[i].coordinates,
+            position: questionsOrder[globalCounter.counter].coordinates,
             map: map,
         });
-        map.panTo(questionsOrder[i].coordinates);
+        map.panTo(questionsOrder[globalCounter.counter].coordinates);
     });
     google.maps.event.addDomListener(streetview3, "click", function () {
         marker.setMap(null);
-        (i++) % (questionsOrder.length);
         new google.maps.Marker({
-            position: questionsOrder[i].coordinates,
+            position: questionsOrder[globalCounter.counter].coordinates,
             map: map,
         });
-        map.panTo(questionsOrder[i].coordinates);
+        map.panTo(questionsOrder[globalCounter.counter].coordinates);
     });
-};
-
-// handlers to keep code neater
-
-var handlers = {
-    gameStart: function () {
-        pictureShuffler.shufflePictures();
-        pictureShuffler.generateRandomOne();
-        pictureShuffler.generateRandomTwo();
-        picturePusher.gameStart();
-        displayLevel();
-    },
-    nextQuestion: function () {
-        pictureShuffler.shufflePictures();
-        pictureShuffler.incrementCounter();
-        pictureShuffler.generateRandomOne();
-        pictureShuffler.generateRandomTwo();
-        picturePusher.nextQuestion();
-        picturePusher.nextQuestionSet();
-        displayLevel();
-    },
 };
 
 // Quiz objects - pictureTarget array holds the ID of the target div and jQuery is used to select the correct DOM element to push the images to in the picturePusher object
 
 let pictureTarget = ["#streetview1", "#streetview2", "#streetview3"];
 
-// shufflePictures selects a random target div for each city image, counter keeps track of the level and ensures that the correct image is always loaded to one of the target divs. 
-// randomOne and RandomTwo are random numbers that are different from each other AND from the counter - this means that there's always three different images to choose from for each question
+// shufflePictures selects a random target div for each city image 
+// randomOne and RandomTwo are random numbers that are different from each other AND from the global counter - this means that there's always three different images to choose from for each question
 
 let pictureShuffler = {
     ABC: [],
@@ -149,23 +155,17 @@ let pictureShuffler = {
         let oneTwoThree = [0, 1, 2];
         this.ABC = oneTwoThree.sort(() => Math.random() - 0.5);
     },
-    counter: 0,
-    incrementCounter: function () {
-        if (this.counter < questionsOrder.length) {
-            this.counter++;
-        };
-    },
     randomOne: 0,
     generateRandomOne: function () {
         do {
             this.randomOne = Math.floor(Math.random() * questionsOrder.length);
-        } while (this.randomOne === this.counter);
+        } while (this.randomOne === globalCounter.counter);
     },
     randomTwo: 0,
     generateRandomTwo: function () {
         do {
             this.randomTwo = Math.floor(Math.random() * questionsOrder.length);
-        } while (this.randomTwo === this.counter || this.randomTwo === this.randomOne);
+        } while (this.randomTwo === globalCounter.counter || this.randomTwo === this.randomOne);
     }
 };
 
@@ -173,7 +173,7 @@ let pictureShuffler = {
 
 let picturePusher = {
     gameStart: function () {
-        $(`${pictureTarget[pictureShuffler.ABC[0]]}`).prepend(`<img id="correct" onclick="handlers.nextQuestion()" src="${locationImages[pictureShuffler.counter]}" />`);
+        $(`${pictureTarget[pictureShuffler.ABC[0]]}`).prepend(`<img id="correct" onclick="handlers.nextQuestion()" src="${locationImages[globalCounter.counter]}" />`);
         $(`${pictureTarget[pictureShuffler.ABC[1]]}`).prepend(`<img id="incorrect" onclick="handlers.nextQuestion()" src="${locationImages[pictureShuffler.randomOne]}" />`);
         $(`${pictureTarget[pictureShuffler.ABC[2]]}`).prepend(`<img id="nearlyCorrect" onclick="handlers.nextQuestion()" src="${locationImages[pictureShuffler.randomTwo]}" />`);
     },
@@ -183,7 +183,7 @@ let picturePusher = {
         $("#nearlyCorrect").remove();
     },
     nextQuestionSet: function () {
-        $(`${pictureTarget[pictureShuffler.ABC[0]]}`).prepend(`<img id="correct" onclick="handlers.nextQuestion()" src="${locationImages[pictureShuffler.counter]}" />`);
+        $(`${pictureTarget[pictureShuffler.ABC[0]]}`).prepend(`<img id="correct" onclick="handlers.nextQuestion()" src="${locationImages[globalCounter.counter]}" />`);
         $(`${pictureTarget[pictureShuffler.ABC[1]]}`).prepend(`<img id="incorrect" onclick="handlers.nextQuestion()" src="${locationImages[pictureShuffler.randomTwo]}" />`);
         $(`${pictureTarget[pictureShuffler.ABC[2]]}`).prepend(`<img id="nearlyCorrect" onclick="handlers.nextQuestion()" src="${locationImages[pictureShuffler.randomOne]}" />`);
     }
@@ -191,12 +191,15 @@ let picturePusher = {
 
 // Display level
 
-function displayLevel () {
+function calculateLevel() {
+    return globalCounter.counter + 1;
+};
+
+function displayLevel() {
     let level = calculateLevel();
     $("#level").empty().html(`${level}`);
 };
 
-function calculateLevel () {
-    return pictureShuffler.counter + 1;
-};
+function resetAll() {
 
+}
