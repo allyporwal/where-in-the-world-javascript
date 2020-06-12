@@ -30,6 +30,26 @@ var places = [
         name: "dublinGuinness",
         coordinates: { lat: 53.34215, lng: -6.289821 },
         street_view_image_link: "assets/img/dublinGuinness.jpg",
+    },
+    {
+        name: "nycE47thst",
+        coordinates: { lat: 40.7548732, lng: -73.9742965 },
+        street_view_image_link: "assets/img/nycE47thst.jpg",
+    },
+    {
+        name: "madridGoya",
+        coordinates: { lat: 40.4241351, lng: -3.6772299 },
+        street_view_image_link: "assets/img/madridGoya.jpg",
+    },
+    {
+        name: "berlinCheckpoint",
+        coordinates: { lat: 52.5067303, lng: 13.3905375 },
+        street_view_image_link: "assets/img/berlinCheckpoint.jpg",
+    },
+    {
+        name: "sydneyOconnell",
+        coordinates: { lat: -33.8649517, lng: 151.2098745 },
+        street_view_image_link: "assets/img/sydneyOconnell.jpg",
     }
 ];
 
@@ -102,28 +122,25 @@ var handlers = {
         pictureShuffler.generateRandomOne();
         pictureShuffler.generateRandomTwo();
         picturePusher.gameStart();
-    },
-    shufflePictures: function () {
-        pictureShuffler.shufflePictures();
-    },
-    incrementCounter: function () {
-        pictureShuffler.incrementCounter();
+        displayLevel();
     },
     nextQuestion: function () {
         pictureShuffler.shufflePictures();
         pictureShuffler.incrementCounter();
         pictureShuffler.generateRandomOne();
         pictureShuffler.generateRandomTwo();
-        picturePusher.nextQuestion(); 
+        picturePusher.nextQuestion();
         picturePusher.nextQuestionSet();
+        displayLevel();
     },
 };
 
-// Quiz objects - pictureTarget 
+// Quiz objects - pictureTarget array holds the ID of the target div and jQuery is used to select the correct DOM element to push the images to in the picturePusher object
 
 let pictureTarget = ["#streetview1", "#streetview2", "#streetview3"];
 
-// shufflePictures selects a random target div for each city image, counter keeps track of the level and ensures that the correct image is always loaded to one of the target divs
+// shufflePictures selects a random target div for each city image, counter keeps track of the level and ensures that the correct image is always loaded to one of the target divs. 
+// randomOne and RandomTwo are random numbers that are different from each other AND from the counter - this means that there's always three different images to choose from for each question
 
 let pictureShuffler = {
     ABC: [],
@@ -137,21 +154,18 @@ let pictureShuffler = {
         if (this.counter < questionsOrder.length) {
             this.counter++;
         };
-        console.log(this.counter, "Counter");
     },
     randomOne: 0,
     generateRandomOne: function () {
         do {
             this.randomOne = Math.floor(Math.random() * questionsOrder.length);
         } while (this.randomOne === this.counter);
-        console.log(this.randomOne);
     },
     randomTwo: 0,
     generateRandomTwo: function () {
         do {
             this.randomTwo = Math.floor(Math.random() * questionsOrder.length);
         } while (this.randomTwo === this.counter || this.randomTwo === this.randomOne);
-        console.log(this.randomTwo);
     }
 };
 
@@ -167,7 +181,6 @@ let picturePusher = {
         $("#incorrect").remove();
         $("#correct").remove();
         $("#nearlyCorrect").remove();
-        this.counter++;
     },
     nextQuestionSet: function () {
         $(`${pictureTarget[pictureShuffler.ABC[0]]}`).prepend(`<img id="correct" onclick="handlers.nextQuestion()" src="${locationImages[pictureShuffler.counter]}" />`);
@@ -175,3 +188,15 @@ let picturePusher = {
         $(`${pictureTarget[pictureShuffler.ABC[2]]}`).prepend(`<img id="nearlyCorrect" onclick="handlers.nextQuestion()" src="${locationImages[pictureShuffler.randomOne]}" />`);
     }
 };
+
+// Display level
+
+function displayLevel () {
+    let level = calculateLevel();
+    $("#level").empty().html(`${level}`);
+};
+
+function calculateLevel () {
+    return pictureShuffler.counter + 1;
+};
+
