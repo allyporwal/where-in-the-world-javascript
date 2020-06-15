@@ -73,6 +73,9 @@ var handlers = {
         picturePusher.nextQuestionSet();
         displayLevel();
     },
+    resetAll: function () {
+        resetAll();
+    }
 };
 
 // randomisedArrays object ensures that on each playthrough the places array is pushed to the page in a different order - also doesn't destroy the original places array
@@ -109,9 +112,10 @@ let globalCounter = {
 // listens for clicks on divs that contain images and goes the next location in the questionsOrder array, causing the map to pin and pan to new marker
 
 
-$(document).ready(function(){
+$(document).ready(function () {
     $("#startGame").on("click", initMap);
-});    
+    $("#resetStartGame").on("click", initMap);
+});
 
 function initMap() {
     var options = {
@@ -213,6 +217,15 @@ function displayLevel() {
     $("#level").empty().html(`${level}`);
 };
 
-function resetAll() {
+// Reset button
 
+function resetAll() {
+    randomisedArrays.questionsOrder = [];
+    randomisedArrays.locationImages = [];
+    globalCounter.counter = 0;
+    pictureShuffler.ABC = [];
+    pictureShuffler.randomOne = 0;
+    pictureShuffler.randomTwo = 0;
+    picturePusher.nextQuestion();
+    $("#resetModal").modal('show');
 }

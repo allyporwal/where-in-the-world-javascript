@@ -46,6 +46,26 @@
 		</div>
 	</div>
 
+	<!-- Reset Modal -->
+
+	<div class="modal fade" id="resetModal" tabindex="-1" role="dialog">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Modal title</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+				</div>
+				<div class="modal-body">
+					<p>Modal body text goes here.</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" data-dismiss="modal" id="resetStartGame" onclick="handlers.gameStart()">Start!</button>
+				</div>
+			</div>
+		</div>
+	</div>
 
 	<!-- Map container -->
 
@@ -55,7 +75,7 @@
 			<div class="col-lg-3 col-md-12">
 				<p>Level: <span id="level"></span>/20</p>
 				<p>timer</p>
-				<button onclick="handlers.reset()" id="reset">Restart</button>
+				<button onclick="handlers.resetAll()" id="reset">Restart</button>
 				<!-- <button onclick="handlers.shufflePictures()">Remove images</button> -->
 			</div>
 			<div class="col-lg-3 col-md-12 streetview1 answer" id="streetview1">
