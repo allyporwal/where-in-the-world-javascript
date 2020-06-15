@@ -57,6 +57,7 @@ var places = [
 
 var handlers = {
     gameStart: function () {
+        selectedDifficulty.difficultySelected();
         randomisedArrays.randomArrays();
         pictureShuffler.shufflePictures();
         pictureShuffler.generateRandomOne();
@@ -78,7 +79,22 @@ var handlers = {
     }
 };
 
-// randomisedArrays object ensures that on each playthrough the places array is pushed to the page in a different order - also doesn't destroy the original places array
+let selectedDifficulty = {
+    difficulty: [],
+    difficultySelected: function () {
+        this.difficulty = [];
+        this.difficulty.push($("#difficultyStart option:selected").val());        
+    }
+}
+
+function logDifficulty () {
+   if (selectedDifficulty.difficulty.includes("easy")) {
+   console.log("easy");
+   }
+}
+
+// randomisedArrays object ensures that on each playthrough the places array is pushed to the page in a different order. This doesn't destroy the original places array, allowing 
+// for implementation of a reset feature
 
 let randomisedArrays = {
     questionsOrder: [],
@@ -107,7 +123,7 @@ let globalCounter = {
     },
 };
 
-// Map is loaded when clicking start game button
+// Map is loaded when clicking start game button from either welcome or reset modal
 // loads places for each question from the randomly ordered array
 // listens for clicks on divs that contain images and goes the next location in the questionsOrder array, causing the map to pin and pan to new marker
 
@@ -162,6 +178,7 @@ function initMap() {
 
 let pictureTarget = ["#streetview1", "#streetview2", "#streetview3"];
 
+// pictureShuffler contains everything needed to randomise all images and target divs on each playthrough
 // shufflePictures selects a random target div for each city image 
 // randomOne and RandomTwo are random numbers that are different from each other AND from the global counter - this means that there's always three different images to choose from for each question
 
@@ -190,9 +207,15 @@ let pictureShuffler = {
 
 let picturePusher = {
     gameStart: function () {
+        if (selectedDifficulty.difficulty.includes("easy")) {
         $(`${pictureTarget[pictureShuffler.ABC[0]]}`).prepend(`<img id="correct" onclick="handlers.nextQuestion()" src="${randomisedArrays.locationImages[globalCounter.counter]}" />`);
         $(`${pictureTarget[pictureShuffler.ABC[1]]}`).prepend(`<img id="incorrect" onclick="handlers.nextQuestion()" src="${randomisedArrays.locationImages[pictureShuffler.randomOne]}" />`);
         $(`${pictureTarget[pictureShuffler.ABC[2]]}`).prepend(`<img id="nearlyCorrect" onclick="handlers.nextQuestion()" src="${randomisedArrays.locationImages[pictureShuffler.randomTwo]}" />`);
+        } else if (selectedDifficulty.difficulty.includes("medium")) {
+        $(`${pictureTarget[pictureShuffler.ABC[0]]}`).prepend(`<img id="correct" onclick="handlers.nextQuestion()" src="${randomisedArrays.locationImages[0]}" />`);
+        $(`${pictureTarget[pictureShuffler.ABC[1]]}`).prepend(`<img id="incorrect" onclick="handlers.nextQuestion()" src="${randomisedArrays.locationImages[0]}" />`);
+        $(`${pictureTarget[pictureShuffler.ABC[2]]}`).prepend(`<img id="nearlyCorrect" onclick="handlers.nextQuestion()" src="${randomisedArrays.locationImages[0]}" />`);    
+        }
     },
     nextQuestion: function () {
         $("#incorrect").remove();
@@ -217,7 +240,9 @@ function displayLevel() {
     $("#level").empty().html(`${level}`);
 };
 
-// Reset button
+
+
+// Reset feature - resets every array except places[], all counters and random number generators and loads the reset modal which allows the player to start again
 
 function resetAll() {
     randomisedArrays.questionsOrder = [];
@@ -228,4 +253,4 @@ function resetAll() {
     pictureShuffler.randomTwo = 0;
     picturePusher.nextQuestion();
     $("#resetModal").modal('show');
-}
+};
