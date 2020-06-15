@@ -5,11 +5,13 @@ var places = [
         name: "londonPicadilly",
         coordinates: { lat: 51.5099088, lng: -0.134969 },
         street_view_image_link: "assets/img/londonPiccadilly.jpg",
+        street_view_medium: ["assets/img/london2.jpg", "assets/img/london3.jpg"],
     },
     {
         name: "barcelonaDiagonal",
         coordinates: { lat: 41.3977359, lng: 2.1632075 },
         street_view_image_link: "assets/img/barcelonaDiagonal.jpg",
+        street_view_medium: ["assets/img/barcelona2.jpg", "assets/img/barcelona3.jpg"],
     },
     {
         name: "romePiazzavenezia",
@@ -79,18 +81,14 @@ var handlers = {
     }
 };
 
+// Difficulty select object - changes which image arrays the potential answers are loaded from 
+
 let selectedDifficulty = {
     difficulty: [],
     difficultySelected: function () {
         this.difficulty = [];
-        this.difficulty.push($("#difficultyStart option:selected").val());        
+        this.difficulty.push($("#difficultyStart option:selected").val());
     }
-}
-
-function logDifficulty () {
-   if (selectedDifficulty.difficulty.includes("easy")) {
-   console.log("easy");
-   }
 }
 
 // randomisedArrays object ensures that on each playthrough the places array is pushed to the page in a different order. This doesn't destroy the original places array, allowing 
@@ -99,6 +97,8 @@ function logDifficulty () {
 let randomisedArrays = {
     questionsOrder: [],
     locationImages: [],
+    locationImagesMedium: [],
+    locationImagesHard: [],
     randomArrays: function () {
         this.questionsOrder = [];
         let placesSliced = places.slice();
@@ -108,6 +108,7 @@ let randomisedArrays = {
             placesSliced.splice(index, 1);
             this.questionsOrder.push(shuffledPlaces.coordinates);
             this.locationImages.push(shuffledPlaces.street_view_image_link);
+            this.locationImagesMedium.push(shuffledPlaces.street_view_medium);
         }
     }
 };
@@ -208,13 +209,13 @@ let pictureShuffler = {
 let picturePusher = {
     gameStart: function () {
         if (selectedDifficulty.difficulty.includes("easy")) {
-        $(`${pictureTarget[pictureShuffler.ABC[0]]}`).prepend(`<img id="correct" onclick="handlers.nextQuestion()" src="${randomisedArrays.locationImages[globalCounter.counter]}" />`);
-        $(`${pictureTarget[pictureShuffler.ABC[1]]}`).prepend(`<img id="incorrect" onclick="handlers.nextQuestion()" src="${randomisedArrays.locationImages[pictureShuffler.randomOne]}" />`);
-        $(`${pictureTarget[pictureShuffler.ABC[2]]}`).prepend(`<img id="nearlyCorrect" onclick="handlers.nextQuestion()" src="${randomisedArrays.locationImages[pictureShuffler.randomTwo]}" />`);
+            $(`${pictureTarget[pictureShuffler.ABC[0]]}`).prepend(`<img id="correct" onclick="handlers.nextQuestion()" src="${randomisedArrays.locationImages[globalCounter.counter]}" />`);
+            $(`${pictureTarget[pictureShuffler.ABC[1]]}`).prepend(`<img id="incorrect" onclick="handlers.nextQuestion()" src="${randomisedArrays.locationImages[pictureShuffler.randomOne]}" />`);
+            $(`${pictureTarget[pictureShuffler.ABC[2]]}`).prepend(`<img id="nearlyCorrect" onclick="handlers.nextQuestion()" src="${randomisedArrays.locationImages[pictureShuffler.randomTwo]}" />`);
         } else if (selectedDifficulty.difficulty.includes("medium")) {
-        $(`${pictureTarget[pictureShuffler.ABC[0]]}`).prepend(`<img id="correct" onclick="handlers.nextQuestion()" src="${randomisedArrays.locationImages[0]}" />`);
-        $(`${pictureTarget[pictureShuffler.ABC[1]]}`).prepend(`<img id="incorrect" onclick="handlers.nextQuestion()" src="${randomisedArrays.locationImages[0]}" />`);
-        $(`${pictureTarget[pictureShuffler.ABC[2]]}`).prepend(`<img id="nearlyCorrect" onclick="handlers.nextQuestion()" src="${randomisedArrays.locationImages[0]}" />`);    
+            $(`${pictureTarget[pictureShuffler.ABC[0]]}`).prepend(`<img id="correct" onclick="handlers.nextQuestion()" src="${randomisedArrays.locationImages[globalCounter.counter]}" />`);
+            $(`${pictureTarget[pictureShuffler.ABC[1]]}`).prepend(`<img id="incorrect" onclick="handlers.nextQuestion()" src="${randomisedArrays.locationImagesMedium[globalCounter.counter][1]}" />`);
+            $(`${pictureTarget[pictureShuffler.ABC[2]]}`).prepend(`<img id="nearlyCorrect" onclick="handlers.nextQuestion()" src="${randomisedArrays.locationImagesMedium[globalCounter.counter][0]}" />`);
         }
     },
     nextQuestion: function () {
@@ -223,9 +224,15 @@ let picturePusher = {
         $("#nearlyCorrect").remove();
     },
     nextQuestionSet: function () {
-        $(`${pictureTarget[pictureShuffler.ABC[0]]}`).prepend(`<img id="correct" onclick="handlers.nextQuestion()" src="${randomisedArrays.locationImages[globalCounter.counter]}" />`);
-        $(`${pictureTarget[pictureShuffler.ABC[1]]}`).prepend(`<img id="incorrect" onclick="handlers.nextQuestion()" src="${randomisedArrays.locationImages[pictureShuffler.randomTwo]}" />`);
-        $(`${pictureTarget[pictureShuffler.ABC[2]]}`).prepend(`<img id="nearlyCorrect" onclick="handlers.nextQuestion()" src="${randomisedArrays.locationImages[pictureShuffler.randomOne]}" />`);
+        if (selectedDifficulty.difficulty.includes("easy")) {
+            $(`${pictureTarget[pictureShuffler.ABC[0]]}`).prepend(`<img id="correct" onclick="handlers.nextQuestion()" src="${randomisedArrays.locationImages[globalCounter.counter]}" />`);
+            $(`${pictureTarget[pictureShuffler.ABC[1]]}`).prepend(`<img id="incorrect" onclick="handlers.nextQuestion()" src="${randomisedArrays.locationImages[pictureShuffler.randomTwo]}" />`);
+            $(`${pictureTarget[pictureShuffler.ABC[2]]}`).prepend(`<img id="nearlyCorrect" onclick="handlers.nextQuestion()" src="${randomisedArrays.locationImages[pictureShuffler.randomOne]}" />`);
+        } else if (selectedDifficulty.difficulty.includes("medium")) {
+            $(`${pictureTarget[pictureShuffler.ABC[0]]}`).prepend(`<img id="correct" onclick="handlers.nextQuestion()" src="${randomisedArrays.locationImages[globalCounter.counter]}" />`);
+            $(`${pictureTarget[pictureShuffler.ABC[1]]}`).prepend(`<img id="incorrect" onclick="handlers.nextQuestion()" src="${randomisedArrays.locationImagesMedium[globalCounter.counter][1]}" />`);
+            $(`${pictureTarget[pictureShuffler.ABC[2]]}`).prepend(`<img id="nearlyCorrect" onclick="handlers.nextQuestion()" src="${randomisedArrays.locationImagesMedium[globalCounter.counter][0]}" />`);
+        }
     }
 };
 
@@ -247,6 +254,8 @@ function displayLevel() {
 function resetAll() {
     randomisedArrays.questionsOrder = [];
     randomisedArrays.locationImages = [];
+    randomisedArrays.locationImagesMedium = [];
+    randomisedArrays.locationImagesHard = [];
     globalCounter.counter = 0;
     pictureShuffler.ABC = [];
     pictureShuffler.randomOne = 0;
