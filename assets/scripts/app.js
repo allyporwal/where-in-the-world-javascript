@@ -6,12 +6,14 @@ var places = [
         coordinates: { lat: 51.5099088, lng: -0.134969 },
         street_view_image_link: "assets/img/londonPiccadilly.jpg",
         street_view_medium: ["assets/img/london2.jpg", "assets/img/london3.jpg"],
+        street_view_hard: ["assets/img/londonNearly.jpg", "assets/img/londonIncorrect.jpg"],
     },
     {
         name: "barcelonaDiagonal",
         coordinates: { lat: 41.3977359, lng: 2.1632075 },
         street_view_image_link: "assets/img/barcelonaDiagonal.jpg",
         street_view_medium: ["assets/img/barcelona2.jpg", "assets/img/barcelona3.jpg"],
+        street_view_hard: ["assets/img/barcelonaNearly", "assets/img/barcelonaIncorrect"]
     },
     {
         name: "romePiazzavenezia",
@@ -92,7 +94,7 @@ let selectedDifficulty = {
 }
 
 // randomisedArrays object ensures that on each playthrough the places array is pushed to the page in a different order. This doesn't destroy the original places array, allowing 
-// for implementation of a reset feature
+// for implementation of a reset feature. Also stores images for medium and hard difficulty levels in seperate arrays.
 
 let randomisedArrays = {
     questionsOrder: [],
@@ -109,6 +111,7 @@ let randomisedArrays = {
             this.questionsOrder.push(shuffledPlaces.coordinates);
             this.locationImages.push(shuffledPlaces.street_view_image_link);
             this.locationImagesMedium.push(shuffledPlaces.street_view_medium);
+            this.locationImagesHard.push(shuffledPlaces.street_view_hard);
         }
     }
 };
@@ -155,6 +158,7 @@ function initMap() {
             map: map,
         });
         map.panTo(randomisedArrays.questionsOrder[globalCounter.counter]);
+        map.setZoom(16);
     });
     google.maps.event.addDomListener(streetview2, "click", function () {
         marker.setMap(null);
@@ -163,6 +167,7 @@ function initMap() {
             map: map,
         });
         map.panTo(randomisedArrays.questionsOrder[globalCounter.counter]);
+        map.setZoom(16);
     });
     google.maps.event.addDomListener(streetview3, "click", function () {
         marker.setMap(null);
@@ -171,6 +176,7 @@ function initMap() {
             map: map,
         });
         map.panTo(randomisedArrays.questionsOrder[globalCounter.counter]);
+        map.setZoom(16);
     });
 };
 
@@ -204,7 +210,8 @@ let pictureShuffler = {
     }
 };
 
-// picturePusher object targets the divs, loads images to DOM and removes images after each question. Image ID is used to calculate score 
+// picturePusher object targets the divs, loads images to DOM and removes images after each question. Image ID is used to calculate score in medium and hard levels.
+// else if statements are used to load correct images for each difficulty level
 
 let picturePusher = {
     gameStart: function () {
@@ -214,8 +221,12 @@ let picturePusher = {
             $(`${pictureTarget[pictureShuffler.ABC[2]]}`).prepend(`<img id="nearlyCorrect" onclick="handlers.nextQuestion()" src="${randomisedArrays.locationImages[pictureShuffler.randomTwo]}" />`);
         } else if (selectedDifficulty.difficulty.includes("medium")) {
             $(`${pictureTarget[pictureShuffler.ABC[0]]}`).prepend(`<img id="correct" onclick="handlers.nextQuestion()" src="${randomisedArrays.locationImages[globalCounter.counter]}" />`);
-            $(`${pictureTarget[pictureShuffler.ABC[1]]}`).prepend(`<img id="incorrect" onclick="handlers.nextQuestion()" src="${randomisedArrays.locationImagesMedium[globalCounter.counter][1]}" />`);
-            $(`${pictureTarget[pictureShuffler.ABC[2]]}`).prepend(`<img id="nearlyCorrect" onclick="handlers.nextQuestion()" src="${randomisedArrays.locationImagesMedium[globalCounter.counter][0]}" />`);
+            $(`${pictureTarget[pictureShuffler.ABC[1]]}`).prepend(`<img id="incorrect" onclick="handlers.nextQuestion()" src="${randomisedArrays.locationImagesMedium[globalCounter.counter][0]}" />`);
+            $(`${pictureTarget[pictureShuffler.ABC[2]]}`).prepend(`<img id="nearlyCorrect" onclick="handlers.nextQuestion()" src="${randomisedArrays.locationImagesMedium[globalCounter.counter][1]}" />`);
+        } else if (selectedDifficulty.difficulty.includes("hard")) {
+            $(`${pictureTarget[pictureShuffler.ABC[0]]}`).prepend(`<img id="correct" onclick="handlers.nextQuestion()" src="${randomisedArrays.locationImages[globalCounter.counter]}" />`);
+            $(`${pictureTarget[pictureShuffler.ABC[1]]}`).prepend(`<img id="incorrect" onclick="handlers.nextQuestion()" src="${randomisedArrays.locationImagesHard[globalCounter.counter][1]}" />`);
+            $(`${pictureTarget[pictureShuffler.ABC[2]]}`).prepend(`<img id="nearlyCorrect" onclick="handlers.nextQuestion()" src="${randomisedArrays.locationImagesHard[globalCounter.counter][0]}" />`);
         }
     },
     nextQuestion: function () {
@@ -230,8 +241,12 @@ let picturePusher = {
             $(`${pictureTarget[pictureShuffler.ABC[2]]}`).prepend(`<img id="nearlyCorrect" onclick="handlers.nextQuestion()" src="${randomisedArrays.locationImages[pictureShuffler.randomOne]}" />`);
         } else if (selectedDifficulty.difficulty.includes("medium")) {
             $(`${pictureTarget[pictureShuffler.ABC[0]]}`).prepend(`<img id="correct" onclick="handlers.nextQuestion()" src="${randomisedArrays.locationImages[globalCounter.counter]}" />`);
-            $(`${pictureTarget[pictureShuffler.ABC[1]]}`).prepend(`<img id="incorrect" onclick="handlers.nextQuestion()" src="${randomisedArrays.locationImagesMedium[globalCounter.counter][1]}" />`);
-            $(`${pictureTarget[pictureShuffler.ABC[2]]}`).prepend(`<img id="nearlyCorrect" onclick="handlers.nextQuestion()" src="${randomisedArrays.locationImagesMedium[globalCounter.counter][0]}" />`);
+            $(`${pictureTarget[pictureShuffler.ABC[1]]}`).prepend(`<img id="incorrect" onclick="handlers.nextQuestion()" src="${randomisedArrays.locationImagesMedium[globalCounter.counter][0]}" />`);
+            $(`${pictureTarget[pictureShuffler.ABC[2]]}`).prepend(`<img id="nearlyCorrect" onclick="handlers.nextQuestion()" src="${randomisedArrays.locationImagesMedium[globalCounter.counter][1]}" />`);
+        } else if (selectedDifficulty.difficulty.includes("hard")) {
+            $(`${pictureTarget[pictureShuffler.ABC[0]]}`).prepend(`<img id="correct" onclick="handlers.nextQuestion()" src="${randomisedArrays.locationImages[globalCounter.counter]}" />`);
+            $(`${pictureTarget[pictureShuffler.ABC[1]]}`).prepend(`<img id="incorrect" onclick="handlers.nextQuestion()" src="${randomisedArrays.locationImagesHard[globalCounter.counter][1]}" />`);
+            $(`${pictureTarget[pictureShuffler.ABC[2]]}`).prepend(`<img id="nearlyCorrect" onclick="handlers.nextQuestion()" src="${randomisedArrays.locationImagesHard[globalCounter.counter][0]}" />`);
         }
     }
 };
@@ -247,11 +262,15 @@ function displayLevel() {
     $("#level").empty().html(`${level}`);
 };
 
+// Calculate and display score
 
 
-// Reset feature - resets every array except places[], all counters and random number generators and loads the reset modal which allows the player to start again
+
+
+// Reset function - resets every array except places[], all counters and random number generators and loads the reset modal which allows the player to start again
 
 function resetAll() {
+    selectedDifficulty.difficulty = [];
     randomisedArrays.questionsOrder = [];
     randomisedArrays.locationImages = [];
     randomisedArrays.locationImagesMedium = [];
