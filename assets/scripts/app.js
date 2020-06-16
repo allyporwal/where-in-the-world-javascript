@@ -4,72 +4,72 @@ var places = [
     {
         name: "londonPicadilly",
         coordinates: { lat: 51.5099088, lng: -0.134969 },
-        street_view_image_link: "assets/img/londonPiccadilly.jpeg",
-        street_view_medium: ["assets/img/london2.jpeg", "assets/img/london3.jpeg"],
-        street_view_hard: ["assets/img/londonNearly.jpeg", "assets/img/londonIncorrect.jpeg"],
+        street_view_image_link: "assets/img/londonPiccadilly.jpg",
+        street_view_medium: ["assets/img/london2.jpg", "assets/img/london3.jpg"],
+        street_view_hard: ["assets/img/londonNearly.jpg", "assets/img/londonIncorrect.jpg"],
     },
     {
         name: "barcelonaDiagonal",
         coordinates: { lat: 41.3977359, lng: 2.1632075 },
-        street_view_image_link: "assets/img/barcelonaDiagonal.jpeg",
-        street_view_medium: ["assets/img/barcelona2.jpeg", "assets/img/barcelona3.jpeg"],
-        street_view_hard: ["assets/img/barcelonaNearly.jpeg", "assets/img/barcelonaIncorrect.jpeg"]
+        street_view_image_link: "assets/img/barcelonaDiagonal.jpg",
+        street_view_medium: ["assets/img/barcelona2.jpg", "assets/img/barcelona3.jpg"],
+        street_view_hard: ["assets/img/barcelonaNearly.jpg", "assets/img/barcelonaIncorrect.jpg"]
     },
     {
         name: "romePiazzavenezia",
         coordinates: { lat: 41.8957469, lng: 12.4826705 },
-        street_view_image_link: "assets/img/romePiazzavenezia.jpeg",
-        street_view_medium: ["assets/img/rome2.jpeg", "assets/img/rome3.jpeg"],
-        street_view_hard: ["assets/img/romeNearly.jpeg", "assets/img/romeIncorrect.jpeg"]
+        street_view_image_link: "assets/img/romePiazzavenezia.jpg",
+        street_view_medium: ["assets/img/rome2.jpg", "assets/img/rome3.jpg"],
+        street_view_hard: ["assets/img/romeNearly.jpg", "assets/img/romeIncorrect.jpg"]
     },
     {
         name: "milanDuomo",
         coordinates: { lat: 45.4646972, lng: 9.1894913 },
-        street_view_image_link: "assets/img/milanDuomo.jpeg",
-        street_view_medium: ["assets/img/milan2.jpeg", "assets/img/milan3.jpeg"],
-        street_view_hard: ["assets/img/milanNearly.jpeg", "assets/img/milanIncorrect.jpeg"]
+        street_view_image_link: "assets/img/milanDuomo.jpg",
+        street_view_medium: ["assets/img/milan2.jpg", "assets/img/milan3.jpg"],
+        street_view_hard: ["assets/img/milanNearly.jpg", "assets/img/milanIncorrect.jpg"]
     },
     {
         name: "bristolSuspensionbridge",
         coordinates: { lat: 51.4551766, lng: -2.6252481 },
-        street_view_image_link: "assets/img/bristolSuspensionbridge.jpeg",
-        street_view_medium: ["assets/img/bristol2.jpeg", "assets/img/bristol3.jpeg"],
-        street_view_hard: ["assets/img/bristolNearly.jpeg", "assets/img/bristolIncorrect.jpeg"]
+        street_view_image_link: "assets/img/bristolSuspensionbridge.jpg",
+        street_view_medium: ["assets/img/bristol2.jpg", "assets/img/bristol3.jpg"],
+        street_view_hard: ["assets/img/bristolNearly.jpg", "assets/img/bristolIncorrect.jpg"]
     },
     {
         name: "dublinGuinness",
         coordinates: { lat: 53.34215, lng: -6.289821 },
-        street_view_image_link: "assets/img/dublinGuinness.jpeg",
-        street_view_medium: ["assets/img/dublin2.jpeg", "assets/img/dublin3.jpeg"],
-        street_view_hard: ["assets/img/dublinNearly.jpeg", "assets/img/dublinIncorrect.jpeg"]
+        street_view_image_link: "assets/img/dublinGuinness.jpg",
+        street_view_medium: ["assets/img/dublin2.jpg", "assets/img/dublin3.jpg"],
+        street_view_hard: ["assets/img/dublinNearly.jpg", "assets/img/dublinIncorrect.jpg"]
     },
     {
         name: "nycE47thst",
         coordinates: { lat: 40.7548732, lng: -73.9742965 },
-        street_view_image_link: "assets/img/nycE47thst.jpeg",
-        street_view_medium: ["assets/img/nycl2.jpeg", "assets/img/nyc3.jpeg"],
-        street_view_hard: ["assets/img/nycNearly.jpeg", "assets/img/nycIncorrect.jpeg"]
+        street_view_image_link: "assets/img/nycE47thst.jpg",
+        street_view_medium: ["assets/img/nyc2.jpg", "assets/img/nyc3.jpg"],
+        street_view_hard: ["assets/img/nycNearly.jpg", "assets/img/nycIncorrect.jpg"]
     },
     {
         name: "madridGoya",
         coordinates: { lat: 40.4241351, lng: -3.6772299 },
-        street_view_image_link: "assets/img/madridGoya.jpeg",
-        street_view_medium: ["assets/img/madrid2.jpeg", "assets/img/madrid3.jpeg"],
-        street_view_hard: ["assets/img/madridNearly.jpeg", "assets/img/madridIncorrect.jpeg"]
+        street_view_image_link: "assets/img/madridGoya.jpg",
+        street_view_medium: ["assets/img/madrid2.jpg", "assets/img/madrid3.jpg"],
+        street_view_hard: ["assets/img/madridNearly.jpg", "assets/img/madridIncorrect.jpg"]
     },
     {
         name: "berlinCheckpoint",
         coordinates: { lat: 52.5067303, lng: 13.3905375 },
-        street_view_image_link: "assets/img/berlinCheckpoint.jpeg",
-        street_view_medium: ["assets/img/berlin2.jpeg", "assets/img/berlin3.jpeg"],
-        street_view_hard: ["assets/img/berlinNearly.jpeg", "assets/img/berlinIncorrect.jpeg"]
+        street_view_image_link: "assets/img/berlinCheckpoint.jpg",
+        street_view_medium: ["assets/img/berlin2.jpg", "assets/img/berlin3.jpg"],
+        street_view_hard: ["assets/img/berlinNearly.jpg", "assets/img/berlinIncorrect.jpg"]
     },
     {
         name: "sydneyOconnell",
         coordinates: { lat: -33.8649517, lng: 151.2098745 },
-        street_view_image_link: "assets/img/sydneyOconnell.jpeg",
-        street_view_medium: ["assets/img/sydney2.jpeg", "assets/img/sydney3.jpeg"],
-        street_view_hard: ["assets/img/sydneyNearly.jpeg", "assets/img/sydneyIncorrect.jpeg"]
+        street_view_image_link: "assets/img/sydneyOconnell.jpg",
+        street_view_medium: ["assets/img/sydney2.jpg", "assets/img/sydney3.jpg"],
+        street_view_hard: ["assets/img/sydneyNearly.jpg", "assets/img/sydneyIncorrect.jpg"]
     }
 ];
 
@@ -203,7 +203,7 @@ let pictureTarget = ["#streetview1", "#streetview2", "#streetview3"];
 // pictureShuffler contains everything needed to randomise all images and target divs on each playthrough
 // shufflePictures method selects a random target div for each city image 
 // randomOne and randomTwo methods are random number generators that run a random number generator while the output of them is equivalent to the global counter or each other, resulting in three
-// different numbers. randomOne and randomTwo are only used in easy mode
+// different numbers. 
 
 let pictureShuffler = {
     ABC: [0, 1, 2],
@@ -216,20 +216,16 @@ let pictureShuffler = {
         }
     },
     randomOne: 0,
-    generateRandomOne: function () {
-        if (selectedDifficulty.difficulty.includes("easy")) {
+    generateRandomOne: function () {    
             do {
                 this.randomOne = Math.floor(Math.random() * randomisedArrays.questionsOrder.length);
-            } while (this.randomOne === globalCounter.counter);
-        }
+            } while (this.randomOne === globalCounter.counter);        
     },
     randomTwo: 0,
-    generateRandomTwo: function () {
-        if (selectedDifficulty.difficulty.includes("easy")) {
+    generateRandomTwo: function () {        
             do {
                 this.randomTwo = Math.floor(Math.random() * randomisedArrays.questionsOrder.length);
             } while (this.randomTwo === globalCounter.counter || this.randomTwo === this.randomOne);
-        }
     }
 };
 
@@ -260,8 +256,8 @@ let picturePusher = {
     nextQuestionSet: function () {
         if (selectedDifficulty.difficulty.includes("easy")) {
             $(`${pictureTarget[pictureShuffler.ABC[0]]}`).prepend(`<img id="correct" onclick="handlers.nextQuestion()" src="${randomisedArrays.locationImages[globalCounter.counter]}" />`);
-            $(`${pictureTarget[pictureShuffler.ABC[1]]}`).prepend(`<img id="incorrect" onclick="handlers.nextQuestion()" src="${randomisedArrays.locationImages[pictureShuffler.randomTwo]}" />`);
-            $(`${pictureTarget[pictureShuffler.ABC[2]]}`).prepend(`<img id="nearlyCorrect" onclick="handlers.nextQuestion()" src="${randomisedArrays.locationImages[pictureShuffler.randomOne]}" />`);
+            $(`${pictureTarget[pictureShuffler.ABC[1]]}`).prepend(`<img id="incorrect" onclick="handlers.nextQuestion()" src="${randomisedArrays.locationImages[pictureShuffler.randomOne]}" />`);
+            $(`${pictureTarget[pictureShuffler.ABC[2]]}`).prepend(`<img id="nearlyCorrect" onclick="handlers.nextQuestion()" src="${randomisedArrays.locationImages[pictureShuffler.randomTwo]}" />`);
         } else if (selectedDifficulty.difficulty.includes("medium")) {
             $(`${pictureTarget[pictureShuffler.ABC[0]]}`).prepend(`<img id="correct" onclick="handlers.nextQuestion()" src="${randomisedArrays.locationImages[globalCounter.counter]}" />`);
             $(`${pictureTarget[pictureShuffler.ABC[1]]}`).prepend(`<img id="incorrect" onclick="handlers.nextQuestion()" src="${randomisedArrays.locationImagesMedium[globalCounter.counter][0]}" />`);
