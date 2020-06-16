@@ -63,7 +63,7 @@ var handlers = {
     gameStart: function () {
         selectedDifficulty.difficultySelected();
         randomisedArrays.randomArrays();
-        pictureShuffler.shufflePictures();
+        pictureShuffler.shufflePictures(pictureShuffler.ABC);
         pictureShuffler.generateRandomOne();
         pictureShuffler.generateRandomTwo();
         picturePusher.gameStart();
@@ -71,7 +71,7 @@ var handlers = {
     },
     nextQuestion: function () {
         globalCounter.incrementCounter();
-        pictureShuffler.shufflePictures();
+        pictureShuffler.shufflePictures(pictureShuffler.ABC);
         pictureShuffler.generateRandomOne();
         pictureShuffler.generateRandomTwo();
         picturePusher.nextQuestion();
@@ -190,11 +190,14 @@ let pictureTarget = ["#streetview1", "#streetview2", "#streetview3"];
 // randomOne and RandomTwo are random numbers that are different from each other AND from the global counter - this means that there's always three different images to choose from for each question
 
 let pictureShuffler = {
-    ABC: [],
-    shufflePictures: function () {
-        this.ABC = [];
-        let oneTwoThree = [0, 1, 2];
-        this.ABC = oneTwoThree.sort(() => Math.random() - 0.5);
+    ABC: [0, 1, 2],
+    shufflePictures: function (array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            let j = Math.floor(Math.random() * (i + 1));
+            let temp = array[i];
+            array[i] = array[j];
+            array[j] = temp;
+        }
     },
     randomOne: 0,
     generateRandomOne: function () {
@@ -282,3 +285,17 @@ function resetAll() {
     picturePusher.nextQuestion();
     $("#resetModal").modal('show');
 };
+
+
+let shuffler = {
+    DEF: [0, 1, 2],
+    shuffleArray: function (array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            let j = Math.floor(Math.random() * (i + 1));
+            let temp = array[i];
+            array[i] = array[j];
+            array[j] = temp;
+        }
+        return array;
+    }
+}
