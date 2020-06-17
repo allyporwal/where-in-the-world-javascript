@@ -215,15 +215,19 @@ let pictureShuffler = {
     },
     randomOne: 0,
     generateRandomOne: function () {
-        do {
-            this.randomOne = Math.floor(Math.random() * randomisedArrays.locationImages.length);
-        } while (this.randomOne === globalCounter.counter);
+        if (selectedDifficulty.difficulty.includes("easy")) {
+            do {
+                this.randomOne = Math.floor(Math.random() * randomisedArrays.locationImages.length);
+            } while (this.randomOne === globalCounter.counter);
+        } 
     },
     randomTwo: 0,
     generateRandomTwo: function () {
+        if (selectedDifficulty.difficulty.includes("easy")) {
         do {
             this.randomTwo = Math.floor(Math.random() * randomisedArrays.locationImages.length);
         } while (this.randomTwo === globalCounter.counter || this.randomTwo === this.randomOne);
+        }
     }
 };
 
