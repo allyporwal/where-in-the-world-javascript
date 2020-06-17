@@ -147,7 +147,7 @@ let randomisedArrays = {
             placesSliced.splice(index, 1);
             this.questionsOrder.push(shuffledPlaces.coordinates_2);
             this.questionsAnswer.push(shuffledPlaces.street_view_image_2);
-            this.locationImages.push(shuffledPlaces.street_view_image_2, shuffledPlaces.street_view_hard[1]);
+            this.locationImages.push(shuffledPlaces.street_view_medium[1], shuffledPlaces.street_view_hard[1], shuffledPlaces.street_view_image_link);
             // this.locationImagesMedium.push(shuffledPlaces.street_view_medium);
             // this.locationImagesHard.push(shuffledPlaces.street_view_hard);
         }
@@ -263,7 +263,7 @@ let picturePusher = {
         if (selectedDifficulty.difficulty.includes("easy")) {
             $(`${pictureTarget[pictureShuffler.ABC[0]]}`).prepend(`<img id="correct" onclick="handlers.nextQuestion()" src="${randomisedArrays.questionsAnswer[globalCounter.counter]}" />`);
             $(`${pictureTarget[pictureShuffler.ABC[1]]}`).prepend(`<img id="incorrect" onclick="handlers.nextQuestion()" src="${randomisedArrays.locationImages[pictureShuffler.randomOne]}" />`);
-            $(`${pictureTarget[pictureShuffler.ABC[2]]}`).prepend(`<img id="nearlyCorrect" onclick="handlers.nextQuestion()" src="${randomisedArrays.locationImages[pictureShuffler.randomTwo]}" />`);
+            $(`${pictureTarget[pictureShuffler.ABC[2]]}`).prepend(`<img id="nearlyCorrect" onclick="handlers.nextQuestion()" src="${randomisedArrays.locationImages[pictureShuffler.randomOne]}" />`);
         } else if (selectedDifficulty.difficulty.includes("medium")) {
             $(`${pictureTarget[pictureShuffler.ABC[0]]}`).prepend(`<img id="correct" onclick="handlers.nextQuestion()" src="${randomisedArrays.questionsAnswer[globalCounter.counter]}" />`);
             $(`${pictureTarget[pictureShuffler.ABC[1]]}`).prepend(`<img id="incorrect" onclick="handlers.nextQuestion()" src="${randomisedArrays.locationImagesMedium[globalCounter.counter][0]}" />`);
