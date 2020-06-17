@@ -86,17 +86,16 @@ var handlers = {
     },
     resetAll: function () {
         resetAll();
-    }
+    },
 };
 
-// Difficulty select object - changes which image arrays the potential answers are loaded from 
+// Difficulty select object  
 
 let selectedDifficulty = {
     difficulty: [],
     difficultySelected: function () {
-        this.difficulty = [];
         this.difficulty.push($("#difficultyStart option:selected").val());
-    }
+    },
 };
 
 // randomisedArrays object ensures that on each playthrough the places array is pushed to the page in a different order. This doesn't destroy the original places array, allowing 
@@ -125,9 +124,6 @@ let randomisedArrays = {
         }
     }
 };
-
-
-
 
 // global counter keeps track of the level and ensures that the correct image is always loaded to one of the target divs - its value is used in several subsequent objects
 
@@ -219,14 +215,14 @@ let pictureShuffler = {
             do {
                 this.randomOne = Math.floor(Math.random() * randomisedArrays.locationImages.length);
             } while (this.randomOne === globalCounter.counter);
-        } 
+        }
     },
     randomTwo: 0,
     generateRandomTwo: function () {
         if (selectedDifficulty.difficulty.includes("easy")) {
-        do {
-            this.randomTwo = Math.floor(Math.random() * randomisedArrays.locationImages.length);
-        } while (this.randomTwo === globalCounter.counter || this.randomTwo === this.randomOne);
+            do {
+                this.randomTwo = Math.floor(Math.random() * randomisedArrays.locationImages.length);
+            } while (this.randomTwo === globalCounter.counter || this.randomTwo === this.randomOne);
         }
     }
 };
@@ -277,8 +273,9 @@ function displayLevel() {
 
 // Calculate and display score
 
+// Countdown timer
 
-
+// Game over
 
 // Reset function - resets every array except places[], all counters and random number generators and loads the reset modal which allows the player to start again
 
@@ -292,5 +289,5 @@ function resetAll() {
     pictureShuffler.randomOne = 0;
     pictureShuffler.randomTwo = 0;
     picturePusher.nextQuestion();
-    $("#resetModal").modal('show');
+    $("#welcomeModal").modal('show');
 };

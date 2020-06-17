@@ -31,14 +31,14 @@
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title">Modal title</h5>
+					<h5 class="modal-title">Where in the World...?</h5>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
 				</div>
 				<div class="modal-body">
 					<label for="difficulty">Select difficulty:</label>
-					<select name="difficulty" id="difficultyStart">
+					<select name="difficulty" id="difficultyStart">  
                 <option value="easy">Easy</option>
                 <option value="hard">Hard</option>
                 </select>
@@ -50,38 +50,13 @@
 		</div>
 	</div>
 
-	<!-- Reset Modal -->
-
-	<div class="modal fade" id="resetModal" tabindex="-1" role="dialog">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title">Modal title</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-				</div>
-				<div class="modal-body">
-					<label for="difficultyReset">Select difficulty:</label>
-					<select name="difficultyReset" id="difficultyReset">
-                <option value="easy">Easy</option>
-                <option value="hard">Hard</option>
-                </select>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-primary" data-dismiss="modal" id="resetStartGame" onclick="handlers.gameStart()">Start!</button>
-				</div>
-			</div>
-		</div>
-	</div>
-
 	<!-- Map container -->
 
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-6 col-md-12" id="map"></div>
 			<div class="col-lg-3 col-md-12">
-				<p>Level: <span id="level"></span>/20</p>
+				<p>Level: <span id="level"></span>/10</p>
 				<p>timer</p>
 				<button onclick="handlers.resetAll()" id="reset">Restart</button>
 				<!-- <button onclick="handlers.shufflePictures()">Remove images</button> -->
