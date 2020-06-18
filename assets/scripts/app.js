@@ -273,6 +273,25 @@ function displayLevel() {
 
 // Calculate and display score
 
+let playerScore = [];
+let nearlyCorrect = [];
+
+function calculateScore() {
+    playerScore.push(1);
+    return playerScore.length * 10;
+};
+
+function displayScore() {
+    let score = calculateScore;
+    $("#score").empty().html(`${score}`);
+}
+
+$("#quizContainer").on("click", "img", function(event){
+    console.log(hello);
+});
+
+
+
 // Countdown timer
 
 // Game over
@@ -285,6 +304,8 @@ function resetAll() {
     randomisedArrays.questionsAnswer = [];
     randomisedArrays.locationImages = [];
     randomisedArrays.locationImagesHard = [];
+    playerScore = [];
+    nearlyCorrect = [];
     globalCounter.counter = 0;
     pictureShuffler.randomOne = 0;
     pictureShuffler.randomTwo = 0;
