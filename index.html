@@ -8,7 +8,7 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.5.0/sandstone/bootstrap.min.css" />
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" />
 	<script src="https://code.jquery.com/jquery-3.5.1.js"
-		integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+		integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous" type="text/javascript"></script>
 	<link rel="stylesheet" href="assets/css/style.css" />
 	<script type="text/javascript" src="assets/scripts/script.js"></script>
 	<script type="text/javascript" src="assets/scripts/app.js"></script>
@@ -58,29 +58,30 @@
 			<div class="col-lg-3 col-md-12">
 				<p>Level: <span id="level"></span>/10</p>
 				<p>timer</p>
-				<button onclick="handlers.resetAll()" id="reset">Restart</button>
+                <progress value="0" max="30" id="countdownTimer"></progress>
+				<button id="reset">Restart</button>
 				<!-- <button onclick="handlers.shufflePictures()">Remove images</button> -->
 			</div>
 			<div class="col-lg-3 col-md-12 streetview1 answer" id="streetview1">
-            <!-- <button class="pictureSelect" id="pictureSelect1">Picture A</button> -->
+            <button type="button" class="pictureSelect" id="pictureSelect1">Picture A</button>
 			</div>
 		</div>
 	</div>
 	<div class="container">
 		<div class="row justify-content-end">
 			<div class="col-lg-3 col-md-12 streetview2 answer" id="streetview2">
-            <!-- <button class="pictureSelect" id="pictureSelect2">Picture B</button> -->
+            <button type="button" class="pictureSelect" id="pictureSelect2">Picture B</button>
 				<p>B:</p>
 			</div>
 			<div class="col-lg-3 col-md-12 streetview3 answer" id="streetview3">
-            <!-- <button class="pictureSelect" id="pictureSelect3">Picture C</button> -->
+            <button type="button" class="pictureSelect" id="pictureSelect3">Picture C</button>
 			</div>
 		</div>
 	</div>
 
 
 
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.slim.min.js"></script>
+	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.slim.min.js"></script> -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js">
 	</script>

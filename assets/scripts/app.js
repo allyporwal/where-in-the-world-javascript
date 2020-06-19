@@ -85,9 +85,28 @@ var handlers = {
         displayLevel();
     },
     resetAll: function () {
-        resetAll();
+        handlers.resetAll();
     },
 };
+
+$(document).ready(function () {
+    $(document).on("click", "#startGame", function () {
+        handlers.gameStart();
+        initMap();
+    })
+});
+
+$(document).on("click", "#reset", function () {
+    resetAll();
+});
+
+$(document).on("click", ".pictureSelect", function () {
+    handlers.nextQuestion();
+});
+
+$(document).on("click", "#correct", function () {
+    displayScore();
+});
 
 // Difficulty select object  
 
@@ -141,13 +160,6 @@ let globalCounter = {
 // listens for clicks on divs that contain images and goes the next location in the questionsOrder array, causing the map to pin and pan to new marker
 
 
-$(document).ready(function () {
-    $(document).on("click", "#startGame", function () {
-        handlers.gameStart();
-        initMap();
-    })
-});
-
 
 function initMap() {
     var options = {
@@ -191,7 +203,6 @@ function initMap() {
         map.setZoom(16);
     });
 };
-
 
 // Quiz objects - pictureTarget array holds the ID of the target div and jQuery is used to select the correct DOM element to push the images to in the picturePusher object
 
@@ -287,10 +298,9 @@ function calculateScore() {
 };
 
 function displayScore() {
-    let score = calculateScore;
+    let score = calculateScore();
     $("#score").empty().html(`${score}`);
 }
-
 
 // Countdown timer
 
