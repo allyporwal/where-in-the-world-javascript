@@ -290,8 +290,6 @@ $("#quizContainer").on("click", "img", function(event){
     console.log(hello);
 });
 
-
-
 // Countdown timer
 
 // Game over
