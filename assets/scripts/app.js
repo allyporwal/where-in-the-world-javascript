@@ -146,6 +146,7 @@ $(document).ready(function () {
     $("#resetStartGame").on("click", initMap);
 });
 
+
 function initMap() {
     var options = {
         zoom: 16,
