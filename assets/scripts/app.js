@@ -142,8 +142,10 @@ let globalCounter = {
 
 
 $(document).ready(function () {
-    $("#startGame").on("click", initMap);
-    $("#resetStartGame").on("click", initMap);
+    $(document).on("click", "#startGame", function () {
+        handlers.gameStart();
+        initMap();
+    })
 });
 
 
@@ -261,6 +263,8 @@ let picturePusher = {
     }
 };
 
+
+
 // Display level
 
 function calculateLevel() {
@@ -287,9 +291,6 @@ function displayScore() {
     $("#score").empty().html(`${score}`);
 }
 
-$("#quizContainer").on("click", "img", function(event){
-    console.log(hello);
-});
 
 // Countdown timer
 
