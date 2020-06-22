@@ -73,6 +73,9 @@ var handlers = {
         pictureShuffler.generateRandomOne();
         pictureShuffler.generateRandomTwo();
         picturePusher.gameStart();
+        countdownTimer.countdownDifficulty();
+        countdownTimer.countdown();
+        displayCountdown();
         displayLevel();
     },
     nextQuestion: function () {
@@ -82,6 +85,9 @@ var handlers = {
         pictureShuffler.generateRandomTwo();
         picturePusher.nextQuestion();
         picturePusher.nextQuestionSet();
+        countdownTimer.countdownDifficulty();
+        countdownTimer.countdown();
+        displayCountdown();
         displayLevel();
     },
     resetAll: function () {
@@ -303,6 +309,41 @@ function displayScore() {
 }
 
 // Countdown timer
+
+let countdownTimer = {
+    timeRemaining: 0,
+    counter: 0,
+    timerInterval: 0,
+    countdownDifficulty: function () {
+        if (selectedDifficulty.difficulty.includes("easy")) {
+            this.timeRemaining = 30;
+        } else if (selectedDifficulty.difficulty.includes("hard")) {
+            this.timeRemaining = 15;
+        }
+    },
+    countdown: function () {
+        this.counter = this.timeRemaining;
+        clearInterval(this.timerInterval);        
+        this.timerInterval = setInterval(() => {
+            this.counter--;
+            if (this.counter < 0) {
+                clearInterval(this.timerInterval);
+                gameOver();
+            }
+        }, 1000);
+    }
+}
+
+function displayCountdown() {
+    setInterval(function () {
+        if (selectedDifficulty.difficulty.includes("easy")) {
+            $("#countdownTimer").val(`${countdownTimer.counter}`);
+        }
+        else if (selectedDifficulty.difficulty.includes("hard")) {
+            $("#countdownTimer").val(`${countdownTimer.counter * 2}`);
+        }
+    }, 500);
+}
 
 // Game over
 
