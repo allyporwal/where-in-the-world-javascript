@@ -119,6 +119,7 @@ $(document).on("click", ".pictureSelect", function () {
 });
 
 $(document).on("click", "#correct", function () {
+    playerScore.push(1);
     displayScore();
 });
 
@@ -303,8 +304,8 @@ function calculateLevel() {
 var playerScore = [];
 
 function calculateScore() {
-    playerScore.push(1);
-    return playerScore.length * 10;
+    // playerScore.push(1);
+    return playerScore.length;
 };
 
 // Countdown timer
@@ -344,11 +345,15 @@ function displayLevel() {
 
 function displayScore() {
     let score = calculateScore();
-    if ((globalCounter.counter + 1) > 5) {
-        $("#score").empty();
-    } else {
+    // if ((globalCounter.counter + 1) > 5) {
+    //     $("#score").empty();
+    // } else 
+    // if (score > 5) {
+    //     $("#score").empty().html("50");
+    // } else {
         $("#score").empty().html(`${score}`);
-    }
+        $("#endGameScore").empty().html(`${score}`);
+    // }
 }
 
 function displayCountdown() {
@@ -365,7 +370,7 @@ function displayCountdown() {
 // Game over
 
 function gameOver() {
-    let endGameScore = 
+    let endGameScore = calculateScore();
     $("#gameOverModal").modal('show');
     $("#endGameScore").empty().html(`${endGameScore}`);
 }
