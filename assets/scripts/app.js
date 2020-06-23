@@ -1,4 +1,5 @@
 // Places array - stores all place names, coordinates to push to map and links to correct answer images
+// coordinates_1 is used for hard difficulty
 
 var places = [
     {
@@ -63,66 +64,6 @@ var places = [
     }
 ];
 
-// handlers to keep code neater
-
-var handlers = {
-    gameStart: function () {
-        selectedDifficulty.difficultySelected();
-        randomisedArrays.randomArrays();
-        pictureShuffler.shufflePictures(pictureShuffler.ABC);
-        pictureShuffler.generateRandomOne();
-        pictureShuffler.generateRandomTwo();
-        picturePusher.gameStart();
-        countdownTimer.countdownDifficulty();
-        countdownTimer.countdown();
-        displayCountdown();
-        displayLevel();
-    },
-    nextQuestion: function () {
-        globalCounter.incrementCounter();
-        pictureShuffler.shufflePictures(pictureShuffler.ABC);
-        pictureShuffler.generateRandomOne();
-        pictureShuffler.generateRandomTwo();
-        picturePusher.nextQuestion();
-        picturePusher.nextQuestionSet();
-        countdownTimer.countdownDifficulty();
-        countdownTimer.countdown();
-        displayCountdown();
-        displayLevel();
-    },
-    resetAll: function () {
-        handlers.resetAll();
-    },
-};
-
-$(document).ready(function () {
-    $(document).on("click", "#startGame", function () {
-        handlers.gameStart();
-        initMap();
-    })
-});
-
-$(document).on("click", "img", function () {
-    handlers.nextQuestion();
-});
-
-$(document).on("click", "#reset", function () {
-    resetAll();
-});
-
-$(document).on("click", "#playAgain", function () {
-    resetAll();
-});
-
-$(document).on("click", ".pictureSelect", function () {
-    handlers.nextQuestion();
-});
-
-$(document).on("click", "#correct", function () {
-    playerScore.push(1);
-    displayScore();
-});
-
 // Difficulty select object  
 
 let selectedDifficulty = {
@@ -141,13 +82,13 @@ let randomisedArrays = {
     locationImages: [],
     locationImagesHard: [],
     randomArrays: function () {
-        let placesSliced = places.slice();
-        for (let i = 0; i < places.length; i++) {
-            let shuffledPlaces = placesSliced[Math.floor(Math.random() * placesSliced.length)];
-            let index = placesSliced.indexOf(shuffledPlaces);
-            placesSliced.splice(index, 1);
-            if (selectedDifficulty.difficulty.includes("easy")) {
-                this.questionsOrder.push(shuffledPlaces.coordinates_2);
+        let placesSliced = places.slice();                                                        // slice the whole array so as to not destroy places[]
+        for (let i = 0; i < places.length; i++) {                                                  
+            let shuffledPlaces = placesSliced[Math.floor(Math.random() * placesSliced.length)];   // shuffledPlaces is a randomly selected object from the place array 
+            let index = placesSliced.indexOf(shuffledPlaces);                                     // index is the position of shuffledPlaces in the placesSliced array
+            placesSliced.splice(index, 1);                                                        // this index is then used to remove items from the array to avoid duplicates on shuffling 
+            if (selectedDifficulty.difficulty.includes("easy")) {                                 // all new arrays are filled with various different pieces of data from places[]
+                this.questionsOrder.push(shuffledPlaces.coordinates_2);         
                 this.questionsAnswer.push(shuffledPlaces.street_view_image_link[1]);
                 this.locationImages.push(shuffledPlaces.street_view_image_link[0], shuffledPlaces.street_view_image_link[2], shuffledPlaces.street_view_image_link[3]);
             } else if (selectedDifficulty.difficulty.includes("hard")) {
@@ -227,9 +168,9 @@ let pictureTarget = ["#streetview1", "#streetview2", "#streetview3"];
 // different numbers. 
 
 let pictureShuffler = {
-    ABC: [0, 1, 2],
+    ABC: [0, 1, 2],                                       // unlike the handling of the places array, ABC[] is shuffled in-place
     shufflePictures: function (array) {
-        for (let i = array.length - 1; i > 0; i--) {
+        for (let i = array.length - 1; i > 0; i--) {      // this is a JS version of the Durstenfeld shuffle
             let j = Math.floor(Math.random() * (i + 1));
             let temp = array[i];
             array[i] = array[j];
@@ -240,7 +181,7 @@ let pictureShuffler = {
     generateRandomOne: function () {
         if (selectedDifficulty.difficulty.includes("easy")) {
             do {
-                this.randomOne = Math.floor(Math.random() * randomisedArrays.locationImages.length);
+                this.randomOne = Math.floor(Math.random() * randomisedArrays.locationImages.length);   // generate a different random number if same as counter
             } while (this.randomOne === globalCounter.counter);
         }
     },
@@ -248,7 +189,7 @@ let pictureShuffler = {
     generateRandomTwo: function () {
         if (selectedDifficulty.difficulty.includes("easy")) {
             do {
-                this.randomTwo = Math.floor(Math.random() * randomisedArrays.locationImages.length);
+                this.randomTwo = Math.floor(Math.random() * randomisedArrays.locationImages.length);   // generate a different random number if same as counter AND/OR randomOne
             } while (this.randomTwo === globalCounter.counter || this.randomTwo === this.randomOne);
         }
     }
@@ -287,13 +228,11 @@ let picturePusher = {
     }
 };
 
-
-
 // Calculate level
 
 function calculateLevel() {
     if ((globalCounter.counter + 1) > 5) {
-        gameOver();
+        gameOver();                               // gameOver triggered on completion of level 5
     } else {
         return globalCounter.counter + 1;
     }
@@ -304,8 +243,7 @@ function calculateLevel() {
 var playerScore = [];
 
 function calculateScore() {
-    // playerScore.push(1);
-    return playerScore.length;
+    return playerScore.length * 10;
 };
 
 // Countdown timer
@@ -314,7 +252,7 @@ let countdownTimer = {
     timeRemaining: 0,
     counter: 0,
     timerInterval: 0,
-    countdownDifficulty: function () {
+    countdownDifficulty: function () {                                  // select how long countdown timer lasts for each level according to difficulty
         if (selectedDifficulty.difficulty.includes("easy")) {
             this.timeRemaining = 30;
         } else if (selectedDifficulty.difficulty.includes("hard")) {
@@ -322,17 +260,19 @@ let countdownTimer = {
         }
     },
     countdown: function () {
-        this.counter = this.timeRemaining;
-        clearInterval(this.timerInterval);
-        this.timerInterval = setInterval(() => {
+        this.counter = this.timeRemaining;                              // this.timeRemaining stays constant - this.counter is equivalent to this.timeRemaining when beginning countdown
+        clearInterval(this.timerInterval);                              // clear interval resets timer each time countdownTimer.countdown is used
+        this.timerInterval = setInterval(() => {                        
             this.counter--;
             if (this.counter < 0) {
-                clearInterval(this.timerInterval);
+                clearInterval(this.timerInterval);                      // timer stops at 0 and gameOver function triggered if player left game alone
                 gameOver();
             }
         }, 1000);
     }
 }
+
+// display level and call gameOver function when level 5 complete
 
 function displayLevel() {
     let level = calculateLevel();
@@ -343,18 +283,15 @@ function displayLevel() {
     }
 };
 
+// display score and have it ready on game over modal
+
 function displayScore() {
     let score = calculateScore();
-    // if ((globalCounter.counter + 1) > 5) {
-    //     $("#score").empty();
-    // } else 
-    // if (score > 5) {
-    //     $("#score").empty().html("50");
-    // } else {
-        $("#score").empty().html(`${score}`);
-        $("#endGameScore").empty().html(`${score}`);
-    // }
+    $("#score").empty().html(`${score}`);
+    $("#endGameScore").empty().html(`${score}`);
 }
+
+// display countdown
 
 function displayCountdown() {
     setInterval(function () {
@@ -362,7 +299,7 @@ function displayCountdown() {
             $("#countdownTimer").val(`${countdownTimer.counter}`);
         }
         else if (selectedDifficulty.difficulty.includes("hard")) {
-            $("#countdownTimer").val(`${countdownTimer.counter * 2}`);
+            $("#countdownTimer").val(`${countdownTimer.counter * 2}`);   // 15 and 30 second countdown chosen so same progress bar could be used on both difficulties
         }
     }, 500);
 }
@@ -370,12 +307,10 @@ function displayCountdown() {
 // Game over
 
 function gameOver() {
-    let endGameScore = calculateScore();
     $("#gameOverModal").modal('show');
-    $("#endGameScore").empty().html(`${endGameScore}`);
 }
 
-// Reset function - resets every array except places[], all counters and random number generators and loads the reset modal which allows the player to start again
+// Reset function - resets every array except places[], all counters and random number generators, and loads the reset modal which allows the player to start again
 
 function resetAll() {
     selectedDifficulty.difficulty = [];
@@ -384,12 +319,67 @@ function resetAll() {
     randomisedArrays.locationImages = [];
     randomisedArrays.locationImagesHard = [];
     playerScore = [];
-    $("#score").empty().html("0");
-    $("#level").empty().html("0");
-    nearlyCorrect = [];
     globalCounter.counter = 0;
     pictureShuffler.randomOne = 0;
     pictureShuffler.randomTwo = 0;
+    $("#score").empty().html("0");
+    $("#level").empty().html("0");
     picturePusher.nextQuestion();
     $("#welcomeModal").modal("show");
 };
+
+// handlers object to keep code neater
+
+var handlers = {
+    gameStart: function () {
+        selectedDifficulty.difficultySelected();
+        randomisedArrays.randomArrays();
+        pictureShuffler.shufflePictures(pictureShuffler.ABC);
+        pictureShuffler.generateRandomOne();
+        pictureShuffler.generateRandomTwo();
+        picturePusher.gameStart();
+        countdownTimer.countdownDifficulty();
+        countdownTimer.countdown();
+        displayCountdown();
+        displayLevel();
+    },
+    nextQuestion: function () {
+        globalCounter.incrementCounter();
+        pictureShuffler.shufflePictures(pictureShuffler.ABC);
+        pictureShuffler.generateRandomOne();
+        pictureShuffler.generateRandomTwo();
+        picturePusher.nextQuestion();
+        picturePusher.nextQuestionSet();
+        countdownTimer.countdownDifficulty();
+        countdownTimer.countdown();
+        displayCountdown();
+        displayLevel();
+    },
+    resetAll: function () {
+        handlers.resetAll();
+    },
+};
+
+$(document).ready(function () {
+    $(document).on("click", "#startGame", function () {
+        handlers.gameStart();
+        initMap();
+    })
+});
+
+$(document).on("click", "img", function () {
+    handlers.nextQuestion();
+});
+
+$(document).on("click", "#reset", function () {
+    resetAll();
+});
+
+$(document).on("click", "#playAgain", function () {
+    resetAll();
+});
+
+$(document).on("click", "#correct", function () {
+    playerScore.push(1);
+    displayScore();
+});
