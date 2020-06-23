@@ -8,7 +8,8 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.5.0/sandstone/bootstrap.min.css" />
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" />
 	<script src="https://code.jquery.com/jquery-3.5.1.js"
-		integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous" type="text/javascript"></script>
+		integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous" type="text/javascript">
+	</script>
 	<link rel="stylesheet" href="assets/css/style.css" />
 	<script type="text/javascript" src="assets/scripts/script.js"></script>
 	<script type="text/javascript" src="assets/scripts/app.js"></script>
@@ -38,13 +39,35 @@
 				</div>
 				<div class="modal-body">
 					<label for="difficulty">Select difficulty:</label>
-					<select name="difficulty" id="difficultyStart">  
+					<select name="difficulty" id="difficultyStart">
                 <option value="easy">Easy</option>
                 <option value="hard">Hard</option>
                 </select>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-primary" data-dismiss="modal" id="startGame" >Start!</button>
+					<button type="button" class="btn btn-primary btn-block" data-dismiss="modal" id="startGame" >Start!</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Game over modal -->
+
+	<div class="modal fade" id="gameOverModal" tabindex="-1" role="dialog">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Where in the World...?</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+				</div>
+				<div class="modal-body">
+                <p>Well done! You scored: <span id="endGameScore"> </span> points</p>
+                <p id="endGameBonus">and <span id="endGameBonusPoints"> </span> bonus points</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary btn-block" data-dismiss="modal" id="playAgain" >Play again!</button>
 				</div>
 			</div>
 		</div>
@@ -56,26 +79,23 @@
 		<div class="row">
 			<div class="col-lg-6 col-md-12" id="map"></div>
 			<div class="col-lg-3 col-md-12">
-				<p>Level: <span id="level"></span>/10</p>
+				<p>Level: <span id="level"></span>/5</p>
 				<p>timer</p>
-                <progress value="0" max="30" id="countdownTimer"></progress>
-                <div id="countdownTimer2"></div>
+				<progress value="0" max="30" id="countdownTimer"></progress>
+				<div id="countdownTimer2"></div>
 				<button id="reset">Restart</button>
 				<!-- <button onclick="handlers.shufflePictures()">Remove images</button> -->
 			</div>
 			<div class="col-lg-3 col-md-12 streetview1 answer" id="streetview1">
-            <button type="button" class="pictureSelect" id="pictureSelect1">Picture A</button>
 			</div>
 		</div>
 	</div>
 	<div class="container">
 		<div class="row justify-content-end">
 			<div class="col-lg-3 col-md-12 streetview2 answer" id="streetview2">
-            <button type="button" class="pictureSelect" id="pictureSelect2">Picture B</button>
 				<p>B:</p>
 			</div>
 			<div class="col-lg-3 col-md-12 streetview3 answer" id="streetview3">
-            <button type="button" class="pictureSelect" id="pictureSelect3">Picture C</button>
 			</div>
 		</div>
 	</div>

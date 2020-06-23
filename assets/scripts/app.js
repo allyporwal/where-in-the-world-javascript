@@ -102,7 +102,15 @@ $(document).ready(function () {
     })
 });
 
+$(document).on("click", "img", function () {
+    handlers.nextQuestion();
+});
+
 $(document).on("click", "#reset", function () {
+    resetAll();
+});
+
+$(document).on("click", "#playAgain", function () {
     resetAll();
 });
 
@@ -165,8 +173,6 @@ let globalCounter = {
 // loads places for each question from the randomly ordered array
 // listens for clicks on divs that contain images and goes the next location in the questionsOrder array, causing the map to pin and pan to new marker
 
-
-
 function initMap() {
     var options = {
         zoom: 16,
@@ -184,28 +190,28 @@ function initMap() {
     google.maps.event.addDomListener(streetview1, "click", function () {
         marker.setMap(null);
         new google.maps.Marker({
-            position: randomisedArrays.questionsOrder[globalCounter.counter],
-            map: map,
-        });
-        map.panTo(randomisedArrays.questionsOrder[globalCounter.counter]);
+            position: randomisedArrays.questionsOrder[globalCounter.counter + 1], // the + 1 in the code here prevents a bug - if removed, the map lags behind the images in the array
+            map: map,                                                             // it seems to be caused (as far as I can tell) by some sort of conflict between jQuery and Google Maps
+        });                                                                       // the code should not trigger this bug, but if the pictures have "onClick" attached to them, rather than using jQuery, the bug is not present
+        map.panTo(randomisedArrays.questionsOrder[globalCounter.counter + 1]);
         map.setZoom(16);
     });
     google.maps.event.addDomListener(streetview2, "click", function () {
         marker.setMap(null);
         new google.maps.Marker({
-            position: randomisedArrays.questionsOrder[globalCounter.counter],
+            position: randomisedArrays.questionsOrder[globalCounter.counter + 1],
             map: map,
         });
-        map.panTo(randomisedArrays.questionsOrder[globalCounter.counter]);
+        map.panTo(randomisedArrays.questionsOrder[globalCounter.counter + 1]);
         map.setZoom(16);
     });
     google.maps.event.addDomListener(streetview3, "click", function () {
         marker.setMap(null);
         new google.maps.Marker({
-            position: randomisedArrays.questionsOrder[globalCounter.counter],
+            position: randomisedArrays.questionsOrder[globalCounter.counter + 1],
             map: map,
         });
-        map.panTo(randomisedArrays.questionsOrder[globalCounter.counter]);
+        map.panTo(randomisedArrays.questionsOrder[globalCounter.counter + 1]);
         map.setZoom(16);
     });
 };
@@ -253,13 +259,13 @@ let pictureShuffler = {
 let picturePusher = {
     gameStart: function () {
         if (selectedDifficulty.difficulty.includes("easy")) {
-            $(`${pictureTarget[pictureShuffler.ABC[0]]}`).prepend(`<img id="correct" onclick="handlers.nextQuestion()" src="${randomisedArrays.questionsAnswer[globalCounter.counter]}" />`);
-            $(`${pictureTarget[pictureShuffler.ABC[1]]}`).prepend(`<img id="incorrect" onclick="handlers.nextQuestion()" src="${randomisedArrays.locationImages[pictureShuffler.randomOne]}" />`);
-            $(`${pictureTarget[pictureShuffler.ABC[2]]}`).prepend(`<img id="nearlyCorrect" onclick="handlers.nextQuestion()" src="${randomisedArrays.locationImages[pictureShuffler.randomTwo]}" />`);
+            $(`${pictureTarget[pictureShuffler.ABC[0]]}`).prepend(`<img id="correct" src="${randomisedArrays.questionsAnswer[globalCounter.counter]}" />`);
+            $(`${pictureTarget[pictureShuffler.ABC[1]]}`).prepend(`<img id="incorrect" src="${randomisedArrays.locationImages[pictureShuffler.randomOne]}" />`);
+            $(`${pictureTarget[pictureShuffler.ABC[2]]}`).prepend(`<img id="nearlyCorrect" src="${randomisedArrays.locationImages[pictureShuffler.randomTwo]}" />`);
         } else if (selectedDifficulty.difficulty.includes("hard")) {
-            $(`${pictureTarget[pictureShuffler.ABC[0]]}`).prepend(`<img id="correct" onclick="handlers.nextQuestion()" src="${randomisedArrays.questionsAnswer[globalCounter.counter]}" />`);
-            $(`${pictureTarget[pictureShuffler.ABC[1]]}`).prepend(`<img id="incorrect" onclick="handlers.nextQuestion()" src="${randomisedArrays.locationImagesHard[globalCounter.counter][1]}" />`);
-            $(`${pictureTarget[pictureShuffler.ABC[2]]}`).prepend(`<img id="nearlyCorrect" onclick="handlers.nextQuestion()" src="${randomisedArrays.locationImagesHard[globalCounter.counter][0]}" />`);
+            $(`${pictureTarget[pictureShuffler.ABC[0]]}`).prepend(`<img id="correct" src="${randomisedArrays.questionsAnswer[globalCounter.counter]}" />`);
+            $(`${pictureTarget[pictureShuffler.ABC[1]]}`).prepend(`<img id="incorrect" src="${randomisedArrays.locationImagesHard[globalCounter.counter][1]}" />`);
+            $(`${pictureTarget[pictureShuffler.ABC[2]]}`).prepend(`<img id="nearlyCorrect" src="${randomisedArrays.locationImagesHard[globalCounter.counter][0]}" />`);
         }
     },
     nextQuestion: function () {
@@ -269,44 +275,37 @@ let picturePusher = {
     },
     nextQuestionSet: function () {
         if (selectedDifficulty.difficulty.includes("easy")) {
-            $(`${pictureTarget[pictureShuffler.ABC[0]]}`).prepend(`<img id="correct" onclick="handlers.nextQuestion()" src="${randomisedArrays.questionsAnswer[globalCounter.counter]}" />`);
-            $(`${pictureTarget[pictureShuffler.ABC[1]]}`).prepend(`<img id="incorrect" onclick="handlers.nextQuestion()" src="${randomisedArrays.locationImages[pictureShuffler.randomOne]}" />`);
-            $(`${pictureTarget[pictureShuffler.ABC[2]]}`).prepend(`<img id="nearlyCorrect" onclick="handlers.nextQuestion()" src="${randomisedArrays.locationImages[pictureShuffler.randomTwo]}" />`);
+            $(`${pictureTarget[pictureShuffler.ABC[0]]}`).prepend(`<img id="correct" src="${randomisedArrays.questionsAnswer[globalCounter.counter]}" />`);
+            $(`${pictureTarget[pictureShuffler.ABC[1]]}`).prepend(`<img id="incorrect" src="${randomisedArrays.locationImages[pictureShuffler.randomOne]}" />`);
+            $(`${pictureTarget[pictureShuffler.ABC[2]]}`).prepend(`<img id="nearlyCorrect" src="${randomisedArrays.locationImages[pictureShuffler.randomTwo]}" />`);
         } else if (selectedDifficulty.difficulty.includes("hard")) {
-            $(`${pictureTarget[pictureShuffler.ABC[0]]}`).prepend(`<img id="correct" onclick="handlers.nextQuestion()" src="${randomisedArrays.questionsAnswer[globalCounter.counter]}" />`);
-            $(`${pictureTarget[pictureShuffler.ABC[1]]}`).prepend(`<img id="incorrect" onclick="handlers.nextQuestion()" src="${randomisedArrays.locationImagesHard[globalCounter.counter][1]}" />`);
-            $(`${pictureTarget[pictureShuffler.ABC[2]]}`).prepend(`<img id="nearlyCorrect" onclick="handlers.nextQuestion()" src="${randomisedArrays.locationImagesHard[globalCounter.counter][0]}" />`);
+            $(`${pictureTarget[pictureShuffler.ABC[0]]}`).prepend(`<img id="correct" src="${randomisedArrays.questionsAnswer[globalCounter.counter]}" />`);
+            $(`${pictureTarget[pictureShuffler.ABC[1]]}`).prepend(`<img id="incorrect" src="${randomisedArrays.locationImagesHard[globalCounter.counter][1]}" />`);
+            $(`${pictureTarget[pictureShuffler.ABC[2]]}`).prepend(`<img id="nearlyCorrect" src="${randomisedArrays.locationImagesHard[globalCounter.counter][0]}" />`);
         }
     }
 };
 
 
 
-// Display level
+// Calculate level
 
 function calculateLevel() {
-    return globalCounter.counter + 1;
+    if ((globalCounter.counter + 1) > 5) {
+        gameOver();
+    } else {
+        return globalCounter.counter + 1;
+    }
 };
 
-function displayLevel() {
-    let level = calculateLevel();
-    $("#level").empty().html(`${level}`);
-};
+// Calculate score
 
-// Calculate and display score
-
-let playerScore = [];
-let nearlyCorrect = [];
+var playerScore = [];
 
 function calculateScore() {
     playerScore.push(1);
     return playerScore.length * 10;
 };
-
-function displayScore() {
-    let score = calculateScore();
-    $("#score").empty().html(`${score}`);
-}
 
 // Countdown timer
 
@@ -323,7 +322,7 @@ let countdownTimer = {
     },
     countdown: function () {
         this.counter = this.timeRemaining;
-        clearInterval(this.timerInterval);        
+        clearInterval(this.timerInterval);
         this.timerInterval = setInterval(() => {
             this.counter--;
             if (this.counter < 0) {
@@ -331,6 +330,24 @@ let countdownTimer = {
                 gameOver();
             }
         }, 1000);
+    }
+}
+
+function displayLevel() {
+    let level = calculateLevel();
+    if ((globalCounter.counter + 1) > 5) {
+        $("#level").empty();
+    } else {
+        $("#level").empty().html(`${level}`);
+    }
+};
+
+function displayScore() {
+    let score = calculateScore();
+    if ((globalCounter.counter + 1) > 5) {
+        $("#score").empty();
+    } else {
+        $("#score").empty().html(`${score}`);
     }
 }
 
@@ -347,6 +364,12 @@ function displayCountdown() {
 
 // Game over
 
+function gameOver() {
+    let endGameScore = 
+    $("#gameOverModal").modal('show');
+    $("#endGameScore").empty().html(`${endGameScore}`);
+}
+
 // Reset function - resets every array except places[], all counters and random number generators and loads the reset modal which allows the player to start again
 
 function resetAll() {
@@ -356,10 +379,12 @@ function resetAll() {
     randomisedArrays.locationImages = [];
     randomisedArrays.locationImagesHard = [];
     playerScore = [];
+    $("#score").empty().html("0");
+    $("#level").empty().html("0");
     nearlyCorrect = [];
     globalCounter.counter = 0;
     pictureShuffler.randomOne = 0;
     pictureShuffler.randomTwo = 0;
     picturePusher.nextQuestion();
-    $("#welcomeModal").modal('show');
+    $("#welcomeModal").modal("show");
 };
