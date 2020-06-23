@@ -1,5 +1,5 @@
 // Places array - stores all place names, coordinates to push to map and links to correct answer images
-// coordinates_1 is used for hard difficulty
+// coordinates_2 is used for easy difficulty
 
 var places = [
     {
@@ -61,6 +61,36 @@ var places = [
         coordinates: { lat: -33.8649517, lng: 151.2098745 },
         street_view_image_link: ["assets/img/sydneyOconnell.jpg", "assets/img/sydney2.jpg", "assets/img/sydney3.jpg", "assets/img/sydneyNearly.jpg", "assets/img/sydneyIncorrect.jpg"],
         coordinates_2: { lat: -33.8791052, lng: 151.1954087 },
+    },
+    {
+        name: "vancouverPender",
+        coordinates: { lat: 49.2843725, lng: -123.1143808 },
+        street_view_image_link: ["assets/img/vancouverPender.jpg", "assets/img/vancouver2.jpg", "assets/img/vancouver3.jpg", "assets/img/vancouverNearly.jpg", "assets/img/vancouverIncorrect.jpg"],
+        coordinates_2: { lat: 49.281903, lng: -123.131163 },
+    },
+    {
+        name: "bangkokGrandpalace",
+        coordinates: { lat: 13.7489321, lng: 100.4940658 },
+        street_view_image_link: ["assets/img/bangkokGrandpalace.jpg", "assets/img/bangkok2.jpg", "assets/img/bangkok3.jpg", "assets/img/bangkokNearly.jpg", "assets/img/bangkokIncorrect.jpg"],
+        coordinates_2: { lat: 13.7474395, lng: 100.523695 },
+    },
+    {
+        name: "tokyoChuodori",
+        coordinates: { lat: 35.6710284, lng: 139.7648783 },
+        street_view_image_link: ["assets/img/tokyoChuodori.jpg", "assets/img/tokyo2.jpg", "assets/img/tokyo3.jpg", "assets/img/tokyoNearly.jpg", "assets/img/tokyoIncorrect.jpg"],
+        coordinates_2: { lat: 35.6673361, lng: 139.6909901 },
+    },
+    {
+        name: "capetownHof",
+        coordinates: { lat: -33.9342388, lng: 18.4114601 },
+        street_view_image_link: ["assets/img/capetownHof.jpg", "assets/img/capetown2.jpg", "assets/img/capetown3.jpg", "assets/img/capetownNearly.jpg", "assets/img/capetownIncorrect.jpg"],
+        coordinates_2: { lat: -33.9249646, lng: 18.4200563 },
+    },
+    {
+        name: "lagosAdetoKunbo",
+        coordinates: { lat: 6.4341391, lng: 3.4306825 },
+        street_view_image_link: ["assets/img/lagosAdetokunbo.jpg", "assets/img/lagos2.jpg",  "assets/img/lagos3.jpg",  "assets/img/lagosNearly.jpg", "assets/img/lagosIncorrect.jpg"],
+        coordinates_2: { lat: 6.4543899, lng: 3.3877879 },
     }
 ];
 
@@ -307,6 +337,7 @@ function displayCountdown() {
 // Game over
 
 function gameOver() {
+    picturePusher.nextQuestion();
     $("#gameOverModal").modal('show');
 }
 
