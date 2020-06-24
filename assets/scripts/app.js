@@ -89,7 +89,7 @@ var places = [
     {
         name: "lagosAdetoKunbo",
         coordinates: { lat: 6.4341391, lng: 3.4306825 },
-        street_view_image_link: ["assets/img/lagosAdetokunbo.jpg", "assets/img/lagos2.jpg",  "assets/img/lagos3.jpg",  "assets/img/lagosNearly.jpg", "assets/img/lagosIncorrect.jpg"],
+        street_view_image_link: ["assets/img/lagosAdetokunbo.jpg", "assets/img/lagos2.jpg", "assets/img/lagos3.jpg", "assets/img/lagosNearly.jpg", "assets/img/lagosIncorrect.jpg"],
         coordinates_2: { lat: 6.4543899, lng: 3.3877879 },
     }
 ];
@@ -113,12 +113,12 @@ let randomisedArrays = {
     locationImagesHard: [],
     randomArrays: function () {
         let placesSliced = places.slice();                                                        // slice the whole array so as to not destroy places[]
-        for (let i = 0; i < places.length; i++) {                                                  
+        for (let i = 0; i < places.length; i++) {
             let shuffledPlaces = placesSliced[Math.floor(Math.random() * placesSliced.length)];   // shuffledPlaces is a randomly selected object from the place array 
             let index = placesSliced.indexOf(shuffledPlaces);                                     // index is the position of shuffledPlaces in the placesSliced array
             placesSliced.splice(index, 1);                                                        // this index is then used to remove items from the array to avoid duplicates on shuffling 
             if (selectedDifficulty.difficulty.includes("easy")) {                                 // all new arrays are filled with various different pieces of data from places[]
-                this.questionsOrder.push(shuffledPlaces.coordinates_2);         
+                this.questionsOrder.push(shuffledPlaces.coordinates_2);
                 this.questionsAnswer.push(shuffledPlaces.street_view_image_link[1]);
                 this.locationImages.push(shuffledPlaces.street_view_image_link[0], shuffledPlaces.street_view_image_link[2], shuffledPlaces.street_view_image_link[3]);
             } else if (selectedDifficulty.difficulty.includes("hard")) {
@@ -268,11 +268,17 @@ function calculateLevel() {
 
 // Calculate score
 
-var playerScore = [];
-
-function calculateScore() {
-    return playerScore.length * 10;
-};
+let calculatePlayerScore = {
+    playerScore: [],
+    nearlyCorrect: [],
+    calculateScore: function () {
+        if (selectedDifficulty.difficulty.includes("easy")) {
+            return this.playerScore.length * 10;
+        } else if (selectedDifficulty.difficulty.includes("hard")) {
+            return ((this.playerScore.length * 10) + (this.nearlyCorrect.length * 5))
+        }
+    }
+}
 
 // Countdown timer
 
@@ -290,7 +296,7 @@ let countdownTimer = {
     countdown: function () {
         this.counter = this.timeRemaining;                              // this.timeRemaining stays constant - this.counter is equivalent to this.timeRemaining when beginning countdown
         clearInterval(this.timerInterval);                              // clear interval resets timer each time countdownTimer.countdown is used
-        this.timerInterval = setInterval(() => {                        
+        this.timerInterval = setInterval(() => {
             this.counter--;
             if (this.counter < 0) {
                 clearInterval(this.timerInterval);                      // timer stops at 0 and gameOver function triggered if player left game alone
@@ -300,7 +306,7 @@ let countdownTimer = {
     }
 }
 
-// display level and call gameOver function when level 5 complete
+// display level 
 
 function displayLevel() {
     let level = calculateLevel();
@@ -314,7 +320,7 @@ function displayLevel() {
 // display score and have it ready on game over modal
 
 function displayScore() {
-    let score = calculateScore();
+    let score = calculatePlayerScore.calculateScore();
     $("#score").empty().html(`${score}`);
     $("#endGameScore").empty().html(`${score}`);
 }
@@ -347,7 +353,8 @@ function resetAll() {
     randomisedArrays.questionsAnswer = [];
     randomisedArrays.locationImages = [];
     randomisedArrays.locationImagesHard = [];
-    playerScore = [];
+    calculatePlayerScore.playerScore = [];
+    calculatePlayerScore.nearlyCorrect = [];
     globalCounter.counter = 0;
     pictureShuffler.randomOne = 0;
     pictureShuffler.randomTwo = 0;
@@ -409,6 +416,11 @@ $(document).on("click", "#playAgain", function () {
 });
 
 $(document).on("click", "#correct", function () {
-    playerScore.push(1);
+    calculatePlayerScore.playerScore.push(1);
+    displayScore();
+});
+
+$(document).on("click", "#nearlyCorrect", function () {
+    calculatePlayerScore.nearlyCorrect.push(1);
     displayScore();
 });
