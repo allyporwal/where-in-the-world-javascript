@@ -340,10 +340,10 @@ function displayCountdown() {
 
 // Game over
 
-function gameOver() {
-    picturePusher.nextQuestion();
-    $("#gameOverModal").modal('show');
-}
+// function gameOver() {
+//     picturePusher.nextQuestion();
+//     $("#gameOverModal").modal('show');
+// }
 
 // Reset function - resets every array except places[], all counters and random number generators, and loads the reset modal which allows the player to start again
 

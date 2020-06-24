@@ -1,25 +1,29 @@
+.row {
+    margin: 0;
+}
+
+#quizContainer {
+    padding: 0;
+}
+
 #map {
     width: 100%;
     height: 448px;
     background-color: lightgrey;
 }
 
-#streetview1 {
-    width: 300px;
-    height: 200px;
-}
-
-#streetview2 {
-    width: 300px;
-    height: 200px;
-}
-
-#streetview3 {
-    width: 300px;
-    height: 200px;
+.streetview {
+    width: 350px;
+    height: 215px;
+    margin: 20px;
+    padding: 0;
 }
 
 img {
     width: 300px;
     height: 200px;
+}
+
+progress {
+    height: 50px;
 }

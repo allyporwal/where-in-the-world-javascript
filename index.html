@@ -38,16 +38,23 @@
         </button>
 				</div>
 				<div class="modal-body">
-                <p>Welcome! This fun little game will show you a location on a map (that you can interact with) and three street level images from Google Street View. Your challenge is to guess which image corresponds to the location marked on the map.</p>
+					<p>Welcome! This fun little game will show you a location on a map (that you can interact with) and
+						three street level images from Google Street View. Your challenge is to guess which image
+						corresponds to the location marked on the map. You'll get five locations on each playthrough.</p>
 					<label for="difficulty">Select difficulty:</label>
 					<select name="difficulty" id="difficultyStart">
                 <option value="easy">Easy</option>
                 <option value="hard">Hard</option>
                 </select>
-                <ul>
-                <li>Easy difficulty means totally random image selection, you might see the same image more than once and that helps you narrow down the correct. There's a generous 30 second time limit.</li>
-                <li>Hard difficulty means you'll see three images from the same city each taken within a few hundred metres of each other. Each image might show the same road layout and/or landmarks in. Look closely to get the correct answer but be quick...you've only got 15 seconds to make a guess!</li>
-                </ul>
+					<ul>
+						<li>Easy difficulty means totally random image selection, you might see the same image more than
+							once and that helps you narrow down the correct. There's a generous 30 second time limit and you get 10 points per correct answer.
+						</li>
+						<li>Hard difficulty means you'll see three images from the same city each taken within a few
+							hundred metres of each other. Each image might show the same road layout and/or landmarks
+							in. Look closely to get the correct answer but be quick...you've only got 15 seconds to make
+							a guess! 10 points for a correct answer and 5 points if you're nearly correct.</li>
+					</ul>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-primary btn-block" data-dismiss="modal" id="startGame" >Start!</button>
@@ -68,7 +75,7 @@
         </button>
 				</div>
 				<div class="modal-body">
-                <p>Well done! You scored: <span id="endGameScore"> </span> points</p>
+					<p>Well done! You scored: <span id="endGameScore"> </span> points</p>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-primary btn-block" data-dismiss="modal" id="playAgain" >Play again!</button>
@@ -80,25 +87,25 @@
 	<!-- Map container -->
 
 	<div id="quizContainer" class="container">
-		<div class="row">
+		<div class="row justify-content-center">
 			<div class="col-lg-6 col-md-12" id="map"></div>
 			<div class="col-lg-3 col-md-12">
 				<p>Level: <span id="level"></span>/5</p>
 				<p>timer</p>
 				<progress value="0" max="30" id="countdownTimer"></progress>
 				<div id="countdownTimer2"></div>
-				<button id="reset">Restart</button>
+				<button class="btn btn-warning" id="reset">Restart</button>
 				<!-- <button onclick="handlers.shufflePictures()">Remove images</button> -->
-			</div>
-			<div class="col-lg-3 col-md-12 streetview1 answer" id="streetview1">
 			</div>
 		</div>
 	</div>
 	<div class="container">
-		<div class="row justify-content-end">
-			<div class="col-lg-3 col-md-12 streetview2 answer" id="streetview2">
+		<div class="row justify-content-center">
+			<div class="col-lg-3 col-md-12 streetview answer" id="streetview1">
 			</div>
-			<div class="col-lg-3 col-md-12 streetview3 answer" id="streetview3">
+			<div class="col-lg-3 col-md-12 streetview answer" id="streetview2">
+			</div>
+			<div class="col-lg-3 col-md-12 streetview answer" id="streetview3">
 			</div>
 		</div>
 	</div>
