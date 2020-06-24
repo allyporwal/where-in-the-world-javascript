@@ -23,8 +23,9 @@
 </head>
 
 <body>
-	<h1>Where in the world?</h1>
-	<h2>Score: <span id="score">0</span>/50</h2>
+	<nav class="navbar navbar-expand-md navbar-light bg-light">
+		<h1>Where in the World...?</h1>
+	</nav>
 
 	<!-- Modal -->
 
@@ -40,7 +41,8 @@
 				<div class="modal-body">
 					<p>Welcome! This fun little game will show you a location on a map (that you can interact with) and
 						three street level images from Google Street View. Your challenge is to guess which image
-						corresponds to the location marked on the map. You'll get five locations on each playthrough.</p>
+						corresponds to the location marked on the map. You'll get five locations on each playthrough.
+					</p>
 					<label for="difficulty">Select difficulty:</label>
 					<select name="difficulty" id="difficultyStart">
                 <option value="easy">Easy</option>
@@ -48,7 +50,8 @@
                 </select>
 					<ul>
 						<li>Easy difficulty means totally random image selection, you might see the same image more than
-							once and that helps you narrow down the correct. There's a generous 30 second time limit and you get 10 points per correct answer.
+							once and that helps you narrow down the correct. There's a generous 30 second time limit and
+							you get 10 points per correct answer.
 						</li>
 						<li>Hard difficulty means you'll see three images from the same city each taken within a few
 							hundred metres of each other. Each image might show the same road layout and/or landmarks
@@ -89,27 +92,51 @@
 	<div id="quizContainer" class="container">
 		<div class="row justify-content-center">
 			<div class="col-lg-6 col-md-12" id="map"></div>
-			<div class="col-lg-3 col-md-12">
-				<p>Level: <span id="level"></span>/5</p>
-				<p>timer</p>
+			<div class="col-lg-6 col-md-12" id="levelContainer">
+				<h2>Score: <span id="score">0</span>/50</h2>
+				<h4>Level: <span id="level"></span>/5</h4>
+				<p id="timeRemaining">Time remaining:</p>
 				<progress value="0" max="30" id="countdownTimer"></progress>
-				<div id="countdownTimer2"></div>
-				<button class="btn btn-warning" id="reset">Restart</button>
-				<!-- <button onclick="handlers.shufflePictures()">Remove images</button> -->
+				<button class="btn btn-outline-warning" id="reset">Restart</button>
+
 			</div>
 		</div>
 	</div>
-	<div class="container">
+	<div class="container" id="imgContainer">
 		<div class="row justify-content-center">
-			<div class="col-lg-3 col-md-12 streetview answer" id="streetview1">
+			<div class="col-lg-4 col-md-12 streetview" id="streetview1">
 			</div>
-			<div class="col-lg-3 col-md-12 streetview answer" id="streetview2">
+			<div class="col-lg-4 col-md-12 streetview" id="streetview2">
 			</div>
-			<div class="col-lg-3 col-md-12 streetview answer" id="streetview3">
+			<div class="col-lg-4 col-md-12 streetview" id="streetview3">
 			</div>
 		</div>
 	</div>
 
+	<!-- <footer class="container-fluid">
+		<div class="row">
+			<div class="col-12">
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-12">
+				<p class="socialMedia-links">
+					<a target="_blank" href="https://www.facebook.com/counterpointfitness">
+						<i class="fab fa-facebook-f"></i>
+					</a>
+					<a target="_blank" href="https://www.instagram.com/counterpointfitness">
+						<i class="fab fa-instagram"></i>
+					</a>
+					<a target="_blank" href="https://www.youtube.com/channel/UCOO4KTnw0RBOHLXTtHrLWrQ">
+						<i class="fab fa-youtube"></i>
+					</a>
+					<a target="_blank" href="https://www.linkedin.com/in/alastair-porwal-30385557/">
+						<i class="fab fa-linkedin-in"></i>
+					</a>
+				</p>
+			</div>
+		</div>
+	</footer> -->
 
 
 	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.slim.min.js"></script> -->

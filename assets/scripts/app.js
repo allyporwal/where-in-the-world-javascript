@@ -229,13 +229,13 @@ let picturePusher = {
     pictureTarget: ["#streetview1", "#streetview2", "#streetview3"],
     gameStart: function () {
         if (selectedDifficulty.difficulty.includes("easy")) {
-            $(`${this.pictureTarget[pictureShuffler.ABC[0]]}`).prepend(`<img id="correct" src="${randomisedArrays.questionsAnswer[globalCounter.counter]}" />`);
-            $(`${this.pictureTarget[pictureShuffler.ABC[1]]}`).prepend(`<img id="incorrect" src="${randomisedArrays.locationImages[pictureShuffler.randomOne]}" />`);
-            $(`${this.pictureTarget[pictureShuffler.ABC[2]]}`).prepend(`<img id="nearlyCorrect" src="${randomisedArrays.locationImages[pictureShuffler.randomTwo]}" />`);
+            $(`${this.pictureTarget[pictureShuffler.ABC[0]]}`).prepend(`<img id="correct" class="streetviewImg" src="${randomisedArrays.questionsAnswer[globalCounter.counter]}" />`);
+            $(`${this.pictureTarget[pictureShuffler.ABC[1]]}`).prepend(`<img id="incorrect" class="streetviewImg" src="${randomisedArrays.locationImages[pictureShuffler.randomOne]}" />`);
+            $(`${this.pictureTarget[pictureShuffler.ABC[2]]}`).prepend(`<img id="nearlyCorrect" class="streetviewImg" src="${randomisedArrays.locationImages[pictureShuffler.randomTwo]}" />`);
         } else if (selectedDifficulty.difficulty.includes("hard")) {
-            $(`${this.pictureTarget[pictureShuffler.ABC[0]]}`).prepend(`<img id="correct" src="${randomisedArrays.questionsAnswer[globalCounter.counter]}" />`);
-            $(`${this.pictureTarget[pictureShuffler.ABC[1]]}`).prepend(`<img id="incorrect" src="${randomisedArrays.locationImagesHard[globalCounter.counter][1]}" />`);
-            $(`${this.pictureTarget[pictureShuffler.ABC[2]]}`).prepend(`<img id="nearlyCorrect" src="${randomisedArrays.locationImagesHard[globalCounter.counter][0]}" />`);
+            $(`${this.pictureTarget[pictureShuffler.ABC[0]]}`).prepend(`<img id="correct" class="streetviewImg" src="${randomisedArrays.questionsAnswer[globalCounter.counter]}" />`);
+            $(`${this.pictureTarget[pictureShuffler.ABC[1]]}`).prepend(`<img id="incorrect" class="streetviewImg" src="${randomisedArrays.locationImagesHard[globalCounter.counter][1]}" />`);
+            $(`${this.pictureTarget[pictureShuffler.ABC[2]]}`).prepend(`<img id="nearlyCorrect" class="streetviewImg" src="${randomisedArrays.locationImagesHard[globalCounter.counter][0]}" />`);
         }
     },
     nextQuestion: function () {
@@ -245,13 +245,13 @@ let picturePusher = {
     },
     nextQuestionSet: function () {
         if (selectedDifficulty.difficulty.includes("easy")) {
-            $(`${this.pictureTarget[pictureShuffler.ABC[0]]}`).prepend(`<img id="correct" src="${randomisedArrays.questionsAnswer[globalCounter.counter]}" />`);
-            $(`${this.pictureTarget[pictureShuffler.ABC[1]]}`).prepend(`<img id="incorrect" src="${randomisedArrays.locationImages[pictureShuffler.randomOne]}" />`);
-            $(`${this.pictureTarget[pictureShuffler.ABC[2]]}`).prepend(`<img id="nearlyCorrect" src="${randomisedArrays.locationImages[pictureShuffler.randomTwo]}" />`);
+            $(`${this.pictureTarget[pictureShuffler.ABC[0]]}`).prepend(`<img id="correct" class="streetviewImg" src="${randomisedArrays.questionsAnswer[globalCounter.counter]}" />`);
+            $(`${this.pictureTarget[pictureShuffler.ABC[1]]}`).prepend(`<img id="incorrect" class="streetviewImg" src="${randomisedArrays.locationImages[pictureShuffler.randomOne]}" />`);
+            $(`${this.pictureTarget[pictureShuffler.ABC[2]]}`).prepend(`<img id="nearlyCorrect" class="streetviewImg" src="${randomisedArrays.locationImages[pictureShuffler.randomTwo]}" />`);
         } else if (selectedDifficulty.difficulty.includes("hard")) {
-            $(`${this.pictureTarget[pictureShuffler.ABC[0]]}`).prepend(`<img id="correct" src="${randomisedArrays.questionsAnswer[globalCounter.counter]}" />`);
-            $(`${this.pictureTarget[pictureShuffler.ABC[1]]}`).prepend(`<img id="incorrect" src="${randomisedArrays.locationImagesHard[globalCounter.counter][1]}" />`);
-            $(`${this.pictureTarget[pictureShuffler.ABC[2]]}`).prepend(`<img id="nearlyCorrect" src="${randomisedArrays.locationImagesHard[globalCounter.counter][0]}" />`);
+            $(`${this.pictureTarget[pictureShuffler.ABC[0]]}`).prepend(`<img id="correct" class="streetviewImg" src="${randomisedArrays.questionsAnswer[globalCounter.counter]}" />`);
+            $(`${this.pictureTarget[pictureShuffler.ABC[1]]}`).prepend(`<img id="incorrect" class="streetviewImg" src="${randomisedArrays.locationImagesHard[globalCounter.counter][1]}" />`);
+            $(`${this.pictureTarget[pictureShuffler.ABC[2]]}`).prepend(`<img id="nearlyCorrect" class="streetviewImg" src="${randomisedArrays.locationImagesHard[globalCounter.counter][0]}" />`);
         }
     }
 };
