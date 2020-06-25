@@ -208,7 +208,7 @@ let pictureShuffler = {
     generateRandomOne: function () {
         if (selectedDifficulty.difficulty.includes("easy")) {
             do {
-                this.randomOne = Math.floor(Math.random() * randomisedArrays.locationImages.length);   // generate a different random number if same as counter
+            this.randomOne = Math.floor(Math.random() * randomisedArrays.locationImages.length);   // generate a different random number if same as counter
             } while (this.randomOne === globalCounter.counter);
         }
     },
@@ -216,7 +216,7 @@ let pictureShuffler = {
     generateRandomTwo: function () {
         if (selectedDifficulty.difficulty.includes("easy")) {
             do {
-                this.randomTwo = Math.floor(Math.random() * randomisedArrays.locationImages.length);   // generate a different random number if same as counter AND/OR randomOne
+            this.randomTwo = Math.floor(Math.random() * randomisedArrays.locationImages.length);   // generate a different random number if same as counter AND/OR randomOne
             } while (this.randomTwo === globalCounter.counter || this.randomTwo === this.randomOne);
         }
     }
@@ -343,6 +343,7 @@ function displayCountdown() {
 function gameOver() {
     picturePusher.nextQuestion();
     $("#gameOverModal").modal('show');
+    clearInterval(countdownTimer.timerInterval);
 }
 
 // Reset function - resets every array except places[], all counters and random number generators, and loads the reset modal which allows the player to start again

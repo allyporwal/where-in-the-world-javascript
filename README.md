@@ -38,4 +38,29 @@ The wireframe for the app was done in Balsamiq:
 
 1. Pre-game wireframe
 
+![pre-game wireframe](https://raw.githubusercontent.com/allyporwal/interactive-fontend-milestone/master/wireframes/Pre%20game.png)
+
+2. In-game wireframe
+
+![in-game wireframe](https://raw.githubusercontent.com/allyporwal/interactive-fontend-milestone/master/wireframes/Game%20in%20progress%20screen.png)
+
+3. Post-game wireframe
+
+![post-game wireframe](https://raw.githubusercontent.com/allyporwal/interactive-fontend-milestone/master/wireframes/Post%20game.png)
+
+### Surface
+
+The minimalist design is complemented with simple colour schemes and layout. 
+
+<hr>
+
+## Curent Features
+
+1. 
+
+
+
+
+
+
 
