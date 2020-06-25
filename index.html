@@ -22,7 +22,7 @@
 	<title>Title</title>
 </head>
 
-<body>
+<body class="bgDefault">
 	<nav class="navbar navbar-expand-md navbar-light bg-light">
 		<h1>Where in the World...?</h1>
 	</nav>
@@ -90,25 +90,30 @@
 	<!-- Map container -->
 
 	<div id="quizContainer" class="container">
-		<div class="row justify-content-center">
+		<div class="row">
+			<div class="col-lg-1"></div>
 			<div class="col-lg-6 col-md-12" id="map"></div>
-			<div class="col-lg-6 col-md-12" id="levelContainer">
+			<div class="col-lg-1 col-md-12"></div>
+			<div class="col-lg-3 col-md-12 text-center align-items-center" id="levelContainer">
 				<h2>Score: <span id="score">0</span>/50</h2>
+				<hr>
 				<h4>Level: <span id="level"></span>/5</h4>
 				<p id="timeRemaining">Time remaining:</p>
 				<progress value="0" max="30" id="countdownTimer"></progress>
-				<button class="btn btn-outline-warning" id="reset">Restart</button>
+				<hr>
+				<button class="btn btn-outline-warning btn-block" id="reset">Restart</button>
 
 			</div>
+
 		</div>
 	</div>
-	<div class="container" id="imgContainer">
+	<div class="container-fluid" id="imgContainer">
 		<div class="row justify-content-center">
-			<div class="col-lg-4 col-md-12 streetview" id="streetview1">
+			<div class="col-lg-4 col-md-6 streetview" id="streetview1">
 			</div>
-			<div class="col-lg-4 col-md-12 streetview" id="streetview2">
+			<div class="col-lg-4 col-md-6 streetview" id="streetview2">
 			</div>
-			<div class="col-lg-4 col-md-12 streetview" id="streetview3">
+			<div class="col-lg-4 col-md-6 streetview" id="streetview3">
 			</div>
 		</div>
 	</div>
