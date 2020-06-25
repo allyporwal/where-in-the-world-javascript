@@ -360,6 +360,7 @@ function resetAll() {
     pictureShuffler.randomTwo = 0;
     $("#score").empty().html("0");
     $("#level").empty().html("0");
+    $("#endGameScore").empty().html("0");
     picturePusher.nextQuestion();
     $("#welcomeModal").modal("show");
 };
@@ -390,9 +391,6 @@ var handlers = {
         countdownTimer.countdown();
         displayCountdown();
         displayLevel();
-    },
-    resetAll: function () {
-        handlers.resetAll();
     },
 };
 
