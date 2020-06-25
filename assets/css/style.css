@@ -5,6 +5,11 @@
     margin-bottom: 10px;
 }
 
+body {
+    color: #616161;
+    font-weight: 100;
+}
+
 .bgDefault {
     background: url('../img/bgworld.jpg') no-repeat center center fixed;
     -webkit-background-size: cover;
@@ -13,8 +18,17 @@
     background-size: cover;
     background-blend-mode: screen;
     background-color: #a2a2a2;
-    color: #616161;
-    font-weight: 100;
+}
+
+.bgCorrect {
+    background: url('../img/bgworld.jpg') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-blend-mode: screen;
+    background-color: #21b31c;
+
 }
 
 #welcomeModal {
@@ -69,6 +83,10 @@ progress::-moz-progress-bar {
     margin: auto;
 }
 
+#reset:hover {
+    background-color: rgba(41, 154, 206, 0.3); 
+}
+
 .streetview {
     width: 370px;
     height: 230px;
@@ -83,10 +101,14 @@ progress::-moz-progress-bar {
     object-fit: cover;
     width: 350px;
     height: auto;
-    border: 2px inset grey;
+    border: 2px inset rgb(41, 154, 206);
     position: relative;
     margin: 5px;  
     clear: both;  
+}
+
+.streetviewImg:hover {  
+    border: 2px outset #f47c3cc4;    
 }
 
 h1 {
