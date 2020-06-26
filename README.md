@@ -34,7 +34,7 @@ The page is deliberately simple - on the page loading the welcome modal pops up 
 
 ### Skeleton
 
-The wireframe for the app was done in Balsamiq:
+The wireframe for the app was done in Balsamiq and there are some subtle differences between the sketches and the finished app:
 
 1. Pre-game wireframe
 
@@ -56,7 +56,27 @@ The minimalist design is complemented with simple colour schemes and layout.
 
 ## Curent Features
 
-1. 
+1. Welcome modal that shows the player how to play the game
+2. Google Maps API integration to display locations
+3. Images dynamically loaded to the page
+4. Two different difficulty levels, each with different scoring 
+5. A countdown timer to impose a time limit on the game
+6. A game over modal that shows the player their score and allows them to go again
+
+## Future Features
+
+1. A larger array of places for the player to be shown
+2. Different playing modes based around continents - for example, a mode on major European cities
+3. A progressive level of difficulty that increases the toughness as each playthrough goes on
+
+<hr>
+
+## Deployment
+
+This project was deployed on Github Pages by going to the Github repository settings, scrolling to the Github Pages section, selecting the "master branch" from the source dropdown menu and then letting the page automatically refresh.
+
+The link to the live site then became visible and it will update if any changes are made on the master branch of the repository.
+
 
 
 

@@ -35,6 +35,13 @@ body {
     font-weight: 300;
 }
 
+#annotatedScreenshot {
+    /* display: block; */
+  max-height: 100%;
+  max-width: 100%;
+
+}
+
 .row {
     margin: 0;
 }
