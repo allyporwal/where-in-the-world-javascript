@@ -103,8 +103,10 @@ let selectedDifficulty = {
     },
 };
 
-// randomisedArrays object ensures that on each playthrough the places array is pushed to the page in a different order. This doesn't destroy the original places array, allowing 
-// for implementation of a reset feature. Also stores images for medium and hard difficulty levels in seperate arrays.
+// randomisedArrays object ensures that on each playthrough the places array is 
+// pushed to the page in a different order. This doesn't destroy the original 
+// places array, allowing for implementation of a reset feature. Also stores 
+// images for medium and hard difficulty levels in seperate arrays.
 
 let randomisedArrays = {
     questionsOrder: [],
@@ -112,25 +114,40 @@ let randomisedArrays = {
     locationImages: [],
     locationImagesHard: [],
     randomArrays: function () {
-        let placesSliced = places.slice();                                                        // slice the whole array so as to not destroy places[]
+        // slice the whole array so as to not destroy places[]
+        let placesSliced = places.slice();
         for (let i = 0; i < places.length; i++) {
-            let shuffledPlaces = placesSliced[Math.floor(Math.random() * placesSliced.length)];   // shuffledPlaces is a randomly selected object from the place array 
-            let index = placesSliced.indexOf(shuffledPlaces);                                     // index is the position of shuffledPlaces in the placesSliced array
-            placesSliced.splice(index, 1);                                                        // this index is then used to remove items from the array to avoid duplicates on shuffling 
-            if (selectedDifficulty.difficulty.includes("easy")) {                                 // all new arrays are filled with various different pieces of data from places[]
+            // shuffledPlaces is a randomly selected object from the place array
+            // index is the position of shuffledPlaces in the placesSliced array
+            // this index is then used to remove items from the array to avoid 
+            // duplicates on shuffling  
+            let shuffledPlaces = placesSliced[Math.floor(Math.random() *
+                placesSliced.length)];
+            let index = placesSliced.indexOf(shuffledPlaces);
+            placesSliced.splice(index, 1);
+            // all new arrays are filled with various different pieces of data 
+            // from places[]                                                         
+            if (selectedDifficulty.difficulty.includes("easy")) {
                 this.questionsOrder.push(shuffledPlaces.coordinates_2);
                 this.questionsAnswer.push(shuffledPlaces.street_view_image_link[1]);
-                this.locationImages.push(shuffledPlaces.street_view_image_link[0], shuffledPlaces.street_view_image_link[2], shuffledPlaces.street_view_image_link[3]);
+                this.locationImages.push(shuffledPlaces.street_view_image_link[0],
+                    shuffledPlaces.street_view_image_link[2],
+                    shuffledPlaces.street_view_image_link[3]);
             } else if (selectedDifficulty.difficulty.includes("hard")) {
                 this.questionsOrder.push(shuffledPlaces.coordinates);
                 this.questionsAnswer.push(shuffledPlaces.street_view_image_link[0]);
-                this.locationImagesHard.push([shuffledPlaces.street_view_image_link[3], shuffledPlaces.street_view_image_link[4]]);
+                // pushes these two items as an array to create a nested array of 
+                // images to be used in the hard difficulty setting
+                this.locationImagesHard.push([shuffledPlaces.street_view_image_link[3],
+                shuffledPlaces.street_view_image_link[4]]);
             }
         }
     }
 };
 
-// global counter keeps track of the level and ensures that the correct image is always loaded to one of the target divs - its value is used in several subsequent objects
+// global counter keeps track of the level and ensures that the correct image is 
+// always loaded to one of the target divs - its value is used in several 
+// subsequent objects
 
 let globalCounter = {
     counter: 0,
@@ -143,7 +160,8 @@ let globalCounter = {
 
 // Map is loaded when clicking start game button from either welcome or reset modal
 // loads places for each question from the randomly ordered array
-// listens for clicks on divs that contain images and goes the next location in the questionsOrder array, causing the map to pin and pan to new marker
+// listens for clicks on divs that contain images and goes the next location in the 
+// questionsOrder array, causing the map to pin and pan to new marker
 
 function initMap() {
     var options = {
@@ -162,9 +180,15 @@ function initMap() {
     google.maps.event.addDomListener(streetview1, "click", function () {
         marker.setMap(null);
         new google.maps.Marker({
-            position: randomisedArrays.questionsOrder[globalCounter.counter + 1], // the + 1 in the code here prevents a bug - if removed, the map lags behind the images in the array
-            map: map,                                                             // it seems to be caused (as far as I can tell) by some sort of conflict between jQuery and Google Maps
-        });                                                                       // the code should not trigger this bug, but if the pictures have "onClick" attached to them, rather than using jQuery, the bug is not present
+            // the + 1 in the code here prevents a bug - if removed, the map lags 
+            // behind the images in the array it seems to be caused (as far as I can 
+            // tell) by some sort of conflict between jQuery and Google Maps the code 
+            // should not trigger this bug, but if the pictures have "onClick" attached 
+            // to them when pushed to the DOM by jQuery rather than using a jQuery 
+            // selector to trigger all the methods, the bug is not present
+            position: randomisedArrays.questionsOrder[globalCounter.counter + 1],
+            map: map,
+        });
         map.panTo(randomisedArrays.questionsOrder[globalCounter.counter + 1]);
         map.setZoom(16);
     });
@@ -189,15 +213,21 @@ function initMap() {
 };
 
 // Quiz objects
-// pictureShuffler contains everything needed to randomise image selection and target divs on each playthrough
+// pictureShuffler contains everything needed to randomise image selection and 
+// target divs on each playthrough
 // shufflePictures method selects a random target div for each city image 
-// randomOne and randomTwo methods are random number generators that run a random number generator while the output of them is equivalent to the global counter or each other, resulting in three
+// randomOne and randomTwo methods are random number generators that run a 
+// random number generator while the output of them is equivalent to the global 
+// counter or each other, resulting in three
 // different numbers. 
 
 let pictureShuffler = {
-    ABC: [0, 1, 2],                                       // unlike the handling of the places array, ABC[] is shuffled in-place
+    // unlike the handling of the places array, ABC[] is shuffled in-place
+    ABC: [0, 1, 2],
     shufflePictures: function (array) {
-        for (let i = array.length - 1; i > 0; i--) {      // this is a JS version of the Durstenfeld shuffle
+        // this is a JS version of the Durstenfeld shuffle, source for this
+        // piece of code in README.md
+        for (let i = array.length - 1; i > 0; i--) {
             let j = Math.floor(Math.random() * (i + 1));
             let temp = array[i];
             array[i] = array[j];
@@ -207,35 +237,54 @@ let pictureShuffler = {
     randomOne: 0,
     generateRandomOne: function () {
         if (selectedDifficulty.difficulty.includes("easy")) {
+            // generate a different random number if same as counter
             do {
-            this.randomOne = Math.floor(Math.random() * randomisedArrays.locationImages.length);   // generate a different random number if same as counter
+                this.randomOne = Math.floor(Math.random() *
+                    randomisedArrays.locationImages.length);
             } while (this.randomOne === globalCounter.counter);
         }
     },
     randomTwo: 0,
     generateRandomTwo: function () {
         if (selectedDifficulty.difficulty.includes("easy")) {
+            // generate a different random number if same as counter AND/OR 
+            // randomOne
             do {
-            this.randomTwo = Math.floor(Math.random() * randomisedArrays.locationImages.length);   // generate a different random number if same as counter AND/OR randomOne
-            } while (this.randomTwo === globalCounter.counter || this.randomTwo === this.randomOne);
+                this.randomTwo = Math.floor(Math.random() *
+                    randomisedArrays.locationImages.length);
+            } while (this.randomTwo === globalCounter.counter ||
+                this.randomTwo === this.randomOne);
         }
     }
 };
 
-// picturePusher object targets the divs, loads images to DOM and removes images after each question. Image ID is used to calculate score on hard difficulty.
+// picturePusher object targets the divs, loads images to DOM and removes images 
+// after each question. Image ID is used to calculate score on hard difficulty.
 // else if statements are used to load correct images for both difficulty levels
 
 let picturePusher = {
     pictureTarget: ["#streetview1", "#streetview2", "#streetview3"],
     gameStart: function () {
         if (selectedDifficulty.difficulty.includes("easy")) {
-            $(`${this.pictureTarget[pictureShuffler.ABC[0]]}`).prepend(`<img id="correct" class="streetviewImg" src="${randomisedArrays.questionsAnswer[globalCounter.counter]}" />`);
-            $(`${this.pictureTarget[pictureShuffler.ABC[1]]}`).prepend(`<img id="incorrect" class="streetviewImg" src="${randomisedArrays.locationImages[pictureShuffler.randomOne]}" />`);
-            $(`${this.pictureTarget[pictureShuffler.ABC[2]]}`).prepend(`<img id="nearlyCorrect" class="streetviewImg" src="${randomisedArrays.locationImages[pictureShuffler.randomTwo]}" />`);
+            $(`${this.pictureTarget[pictureShuffler.ABC[0]]}`)
+                .prepend(`<img id="correct" class="streetviewImg" 
+            src="${randomisedArrays.questionsAnswer[globalCounter.counter]}" />`);
+            $(`${this.pictureTarget[pictureShuffler.ABC[1]]}`)
+                .prepend(`<img id="incorrect" class="streetviewImg" 
+            src="${randomisedArrays.locationImages[pictureShuffler.randomOne]}" />`);
+            $(`${this.pictureTarget[pictureShuffler.ABC[2]]}`)
+                .prepend(`<img id="nearlyCorrect" class="streetviewImg" 
+            src="${randomisedArrays.locationImages[pictureShuffler.randomTwo]}" />`);
         } else if (selectedDifficulty.difficulty.includes("hard")) {
-            $(`${this.pictureTarget[pictureShuffler.ABC[0]]}`).prepend(`<img id="correct" class="streetviewImg" src="${randomisedArrays.questionsAnswer[globalCounter.counter]}" />`);
-            $(`${this.pictureTarget[pictureShuffler.ABC[1]]}`).prepend(`<img id="incorrect" class="streetviewImg" src="${randomisedArrays.locationImagesHard[globalCounter.counter][1]}" />`);
-            $(`${this.pictureTarget[pictureShuffler.ABC[2]]}`).prepend(`<img id="nearlyCorrect" class="streetviewImg" src="${randomisedArrays.locationImagesHard[globalCounter.counter][0]}" />`);
+            $(`${this.pictureTarget[pictureShuffler.ABC[0]]}`)
+                .prepend(`<img id="correct" class="streetviewImg" 
+            src="${randomisedArrays.questionsAnswer[globalCounter.counter]}" />`);
+            $(`${this.pictureTarget[pictureShuffler.ABC[1]]}`)
+                .prepend(`<img id="incorrect" class="streetviewImg" 
+            src="${randomisedArrays.locationImagesHard[globalCounter.counter][1]}" />`);
+            $(`${this.pictureTarget[pictureShuffler.ABC[2]]}`)
+                .prepend(`<img id="nearlyCorrect" class="streetviewImg" 
+            src="${randomisedArrays.locationImagesHard[globalCounter.counter][0]}" />`);
         }
     },
     nextQuestion: function () {
@@ -245,13 +294,25 @@ let picturePusher = {
     },
     nextQuestionSet: function () {
         if (selectedDifficulty.difficulty.includes("easy")) {
-            $(`${this.pictureTarget[pictureShuffler.ABC[0]]}`).prepend(`<img id="correct" class="streetviewImg" src="${randomisedArrays.questionsAnswer[globalCounter.counter]}" />`);
-            $(`${this.pictureTarget[pictureShuffler.ABC[1]]}`).prepend(`<img id="incorrect" class="streetviewImg" src="${randomisedArrays.locationImages[pictureShuffler.randomOne]}" />`);
-            $(`${this.pictureTarget[pictureShuffler.ABC[2]]}`).prepend(`<img id="nearlyCorrect" class="streetviewImg" src="${randomisedArrays.locationImages[pictureShuffler.randomTwo]}" />`);
+            $(`${this.pictureTarget[pictureShuffler.ABC[0]]}`)
+                .prepend(`<img id="correct" class="streetviewImg" 
+            src="${randomisedArrays.questionsAnswer[globalCounter.counter]}" />`);
+            $(`${this.pictureTarget[pictureShuffler.ABC[1]]}`)
+                .prepend(`<img id="incorrect" class="streetviewImg" 
+            src="${randomisedArrays.locationImages[pictureShuffler.randomOne]}" />`);
+            $(`${this.pictureTarget[pictureShuffler.ABC[2]]}`)
+                .prepend(`<img id="nearlyCorrect" class="streetviewImg" 
+            src="${randomisedArrays.locationImages[pictureShuffler.randomTwo]}" />`);
         } else if (selectedDifficulty.difficulty.includes("hard")) {
-            $(`${this.pictureTarget[pictureShuffler.ABC[0]]}`).prepend(`<img id="correct" class="streetviewImg" src="${randomisedArrays.questionsAnswer[globalCounter.counter]}" />`);
-            $(`${this.pictureTarget[pictureShuffler.ABC[1]]}`).prepend(`<img id="incorrect" class="streetviewImg" src="${randomisedArrays.locationImagesHard[globalCounter.counter][1]}" />`);
-            $(`${this.pictureTarget[pictureShuffler.ABC[2]]}`).prepend(`<img id="nearlyCorrect" class="streetviewImg" src="${randomisedArrays.locationImagesHard[globalCounter.counter][0]}" />`);
+            $(`${this.pictureTarget[pictureShuffler.ABC[0]]}`)
+                .prepend(`<img id="correct" class="streetviewImg" 
+            src="${randomisedArrays.questionsAnswer[globalCounter.counter]}" />`);
+            $(`${this.pictureTarget[pictureShuffler.ABC[1]]}`)
+                .prepend(`<img id="incorrect" class="streetviewImg" 
+            src="${randomisedArrays.locationImagesHard[globalCounter.counter][1]}" />`);
+            $(`${this.pictureTarget[pictureShuffler.ABC[2]]}`)
+                .prepend(`<img id="nearlyCorrect" class="streetviewImg" 
+            src="${randomisedArrays.locationImagesHard[globalCounter.counter][0]}" />`);
         }
     }
 };
@@ -260,7 +321,8 @@ let picturePusher = {
 
 function calculateLevel() {
     if ((globalCounter.counter + 1) > 5) {
-        gameOver();                               // gameOver triggered on completion of level 5
+        // gameOver triggered on completion of level 5
+        gameOver();                               
     } else {
         return globalCounter.counter + 1;
     }
@@ -286,7 +348,8 @@ let countdownTimer = {
     timeRemaining: 0,
     counter: 0,
     timerInterval: 0,
-    countdownDifficulty: function () {                                  // select how long countdown timer lasts for each level according to difficulty
+    countdownDifficulty: function () {      
+        // select how long countdown timer lasts for each level according to difficulty                            
         if (selectedDifficulty.difficulty.includes("easy")) {
             this.timeRemaining = 30;
         } else if (selectedDifficulty.difficulty.includes("hard")) {
@@ -294,12 +357,17 @@ let countdownTimer = {
         }
     },
     countdown: function () {
-        this.counter = this.timeRemaining;                              // this.timeRemaining stays constant - this.counter is equivalent to this.timeRemaining when beginning countdown
-        clearInterval(this.timerInterval);                              // clear interval resets timer each time countdownTimer.countdown is used
+        // this.timeRemaining stays constant - this.counter is equivalent 
+        // to this.timeRemaining when beginning countdown clear interval resets 
+        // timer each time countdownTimer.countdown is used
+        this.counter = this.timeRemaining;                              
+        clearInterval(this.timerInterval);                              
         this.timerInterval = setInterval(() => {
             this.counter--;
             if (this.counter < 0) {
-                clearInterval(this.timerInterval);                      // timer stops at 0 and gameOver function triggered if player left game alone
+                // timer stops at 0 and gameOver function triggered 
+                // if player left game alone
+                clearInterval(this.timerInterval);                      
                 gameOver();
             }
         }, 1000);
@@ -333,7 +401,7 @@ function displayCountdown() {
             $("#countdownTimer").val(`${countdownTimer.counter}`);
         }
         else if (selectedDifficulty.difficulty.includes("hard")) {
-            $("#countdownTimer").val(`${countdownTimer.counter * 2}`);   // 15 and 30 second countdown chosen so same progress bar could be used on both difficulties
+            $("#countdownTimer").val(`${countdownTimer.counter * 2}`);
         }
     }, 500);
 }
@@ -346,7 +414,8 @@ function gameOver() {
     clearInterval(countdownTimer.timerInterval);
 }
 
-// Reset function - resets every array except places[], all counters and random number generators, and loads the reset modal which allows the player to start again
+// Reset function - resets every array except places[], all counters and random 
+// number generators, and loads the reset modal which allows the player to start again
 
 function resetAll() {
     selectedDifficulty.difficulty = [];
