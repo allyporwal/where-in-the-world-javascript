@@ -1,98 +1,11 @@
-// Places array - stores all place names, coordinates to push to map and links to correct answer images
-// coordinates_2 is used for easy difficulty
+// Places array loaded from places.json - stores all place names, coordinates 
+// to push to map and links to correct answer images
 
-var places = [
-    {
-        name: "londonPicadilly",
-        coordinates: { lat: 51.5099088, lng: -0.134969 },
-        street_view_image_link: ["assets/img/londonPiccadilly.jpg", "assets/img/london2.jpg", "assets/img/london3.jpg", "assets/img/londonNearly.jpg", "assets/img/londonIncorrect.jpg"],
-        coordinates_2: { lat: 51.5166884, lng: -0.1532064 },
-    },
-    {
-        name: "barcelonaDiagonal",
-        coordinates: { lat: 41.3977359, lng: 2.1632075 },
-        street_view_image_link: ["assets/img/barcelonaDiagonal.jpg", "assets/img/barcelona2.jpg", "assets/img/barcelona3.jpg", "assets/img/barcelonaNearly.jpg", "assets/img/barcelonaIncorrect.jpg"],
-        coordinates_2: { lat: 41.4083358, lng: 2.1705044 },
-    },
-    {
-        name: "romePiazzavenezia",
-        coordinates: { lat: 41.8957469, lng: 12.4826705 },
-        street_view_image_link: ["assets/img/romePiazzavenezia.jpg", "assets/img/rome2.jpg", "assets/img/rome3.jpg", "assets/img/romeNearly.jpg", "assets/img/romeIncorrect.jpg"],
-        coordinates_2: { lat: 41.9061756, lng: 12.4705072 },
-    },
-    {
-        name: "milanDuomo",
-        coordinates: { lat: 45.4646972, lng: 9.1894913 },
-        street_view_image_link: ["assets/img/milanDuomo.jpg", "assets/img/milan2.jpg", "assets/img/milan3.jpg", "assets/img/milanNearly.jpg", "assets/img/milanIncorrect.jpg"],
-        coordinates_2: { lat: 45.4657206, lng: 9.1718797 },
-    },
-    {
-        name: "bristolSuspensionbridge",
-        coordinates: { lat: 51.4551766, lng: -2.6252481 },
-        street_view_image_link: ["assets/img/bristolSuspensionbridge.jpg", "assets/img/bristol2.jpg", "assets/img/bristol3.jpg", "assets/img/bristolNearly.jpg", "assets/img/bristolIncorrect.jpg"],
-        coordinates_2: { lat: 51.4673504, lng: -2.5992505 },
-    },
-    {
-        name: "dublinGuinness",
-        coordinates: { lat: 53.34215, lng: -6.289821 },
-        street_view_image_link: ["assets/img/dublinGuinness.jpg", "assets/img/dublin2.jpg", "assets/img/dublin3.jpg", "assets/img/dublinNearly.jpg", "assets/img/dublinIncorrect.jpg"],
-        coordinates_2: { lat: 53.3415286, lng: -6.265984 },
-    },
-    {
-        name: "nycE47thst",
-        coordinates: { lat: 40.7548732, lng: -73.9742965 },
-        street_view_image_link: ["assets/img/nycE47thst.jpg", "assets/img/nyc2.jpg", "assets/img/nyc3.jpg", "assets/img/nycNearly.jpg", "assets/img/nycIncorrect.jpg"],
-        coordinates_2: { lat: 40.7578666, lng: -73.9853066 },
-    },
-    {
-        name: "madridGoya",
-        coordinates: { lat: 40.4241351, lng: -3.6772299 },
-        street_view_image_link: ["assets/img/madridGoya.jpg", "assets/img/madrid2.jpg", "assets/img/madrid3.jpg", "assets/img/madridNearly.jpg", "assets/img/madridIncorrect.jpg"],
-        coordinates_2: { lat: 40.3854827, lng: -3.7496872 },
-    },
-    {
-        name: "berlinCheckpoint",
-        coordinates: { lat: 52.5067303, lng: 13.3905375 },
-        street_view_image_link: ["assets/img/berlinCheckpoint.jpg", "assets/img/berlin2.jpg", "assets/img/berlin3.jpg", "assets/img/berlinNearly.jpg", "assets/img/berlinIncorrect.jpg"],
-        coordinates_2: { lat: 52.5042729, lng: 13.3597446 },
-    },
-    {
-        name: "sydneyOconnell",
-        coordinates: { lat: -33.8649517, lng: 151.2098745 },
-        street_view_image_link: ["assets/img/sydneyOconnell.jpg", "assets/img/sydney2.jpg", "assets/img/sydney3.jpg", "assets/img/sydneyNearly.jpg", "assets/img/sydneyIncorrect.jpg"],
-        coordinates_2: { lat: -33.8791052, lng: 151.1954087 },
-    },
-    {
-        name: "vancouverPender",
-        coordinates: { lat: 49.2843725, lng: -123.1143808 },
-        street_view_image_link: ["assets/img/vancouverPender.jpg", "assets/img/vancouver2.jpg", "assets/img/vancouver3.jpg", "assets/img/vancouverNearly.jpg", "assets/img/vancouverIncorrect.jpg"],
-        coordinates_2: { lat: 49.281903, lng: -123.131163 },
-    },
-    {
-        name: "bangkokGrandpalace",
-        coordinates: { lat: 13.7489321, lng: 100.4940658 },
-        street_view_image_link: ["assets/img/bangkokGrandpalace.jpg", "assets/img/bangkok2.jpg", "assets/img/bangkok3.jpg", "assets/img/bangkokNearly.jpg", "assets/img/bangkokIncorrect.jpg"],
-        coordinates_2: { lat: 13.7474395, lng: 100.523695 },
-    },
-    {
-        name: "tokyoChuodori",
-        coordinates: { lat: 35.6710284, lng: 139.7648783 },
-        street_view_image_link: ["assets/img/tokyoChuodori.jpg", "assets/img/tokyo2.jpg", "assets/img/tokyo3.jpg", "assets/img/tokyoNearly.jpg", "assets/img/tokyoIncorrect.jpg"],
-        coordinates_2: { lat: 35.6673361, lng: 139.6909901 },
-    },
-    {
-        name: "capetownHof",
-        coordinates: { lat: -33.9342388, lng: 18.4114601 },
-        street_view_image_link: ["assets/img/capetownHof.jpg", "assets/img/capetown2.jpg", "assets/img/capetown3.jpg", "assets/img/capetownNearly.jpg", "assets/img/capetownIncorrect.jpg"],
-        coordinates_2: { lat: -33.9249646, lng: 18.4200563 },
-    },
-    {
-        name: "lagosAdetoKunbo",
-        coordinates: { lat: 6.4341391, lng: 3.4306825 },
-        street_view_image_link: ["assets/img/lagosAdetokunbo.jpg", "assets/img/lagos2.jpg", "assets/img/lagos3.jpg", "assets/img/lagosNearly.jpg", "assets/img/lagosIncorrect.jpg"],
-        coordinates_2: { lat: 6.4543899, lng: 3.3877879 },
-    }
-];
+var places;
+
+fetch('assets/scripts/places.json')
+  .then(response => response.json())
+  .then(data => places = data);
 
 // Difficulty select object  
 
@@ -248,7 +161,7 @@ let pictureShuffler = {
     generateRandomTwo: function () {
         if (selectedDifficulty.difficulty.includes("easy")) {
             // generate a different random number if same as counter AND/OR 
-            // randomOne
+            // randomOne - source for this snippet in README.md
             do {
                 this.randomTwo = Math.floor(Math.random() *
                     randomisedArrays.locationImages.length);
@@ -465,6 +378,7 @@ var handlers = {
 };
 
 $(document).ready(function () {
+    $("#welcomeModal").modal('show');
     $(document).on("click", "#startGame", function () {
         handlers.gameStart();
         initMap();
