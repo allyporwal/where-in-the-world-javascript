@@ -90,8 +90,9 @@ Several parts of the code were informed by snippets from various sources online.
 2. The `randomisedArrays` object was built around the code by [Willem van der Veen on Stack Overflow](https://stackoverflow.com/questions/50525909/random-item-from-array-with-no-repeat-using-javascript/50528028)
 3. The `countdownTimer` object was based on the code in this [freeCodeCamp blog post](https://www.freecodecamp.org/news/how-to-create-a-countdown-timer/)
 4. The in-place shuffling of the array `ABC: [0, 1, 2],` in the `pictureShuffler` object is thanks to the Durstenfeld shuffle code written by [Laurens Holst and posted on Stack Overflow](https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array)
+5. On mobile devices the modal was causing problems - the CSS code [here by Lib Thoyib Basarah fixed the issue](https://stackoverflow.com/questions/25874001/how-to-put-scroll-bar-only-for-modal-body)
 
-Big thanks to my mentor, Brian Macharia for his help in this module.
+Big thanks to my mentor, Brian Macharia, for his help in this module.
 
 
 

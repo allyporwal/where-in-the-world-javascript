@@ -147,6 +147,16 @@ h5 {
     font-weight: 100;
 }
 
+/* Fix Bootstrap modal display on mobile - credit in README */
+
+.modal-dialog{
+    overflow-y: initial !important
+}
+.modal-body{
+    max-height: calc(100vh - 200px);
+    overflow-y: auto;
+}
+
 /* Width constraint on very large screen */
 
 .lg-monitor {
