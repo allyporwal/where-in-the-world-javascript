@@ -8,16 +8,14 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.5.0/sandstone/bootstrap.min.css" />
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" />
 	<script src="https://code.jquery.com/jquery-3.5.1.js"
-		integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous" type="text/javascript">
+		integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous">
 	</script>
 	<link rel="stylesheet" href="assets/css/style.css" />
-	<script type="text/javascript" src="assets/scripts/script.js"></script>
-	<script type="text/javascript" src="assets/scripts/app.js"></script>
+	<script src="assets/scripts/app.js"></script>
 	<script async defer
 		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDoymfGJXqyAwET4m4SqYmf-NCykZD7YSw&callback=initMap">
 	</script>
-
-	<title>Title</title>
+	<title>Where in the World</title>
 </head>
 
 <body id="background" class="lg-monitor">
@@ -41,13 +39,14 @@
 						three street level images from Google Street View. Your challenge is to guess which image
 						corresponds to the location marked on the map. You'll get five locations on each playthrough.
 					</p>
-					<label for="difficulty">Select difficulty:</label>
+					<label>Select difficulty:</label>
 					<select name="difficulty" id="difficultyStart">
                 <option value="easy">Easy</option>
                 <option value="hard">Hard</option>
                 </select>
 					<ul>
-						<li>Easy difficulty means totally random image selection - you might see the same image more than
+						<li>Easy difficulty means totally random image selection - you might see the same image more
+							than
 							once and that helps you narrow down the answer. There's a generous 30 second time limit and
 							you get 10 points per correct answer.
 						</li>
@@ -56,70 +55,71 @@
 							Look closely to get the correct answer but be quick...you've only got 15 seconds to make
 							a guess! 10 points for a correct answer and 5 points if you're nearly correct.</li>
 					</ul>
-                    <img id="annotatedScreenshot" src="assets/img/ssAnnotate2.jpg" alt="annotated screenshot">
+					<img id="annotatedScreenshot" src="assets/img/ssAnnotate2.jpg" alt="annotated screenshot">
 				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-primary btn-block" data-dismiss="modal" id="startGame" >Start!</button>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary btn-block" data-dismiss="modal" id="startGame" >Start!</button>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
 
-	<!-- Game over modal -->
+		<!-- Game over modal -->
 
-	<div class="modal fade" id="gameOverModal" tabindex="-1" role="dialog">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title">Where in the World...?</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		<div class="modal fade" id="gameOverModal" tabindex="-1" role="dialog">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">Where in the World...?</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-				</div>
-				<div class="modal-body">
-					<p>Well done! You scored: <span id="endGameScore"> </span> points</p>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-primary btn-block" data-dismiss="modal" id="playAgain" >Play again!</button>
+					</div>
+					<div class="modal-body">
+						<p>Well done! You scored: <span id="endGameScore"> </span> points</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary btn-block" data-dismiss="modal" id="playAgain" >Play again!</button>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
 
-	<!-- Map container -->
+		<!-- Map container -->
 
-	<div id="quizContainer" class="container">
-		<div class="row">
-			<div class="col-lg-1"></div>
-			<div class="col-lg-6 col-md-12" id="map"></div>
-			<div class="col-lg-1 col-md-12"></div>
-			<div class="col-lg-3 col-md-12 text-center align-items-center" id="levelContainer">
-				<h2>Score: <span id="score">0</span>/50</h2>
-				<hr>
-				<h4>Level: <span id="level"></span>/5</h4>
-				<p id="timeRemaining">Time remaining:</p>
-				<progress value="0" max="30" id="countdownTimer"></progress>
-				<hr>
-				<button class="btn btn-outline-warning btn-block" id="reset">Restart</button>
-
-			</div>
-
-		</div>
-	</div>
-	<div class="container-fluid" id="imgContainer">
-		<div class="row justify-content-center">
-			<div class="col-lg-4 col-md-6 streetview d-flex justify-content-center" id="streetview1">
-			</div>
-			<div class="col-lg-4 col-md-6 streetview d-flex justify-content-center" id="streetview2">
-			</div>
-			<div class="col-lg-4 col-md-6 streetview d-flex justify-content-center" id="streetview3">
+		<div id="quizContainer" class="container">
+			<div class="row">
+				<div class="col-lg-1"></div>
+				<div class="col-lg-6 col-md-12" id="map"></div>
+				<div class="col-lg-1 col-md-12"></div>
+				<div class="col-lg-3 col-md-12 text-center align-items-center" id="levelContainer">
+					<h2>Score: <span id="score">0</span>/50</h2>
+					<hr>
+					<h4>Level: <span id="level"></span>/5</h4>
+					<p id="timeRemaining">Time remaining:</p>
+					<progress value="0" max="30" id="countdownTimer"></progress>
+					<hr>
+					<button class="btn btn-outline-warning btn-block" id="reset">Restart</button>
+				</div>
 			</div>
 		</div>
-	</div>
 
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js">
-	</script>
+		<!-- Image containers -->
+
+		<div class="container-fluid" id="imgContainer">
+			<div class="row justify-content-center">
+				<div class="col-lg-4 col-md-6 streetview d-flex justify-content-center" id="streetview1">
+				</div>
+				<div class="col-lg-4 col-md-6 streetview d-flex justify-content-center" id="streetview2">
+				</div>
+				<div class="col-lg-4 col-md-6 streetview d-flex justify-content-center" id="streetview3">
+				</div>
+			</div>
+		</div>
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js">
+		</script>
 </body>
 
 </html>

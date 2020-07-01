@@ -377,6 +377,8 @@ var handlers = {
     },
 };
 
+// jQuery event handlers
+
 $(document).ready(function () {
     $("#welcomeModal").modal('show');
     $(document).on("click", "#startGame", function () {

@@ -101,7 +101,7 @@ progress::-moz-progress-bar {
 }
 
 .streetview {
-    width: 370px;
+    max-width: 370px;
     height: 230px;
     margin: 20px;
     padding: 0;
