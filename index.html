@@ -25,25 +25,24 @@
 
 	<!-- Welcome/restart modal -->
 
-	<div class="modal fade" id="welcomeModal" tabindex="-1" role="dialog">
+	<div class="modal fade" data-backdrop="static" data-keyboard="false" id="welcomeModal" tabindex="-1" role="dialog">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
 					<h5 class="modal-title">Welcome to Where in the World...?</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
 				</div>
 				<div class="modal-body">
 					<p>Welcome! This fun little game will show you a location on a map (that you can interact with) and
 						three street level images from Google Street View. Your challenge is to guess which image
 						corresponds to the location marked on the map. You'll get five locations on each playthrough.
 					</p>
-					<label>Select difficulty:</label>
+					<hr>
+					<label id="difficultyLabel"><strong>Select difficulty:  </strong></label>
 					<select name="difficulty" id="difficultyStart">
                 <option value="easy">Easy</option>
                 <option value="hard">Hard</option>
                 </select>
+					<hr>
 					<ul>
 						<li>Easy difficulty means totally random image selection - you might see the same image more
 							than
@@ -55,10 +54,12 @@
 							Look closely to get the correct answer but be quick...you've only got 15 seconds to make
 							a guess! 10 points for a correct answer and 5 points if you're nearly correct.</li>
 					</ul>
+					<p><strong>HINT:</strong> make use of the map. Looking at the location from a satellite might yield
+						more clues than looking at a road map!</p>
 					<img id="annotatedScreenshot" src="assets/img/ssAnnotate2.jpg" alt="annotated screenshot">
 				</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-primary btn-block" data-dismiss="modal" id="startGame" >Start!</button>
+						<button type="button" class="btn btn-outline-primary btn-block" data-dismiss="modal" id="startGame" >Start!</button>
 					</div>
 				</div>
 			</div>
@@ -66,20 +67,18 @@
 
 		<!-- Game over modal -->
 
-		<div class="modal fade" id="gameOverModal" tabindex="-1" role="dialog">
+		<div class="modal fade" data-backdrop="static" data-keyboard="false" id="gameOverModal" tabindex="-1"
+			role="dialog">
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
 						<h5 class="modal-title">Where in the World...?</h5>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
 					</div>
 					<div class="modal-body">
 						<p>Well done! You scored: <span id="endGameScore"> </span> points</p>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-primary btn-block" data-dismiss="modal" id="playAgain" >Play again!</button>
+						<button type="button" class="btn btn-outline-primary btn-block" data-dismiss="modal" id="playAgain" >Play again!</button>
 					</div>
 				</div>
 			</div>

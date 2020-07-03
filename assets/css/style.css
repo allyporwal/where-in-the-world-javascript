@@ -41,11 +41,42 @@ body {
   max-width: 100%;
 }
 
+#difficultyStart {
+    font-size: 16px;
+    width: 25%;
+    text-align-last: center;
+}
+
+#difficultyLabel {
+    font-size: 16px;
+}
+
+#startGame {
+    color: rgb(41, 154, 206);
+    border-color: rgb(41, 154, 206); 
+    font-size: 14px;
+}
+
+#startGame:hover {
+    background-color: rgba(41, 154, 206, 0.3); 
+}
+
+
 /* Game over modal */
 
 #gameOverModal p {
     font-weight: 300;
     font-size: 16px;
+}
+
+#playAgain {
+    color: rgb(41, 154, 206);
+    border-color: rgb(41, 154, 206); 
+    font-size: 14px;
+}
+
+#playAgain:hover {
+    background-color: rgba(41, 154, 206, 0.3); 
 }
 
 /* Map and other game elements */

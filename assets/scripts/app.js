@@ -94,9 +94,9 @@ function initMap() {
         marker.setMap(null);
         new google.maps.Marker({
             // the + 1 in the code here prevents a bug - if removed, the map lags 
-            // behind the images in the array it seems to be caused (as far as I can 
-            // tell) by some sort of conflict between jQuery and Google Maps the code 
-            // should not trigger this bug, but if the pictures have "onClick" attached 
+            // behind the images in the array. It seems to be caused (as far as I can 
+            // tell) by some sort of conflict between jQuery and Google Maps. The code 
+            // should not trigger this bug. If the pictures have "onClick" attached 
             // to them when pushed to the DOM by jQuery rather than using a jQuery 
             // selector to trigger all the methods, the bug is not present
             position: randomisedArrays.questionsOrder[globalCounter.counter + 1],
@@ -131,8 +131,7 @@ function initMap() {
 // shufflePictures method selects a random target div for each city image 
 // randomOne and randomTwo methods are random number generators that run a 
 // random number generator while the output of them is equivalent to the global 
-// counter or each other, resulting in three
-// different numbers. 
+// counter or each other, resulting in three different numbers. 
 
 let pictureShuffler = {
     // unlike the handling of the places array, ABC[] is shuffled in-place
@@ -204,29 +203,6 @@ let picturePusher = {
         $("#incorrect").remove();
         $("#correct").remove();
         $("#nearlyCorrect").remove();
-    },
-    nextQuestionSet: function () {
-        if (selectedDifficulty.difficulty.includes("easy")) {
-            $(`${this.pictureTarget[pictureShuffler.ABC[0]]}`)
-                .prepend(`<img id="correct" class="streetviewImg" 
-            src="${randomisedArrays.questionsAnswer[globalCounter.counter]}" />`);
-            $(`${this.pictureTarget[pictureShuffler.ABC[1]]}`)
-                .prepend(`<img id="incorrect" class="streetviewImg" 
-            src="${randomisedArrays.locationImages[pictureShuffler.randomOne]}" />`);
-            $(`${this.pictureTarget[pictureShuffler.ABC[2]]}`)
-                .prepend(`<img id="nearlyCorrect" class="streetviewImg" 
-            src="${randomisedArrays.locationImages[pictureShuffler.randomTwo]}" />`);
-        } else if (selectedDifficulty.difficulty.includes("hard")) {
-            $(`${this.pictureTarget[pictureShuffler.ABC[0]]}`)
-                .prepend(`<img id="correct" class="streetviewImg" 
-            src="${randomisedArrays.questionsAnswer[globalCounter.counter]}" />`);
-            $(`${this.pictureTarget[pictureShuffler.ABC[1]]}`)
-                .prepend(`<img id="incorrect" class="streetviewImg" 
-            src="${randomisedArrays.locationImagesHard[globalCounter.counter][1]}" />`);
-            $(`${this.pictureTarget[pictureShuffler.ABC[2]]}`)
-                .prepend(`<img id="nearlyCorrect" class="streetviewImg" 
-            src="${randomisedArrays.locationImagesHard[globalCounter.counter][0]}" />`);
-        }
     }
 };
 
@@ -369,7 +345,7 @@ var handlers = {
         pictureShuffler.generateRandomOne();
         pictureShuffler.generateRandomTwo();
         picturePusher.nextQuestion();
-        picturePusher.nextQuestionSet();
+        picturePusher.gameStart();
         countdownTimer.countdownDifficulty();
         countdownTimer.countdown();
         displayCountdown();
@@ -389,6 +365,7 @@ $(document).ready(function () {
 
 $(document).on("click", "img", function () {
     handlers.nextQuestion();
+    window.scrollTo(0, 0);
 });
 
 $(document).on("click", "#reset", function () {

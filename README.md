@@ -63,6 +63,12 @@ The minimalist design is complemented with simple colour schemes and layout.
 5. A countdown timer to impose a time limit on the game
 6. A game over modal that shows the player their score and allows them to go again
 
+## A note on difficulty settings
+
+The .json file containing all the 15 city objects contains two sets of coordinates for each city and five photos from each city. The easy difficulty has a totally random image selection, meaning there might be a repeat in the images. This allows a player to narrow down their guesses. Also the images shown are likely to be of completely different cities.
+
+The hard difficulty has three images all taken from within a few hundred metres of each other and might show the same landmark and/or road layout to challenge the player. In hard mode there is also only 15 seconds for each level rather than the 30 seconds given to the player in easy mode.
+
 ## Future Features
 
 1. A larger array of places for the player to be shown
@@ -77,8 +83,52 @@ This project was deployed on Github Pages by going to the Github repository sett
 
 The link to the live site then became visible and it will update if any changes are made on the master branch of the repository.
 
+The project can be cloned by [going to the repository on Github](https://github.com/allyporwal/interactive-fontend-milestone) and clicking on the "Clone or download" button. The link to be copied will then be displayed. In your IDE, ensure you are in the correct directory and then type "git clone" followed by pasting the link. The repository will then be cloned into your chosen directory.
 
+<hr>
 
+## Testing 
+
+All CSS and HTML code was tested using the W3C Validator tools and passed without errors.
+
+JavaScript syntax was checked online at [Esprima](https://esprima.org/demo/validate.html) and no errors were highlighted.
+
+Whilst writing the JavaScript code I was careful to continually check for bugs that made the game unplayable or caused a bad user experience.
+
+This led to multiple tests being performed upon completion of the app, to ensure a smooth UX that couldn't be broken by a rogue mouse click or finger tap.
+
+| Element/function to test | Expected outcome | Result |
+| ---- | :----: | :----: |
+| Welcome modal | Modal should appear on page load on all devices and not disappear if screen behind modal pressed/tapped | Passed |
+| Game start button | On pressing "START!" on the welcome modal the game should begin - Google Maps API loads, images are loaded, level and score displayed and the countdown timer begins | Passed |
+| Countdown timer has correct value according to difficulty | The timer should give the player 30 seconds on easy mode and 15 seconds on hard mode | Passed |
+| Game over modal | Modal should appear on completion of level 5 and display correct score. Modal should not disappear if screen behind modal pressed/tapped | Passed |
+| Play again button | Button should hide the game over modal, reset scores and re-load the welcome modal, allowing the player to play again on the same or a different difficulty | Passed |
+| Score function | Score function should give 10 points per correct answer in easy and hard modes and 5 points for a close answer in hard mode only. Score should display correctly | Passed |
+
+<hr> 
+
+The app has been tested on a variety of different devices.
+
+1. iPhone XR
+
+   - The app was tested on Safari and Chrome and perfomed as intended in both vertical and horizontal orientations
+
+2. iPad Pro
+
+    - The website was tested on Safari and performed as intended in both orientations
+
+3. Acer Laptop with touchscreen
+
+    - The website was tested on Firefox and Chrome and performed as intended in both touchscreen and normal mode 
+
+4. 21.5 inch iMac with 1080p display
+
+    - The website performed as intended on Chrome and Safari
+
+5. iPhone 5, 6/7/8, 6/7/8 plus, iPad, various android phones, laptops and a 4K monitor were all simulated in Chrome Developer Tools to check for responsiveness
+
+    - All performed as intended
 
 <hr>
 
