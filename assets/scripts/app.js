@@ -3,7 +3,7 @@
 
 var places;
 
-fetch('assets/scripts/places.json')
+fetch('data/places.json')
   .then(response => response.json())
   .then(data => places = data);
 

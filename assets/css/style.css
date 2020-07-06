@@ -4,20 +4,19 @@
 
 body {
     overflow-x: hidden !important;
+    color: #616161;
+    font-weight: 100;
+    font-size: 0.875rem;
 }
 
 .row {
     margin: 0;
 }
 
-.navbar {
-    padding-top: 15px;
-    margin-bottom: 10px;
-}
-
-body {
-    color: #616161;
-    font-weight: 100;
+header {
+    padding-top: 0.9em;
+    margin-bottom: 0.8em;
+    text-align: center;
 }
 
 #background {
@@ -37,24 +36,24 @@ body {
 }
 
 #annotatedScreenshot {
-  max-height: 100%;
-  max-width: 100%;
+    max-height: 100%;
+    max-width: 100%;
 }
 
 #difficultyStart {
-    font-size: 16px;
+    font-size: 1.1em;
     width: 25%;
     text-align-last: center;
 }
 
 #difficultyLabel {
-    font-size: 16px;
+    font-size: 1.1em;
 }
 
 #startGame {
     color: rgb(41, 154, 206);
     border-color: rgb(41, 154, 206); 
-    font-size: 14px;
+    font-size: 1em;
 }
 
 #startGame:hover {
@@ -66,13 +65,13 @@ body {
 
 #gameOverModal p {
     font-weight: 300;
-    font-size: 16px;
+    font-size: 1rem;
 }
 
 #playAgain {
     color: rgb(41, 154, 206);
     border-color: rgb(41, 154, 206); 
-    font-size: 14px;
+    font-size: 1em;
 }
 
 #playAgain:hover {
@@ -88,7 +87,7 @@ body {
 #map {
     width: 100%;
     height: 400px;
-    margin-bottom: 20px;
+    margin-bottom: 1.5em;
 }
 
 /* Countdown timer */
@@ -98,7 +97,7 @@ body {
 }
 
 progress {
-    margin-top: 15px;
+    margin-top: 1em;
     border-radius: 4px;
     height: 25px;
 }
@@ -122,7 +121,7 @@ progress::-moz-progress-bar {
     color: rgb(41, 154, 206);
     border-color: rgb(41, 154, 206); 
     text-transform: none;
-    font-size: 14px;
+    font-size: 1em;
     max-width: 370px;
     margin: auto;
 }
@@ -134,11 +133,8 @@ progress::-moz-progress-bar {
 .streetview {
     max-width: 370px;
     height: 230px;
-    margin: 20px;
+    margin: 1.35em;
     padding: 0;
-    display: inline-block;
-    position: relative;
-    clear: both;
 }
 
 .streetviewImg {
@@ -146,7 +142,6 @@ progress::-moz-progress-bar {
     width: 350px;
     height: auto;
     border: 2px inset rgb(41, 154, 206);
-    position: relative;
     margin: 5px;  
     clear: both;  
 }

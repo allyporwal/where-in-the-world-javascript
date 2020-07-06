@@ -19,9 +19,45 @@
 </head>
 
 <body id="background" class="lg-monitor">
-	<nav class="navbar navbar-expand-md justify-content-center bg-transparent">
+	<header>
 		<h1>Where in the World...?</h1>
-	</nav>
+	</header>
+
+
+
+	<!-- Map container -->
+
+	<section id="quizContainer" class="container">
+		<div class="row">
+			<div class="col-lg-1"></div>
+			<div class="col-lg-6 col-md-12" id="map"></div>
+			<div class="col-lg-1 col-md-12"></div>
+			<div class="col-lg-3 col-md-12 text-center align-items-center" id="levelContainer">
+				<h2>Score: <span id="score">0</span>/50</h2>
+				<hr>
+				<h4>Level: <span id="level"></span>/5</h4>
+				<p id="timeRemaining">Time remaining:</p>
+				<progress value="0" max="30" id="countdownTimer"></progress>
+				<hr>
+				<button class="btn btn-outline-warning btn-block" id="reset">Restart</button>
+			</div>
+		</div>
+	</section>
+
+
+	<!-- Image containers -->
+
+	<section class="container-fluid" id="imgContainer">
+		<div class="row justify-content-center">
+			<div class="col-lg-4 col-md-6 streetview d-flex justify-content-center" id="streetview1">
+			</div>
+			<div class="col-lg-4 col-md-6 streetview d-flex justify-content-center" id="streetview2">
+			</div>
+			<div class="col-lg-4 col-md-6 streetview d-flex justify-content-center" id="streetview3">
+			</div>
+		</div>
+	</section>
+
 
 	<!-- Welcome/restart modal -->
 
@@ -39,9 +75,9 @@
 					<hr>
 					<label id="difficultyLabel"><strong>Select difficulty:  </strong></label>
 					<select name="difficulty" id="difficultyStart">
-                <option value="easy">Easy</option>
-                <option value="hard">Hard</option>
-                </select>
+                       <option value="easy">Easy</option>
+                       <option value="hard">Hard</option>
+                    </select>
 					<hr>
 					<ul>
 						<li>Easy difficulty means totally random image selection - you might see the same image more
@@ -80,38 +116,6 @@
 					<div class="modal-footer">
 						<button type="button" class="btn btn-outline-primary btn-block" data-dismiss="modal" id="playAgain" >Play again!</button>
 					</div>
-				</div>
-			</div>
-		</div>
-
-		<!-- Map container -->
-
-		<div id="quizContainer" class="container">
-			<div class="row">
-				<div class="col-lg-1"></div>
-				<div class="col-lg-6 col-md-12" id="map"></div>
-				<div class="col-lg-1 col-md-12"></div>
-				<div class="col-lg-3 col-md-12 text-center align-items-center" id="levelContainer">
-					<h2>Score: <span id="score">0</span>/50</h2>
-					<hr>
-					<h4>Level: <span id="level"></span>/5</h4>
-					<p id="timeRemaining">Time remaining:</p>
-					<progress value="0" max="30" id="countdownTimer"></progress>
-					<hr>
-					<button class="btn btn-outline-warning btn-block" id="reset">Restart</button>
-				</div>
-			</div>
-		</div>
-
-		<!-- Image containers -->
-
-		<div class="container-fluid" id="imgContainer">
-			<div class="row justify-content-center">
-				<div class="col-lg-4 col-md-6 streetview d-flex justify-content-center" id="streetview1">
-				</div>
-				<div class="col-lg-4 col-md-6 streetview d-flex justify-content-center" id="streetview2">
-				</div>
-				<div class="col-lg-4 col-md-6 streetview d-flex justify-content-center" id="streetview3">
 				</div>
 			</div>
 		</div>
