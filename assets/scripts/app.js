@@ -322,6 +322,7 @@ function resetAll() {
     $("#endGameScore").empty().html("0");
     picturePusher.nextQuestion();
     $("#welcomeModal").modal("show");
+    clearInterval(countdownTimer.timerInterval);
 };
 
 // handlers object to keep code neater
