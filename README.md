@@ -8,7 +8,7 @@ Welcome to *Where in the World...?*
 
 This is a simple game written in JavaScript that makes use of the Google Maps API. This single page website is intended to showcase basic JavaScript and provide an entertaining few minutes for the user.
 
-The game was deployed to Github Pages and [can be found here](https://allyporwal.github.io/interactive-fontend-milestone/).
+The game was deployed to Github Pages and [can be found here](https://allyporwal.github.io/where-in-the-world-javascript/).
 
 The goal was to produce a game that would:
 
